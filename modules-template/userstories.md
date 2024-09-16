@@ -17,4 +17,4 @@ The user wants a place to save completed workout excercises to make it easy to f
 
 ### Important to be able to do
   
-- Add new excercises 
+- Add new excercises
