@@ -18,6 +18,7 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("App.fxml"));
         Parent parent = fxmlLoader.load();
         stage.setScene(new Scene(parent));
+        stage.setTitle("Workout Log");
         stage.show();
     }
 
