@@ -48,7 +48,7 @@ public class DataHandeler {
         //Writing the data
         writer.println("Data");
         for (Workout w: workouts){
-            writer.println(w.getDescription());
+            writer.println(w.getWorkoutInput());
         }
 
         writer.flush();

@@ -28,23 +28,6 @@ public class WorkoutLog implements Iterable<Workout> { //log that iterates over 
         return workouts.iterator();
     }
 
-public class WorkoutLog {
-    
-    private List<Workout> workouts;
-
-    public WorkoutLog(){
-        workouts = new ArrayList<>();
-
-    }
-    //Get and set methods
-    public void addWorkout(Workout workout){
-        workouts.add(workout);
-    }
-
-    public List<Workout> getWorkouts() {
-        return workouts;
-    }
-
     @Override
     public String toString() {
         return "WorkoutLog [" + workouts + "]";
