@@ -1,19 +1,21 @@
 package core;
 
 public class Workout {
-    String description;
 
-    public Workout(String description){
-        this.description = description;
+    private String workoutInput; //only possible input will be a random string for now
+
+    public Workout(String workoutInput) { //constructor for one workout
+        this.workoutInput = workoutInput;
     }
 
-    public String getDescription() {
-        return description;
+    //getters og setters
+
+    public String getWorkoutInput() {
+        return workoutInput;
     }
 
-    @Override
-    public String toString() {
-        return "Workout [description=" + description + "]";
+    public void setWorkoutInput(String workoutInput) {
+        this.workoutInput = workoutInput;
     }
 
 }
