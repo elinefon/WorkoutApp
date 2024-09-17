@@ -35,7 +35,7 @@ public class DataHandeler {
 
         PrintWriter writer;
         try{
-            writer = new PrintWriter(filename);
+            writer = new PrintWriter("workout-app/core/src/main/java/core/datastorage/" + filename);
         }catch (FileNotFoundException e){
             try {
                 //trying to create file if the file dont exist

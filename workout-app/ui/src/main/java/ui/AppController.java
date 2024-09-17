@@ -1,5 +1,7 @@
 package ui;
 
+import java.util.List;
+
 import core.Workout;
 import core.WorkoutLog;
 import javafx.fxml.FXML;
@@ -35,6 +37,10 @@ public class AppController {
         // Set up the TableColumn to display the input property
         workouts_column.setCellValueFactory(new PropertyValueFactory<>("workoutInput"));
 
+        //loading previous workouts and updating the table
+        workoutLog.loadWorkouts();
+        updateTableView();
+
     }
 
     @FXML
@@ -42,7 +48,7 @@ public class AppController {
         String session = input_workout.getText();
         if (!session.isEmpty()) {
             Workout newWorkout = new Workout(session); //create new workout from what the user typed into input
-            workoutLog.addWorkout(newWorkout); //adds that new workout to the log
+            workoutLog.saveWorkout(newWorkout); //adds that new workout to the log
 
             updateTableView(); //see function below
 
