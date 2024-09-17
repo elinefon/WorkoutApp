@@ -23,6 +23,10 @@ public class WorkoutLog implements Iterable<Workout> { //log that iterates over 
         return workouts;
     }
 
+    public void setWorkouts(List<Workout> workouts) {
+        this.workouts = workouts;
+    }
+
     @Override
     public Iterator<Workout> iterator() { //iterator
         return workouts.iterator();
@@ -34,14 +38,14 @@ public class WorkoutLog implements Iterable<Workout> { //log that iterates over 
     }
 
     //Write and read from file methods
-    public List<Workout> loadWorkouts(){
+    public void loadWorkouts(){
         //If we want to save more files add filename as an attribute
         String filename = "workout-data.txt"; 
 
         DataHandeler dataHandeler = new DataHandeler();
-        List<Workout> returnlist = dataHandeler.loadData(filename);
+        List<Workout> loadlist = dataHandeler.loadData(filename);
 
-        return returnlist;
+        this.setWorkouts(loadlist);
     }
 
     public void saveWorkout(Workout workout){
@@ -65,8 +69,6 @@ public class WorkoutLog implements Iterable<Workout> { //log that iterates over 
         System.out.println(WL);
         WL.saveWorkout(w2);
 
-        List<Workout> list = WL.loadWorkouts();
-        System.out.println(list + "eee");
     }
     
 
