@@ -2,9 +2,9 @@
 
 ## App description
 
-This application functions as a workout diary. The purpose is for the users to be able to log and keep track of their workout sessions to easily find them again later. The user interface is built using JavaFX.
+This application functions as a workout diary. The purpose is for the users to be able to log and keep track of their workout sessions to easily find them again later.
 
-### Screenshot of running app
+### Screenshot
 
 (insert photo of running app and short description)
 
