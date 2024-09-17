@@ -2,39 +2,34 @@
 
 ## Release information
 
-- Name of release:
-- Date:
-- Version:
-- Milestone:
+- Product name:
+- Release date:
+- Release version:
 
-## Change log
+## Highlights
 
-### New functionality
+- (feature name): describe it
 
-- Function 1:
+## New features
 
-### Fixed errors
+- Feature 1: describe it and how it benefits the user (more details here)
 
-- Fixed bug 1:
+## Enhancements
 
-## Build and run instructions
+- Enhanced feature: what and why improved
 
-- Requirements:
-- Run the following commands to run the project:
+## Bug fixes
 
-## Functionality
+- Fixed bug 1: explain the bug and how it was adressed
 
-- Implemented user story:
+## Deprecated features
 
-## Testing
+- Feature name: why is it no longer being developed?
 
-- Test covered: JUnit test for function xx
-- Results:
+## Known issues
 
-## Known errors
+- Issue 1: explain it and the potential impact
 
-- Error 1:
+## Miscellaneous
 
-## Future work
-
-- Functionality x is planned for the next release
+- Any other reminders etc., what is planned
