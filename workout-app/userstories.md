@@ -24,4 +24,6 @@ The user wants a place to save completed workout excercises to make it easy to f
 ### Screenshot
 
 ![App Screenshot](ui/src/main/resources/ui/img/workoutapp.PNG)
-*Figure 1: The screenshot of the UI shows the input field with an "Add" button underneath on the left side and a display of previous excercises on the right side*
+*Figure 1: Screenshot of the UI*
+
+The screenshot shows the input field with the "Add" button underneath and a display area where the workout history will appear when excercises are registered.
