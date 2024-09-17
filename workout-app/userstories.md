@@ -8,7 +8,7 @@ To keep track of requirements and priorities when developing the app, we have us
 
 ## Workout log (us-1)
 
-As a health and fitness interested person, I want to keep track out my workouts so that I can repeat the excercises later without worrying about remembering past sessions.
+As a health and fitness interested person, I want to keep track of my workouts so that I can repeat the excercises later without worrying about remembering past sessions.
 
 The user wants a place to save completed workout excercises to make it easy to find them again later. The excercises should be added to a file by entering the details into a text field and clicking an "Add" button. All the excercises should end up in the same file and displayed on screen after they are registered so that the user can easily view their workout history.
 
