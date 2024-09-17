@@ -20,22 +20,26 @@ public class WorkoutLog {
         return workouts;
     }
 
+    @Override
+    public String toString() {
+        return "WorkoutLog [" + workouts + "]";
+    }
+
     //Write and read from file methods
     public List<Workout> loadWorkouts(){
-        //Per now there is only one file to collect data from.
+        //If we want to save more files add filename as an attribute
         String filename = "workout-data.txt"; 
 
         DataHandeler dataHandeler = new DataHandeler();
         List<Workout> returnlist = dataHandeler.loadData(filename);
 
         return returnlist;
-
     }
 
     public void saveWorkout(Workout workout){
         //add this workout to all workouts
         this.addWorkout(workout);
-        String filename = "workout-data.txt"; 
+        String filename =  "workout-data.txt"; 
 
         DataHandeler dataHandeler = new DataHandeler();
         dataHandeler.saveData(filename, this.getWorkouts());
@@ -43,10 +47,18 @@ public class WorkoutLog {
     }
 
     public static void main(String[] args){
+        //Testing the persistence functions
         Workout w1 = new Workout("Legs");
-        Workout v2 = new Workout("Arm day");
+        Workout w2 = new Workout("Arm day");
 
+        WorkoutLog WL = new WorkoutLog();
+        WL.addWorkout(w1);
         
+        System.out.println(WL);
+        WL.saveWorkout(w2);
+
+        List<Workout> list = WL.loadWorkouts();
+        System.out.println(list + "eee");
     }
     
 
