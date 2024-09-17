@@ -6,7 +6,7 @@ This application functions as a workout diary. The purpose is for the users to b
 
 ### Screenshot
 
-(insert photo of running app and short description)
+![App Screenshot](../workout-app/ui/src/main/resources/img/workoutapp.png)
 
 To keep track of requirements and priorities when developing the app, we have user stories. These describe the key functionalities our app should have and why they are important.
 
