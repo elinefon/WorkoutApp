@@ -29,7 +29,7 @@ public class DataHandeler {
 
         PrintWriter writer;
         try{
-            writer = new PrintWriter(new File(System.getProperty("user.home"), "/core/datastorage/" + filename));
+            writer = new PrintWriter("workout-app/core/src/main/resources/core/datastorage/" + filename);
         }catch (FileNotFoundException e){
             try {
                 //trying to create file if the file dont exist
