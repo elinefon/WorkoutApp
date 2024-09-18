@@ -1,6 +1,9 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,9 +23,54 @@ public class WorkoutLog implements Iterable<Workout> { //log that iterates over 
         return workouts;
     }
 
+    public void setWorkouts(List<Workout> workouts) {
+        this.workouts = workouts;
+    }
+
     @Override
     public Iterator<Workout> iterator() { //iterator
         return workouts.iterator();
     }
+
+    @Override
+    public String toString() {
+        return "WorkoutLog [" + workouts + "]";
+    }
+
+    //Write and read from file methods
+    public void loadWorkouts(){
+        //If we want to save more files add filename as an attribute
+        String filename = "workout-data.txt"; 
+
+        DataHandeler dataHandeler = new DataHandeler();
+        List<Workout> loadlist = dataHandeler.loadData(filename);
+
+        this.setWorkouts(loadlist);
+    }
+
+    public void saveWorkout(Workout workout){
+        //add this workout to all workouts
+        this.addWorkout(workout);
+        String filename =  "workout-data.txt"; 
+
+        DataHandeler dataHandeler = new DataHandeler();
+        dataHandeler.saveData(filename, this.getWorkouts());
+        
+    }
+
+    public static void main(String[] args){
+        //Testing the persistence functions
+        Workout w1 = new Workout("Legs");
+        Workout w2 = new Workout("Arm day");
+
+        WorkoutLog WL = new WorkoutLog();
+        WL.addWorkout(w1);
+        
+        System.out.println(WL);
+        WL.saveWorkout(w2);
+
+    }
+    
+
 
 }
