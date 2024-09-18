@@ -12,10 +12,11 @@ public class DataHandeler {
     public List<Workout> loadData(String filename){
         Scanner scanner;
         try {
-            scanner = new Scanner(new File("workout-app/core/src/main/java/core/datastorage/" + filename));
+            scanner = new Scanner(new File("workout-app/core/src/main/resources/core/datastorage/" + filename));
         } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-            throw new IllegalArgumentException("File not found.");   
+            throw new IllegalArgumentException("");
         }
 
         //Collecting lines from file and adding to array workouts
@@ -35,11 +36,11 @@ public class DataHandeler {
 
         PrintWriter writer;
         try{
-            writer = new PrintWriter("workout-app/core/src/main/java/core/datastorage/" + filename);
+            writer = new PrintWriter("workout-app/core/src/main/resources/core/datastorage/" + filename);
         }catch (FileNotFoundException e){
             try {
                 //trying to create file if the file dont exist
-                writer = new PrintWriter(new File("workout-app/core/src/main/java/core/datastorage/" + filename));
+                writer = new PrintWriter(new File("workout-app/core/src/main/resources/core/datastorage/" + filename));
             } catch (FileNotFoundException e1) {
                 throw new IllegalArgumentException("File not found and file could not be created"); 
             }
