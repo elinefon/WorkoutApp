@@ -25,7 +25,7 @@ To meet the requirements we created the following issues:
 
 Every issue was assigned to a group member so that the tasks were distributed as evenly as possible.
 
-Bugs that appeared were fixed by looking at it collaborately to try to help each other when stuck, but we originally distributed the issues like this:
+Bugs that appeared were fixed by looking at it collaborately to try to help each other when stuck, but we originally distributed who had the main responsibility for each issue like this:
 
 - **Testing issues**: Everyone tested this together to make sure that everyone learned how to use issues in the project.
 - **Set up modules project**: Eline
@@ -38,5 +38,5 @@ Bugs that appeared were fixed by looking at it collaborately to try to help each
 - **Test writing to file**: Arild
 - **Documentation**: Ida
 - **Controller**: Eline
-- **Bug remove calc.core**: Bug
-- **fix-devfile**: Bug
+- **Bug remove calc.core**: Ingvild
+- **fix-devfile**: Arild
