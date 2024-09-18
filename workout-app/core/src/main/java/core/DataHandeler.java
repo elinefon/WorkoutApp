@@ -10,13 +10,7 @@ import java.util.Scanner;
 public class DataHandeler {
     
     public List<Workout> loadData(String filename){
-        Scanner scanner;
-        try {
-            scanner = new Scanner(new File("workout-app/core/src/main/resources/core/datastorage/" + filename));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException("File not found.");   
-        }
+        Scanner scanner = new Scanner(DataHandeler.class.getResourceAsStream("/core/datastorage/" + filename));
 
         //Collecting lines from file and adding to array workouts
         String title = scanner.nextLine();
@@ -35,7 +29,7 @@ public class DataHandeler {
 
         PrintWriter writer;
         try{
-            writer = new PrintWriter("workout-app/core/src/main/resources/core/datastorage/" + filename);
+            writer = new PrintWriter(new File(System.getProperty("user.home"), "/core/datastorage/" + filename));
         }catch (FileNotFoundException e){
             try {
                 //trying to create file if the file dont exist
