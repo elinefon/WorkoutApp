@@ -68,7 +68,7 @@ public class WorkoutLog implements Iterable<Workout> { //log that iterates over 
         
         System.out.println(WL);
         WL.saveWorkout(w2);
-
+        WL.loadWorkouts();
     }
     
 
