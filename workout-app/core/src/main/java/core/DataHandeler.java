@@ -10,7 +10,14 @@ import java.util.Scanner;
 public class DataHandeler {
     
     public List<Workout> loadData(String filename){
-        Scanner scanner = new Scanner(DataHandeler.class.getResourceAsStream("/core/datastorage/" + filename));
+        Scanner scanner;
+        try {
+            scanner = new Scanner(new File("workout-app/core/src/main/resources/core/datastorage/" + filename));
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            throw new IllegalArgumentException("");
+        }
 
         //Collecting lines from file and adding to array workouts
         String title = scanner.nextLine();

@@ -57,19 +57,6 @@ public class WorkoutLog implements Iterable<Workout> { //log that iterates over 
         dataHandeler.saveData(filename, this.getWorkouts());
         
     }
-
-    public static void main(String[] args){
-        //Testing the persistence functions
-        Workout w1 = new Workout("Legs");
-        Workout w2 = new Workout("Arm day");
-
-        WorkoutLog WL = new WorkoutLog();
-        WL.addWorkout(w1);
-        
-        System.out.println(WL);
-        WL.saveWorkout(w2);
-        WL.loadWorkouts();
-    }
     
 
 
