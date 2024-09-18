@@ -1,28 +1,18 @@
 
-# Javafx template
+# Workout Log
 
-[open in Eclipse Che](https://che.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/javafx-template?new)
+[open in Eclipse Che](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
-A repository with three variants of a javafx projects, with maven setup for Java 17 and JavaFX 17, and JUnit 5 (Jupiter) and TestFX for testing.
+A repository with a javafx project, with maven setup for Java 17 and JavaFX 17, and JUnit 5 (Jupiter) and TestFX for testing.
 
-To make the project(s) more interesting, it is the start of an [RPN](https://en.wikipedia.org/wiki/Reverse_Polish_notation) calculator (look for `// TODO`) markers). The core logic is almost implemented (in [Calc.java](javafx-template/src/main/java/app/Calc.java)), the fxml file (in [App.fxml](javafx-template/src/main/resources/app/App.fxml) is almost complete, but the controller class (in [AppController.java](javafx-template/src/main/java/app/AppController.java) is pretty limited. And last, but not least, there is a TestFX-based test (in [AppTest.java](javafx-template/src/test/java/app/AppTest.java), see the [README](javafx-template/src/test/java/app/README.md) for details about what it tests).
+## [workout-app](/workout-app/)
 
-## javafx-template
+Contains the source code for the workout logging app
 
-Template for  single-module, single-package javafx project.
+## Features
 
-## packages-template
+The completed app will have the following features:
 
-Template for  single-module, multi-package javafx project.
-
-## modules-template
-
-Template for  multi-module, multi-package javafx project.
-
-## Trying it out
-
-All projects can be tried out by cd-ing into the corresponding folder and using `mvn`:
-
-- compile with `mvn compile` (after `cd javafx-template` of course)
-- test with `mvn test` (it should fail until you complete the RPN calculator)
-- run with `mvn javafx:run` (it should open, but not work properly)
+- Log individual workout session with date, duration and type of workout
+- Save and load logs automatically upon creation/startup
+- Editing previously made logs
