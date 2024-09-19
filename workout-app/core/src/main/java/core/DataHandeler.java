@@ -9,10 +9,13 @@ import java.util.Scanner;
 
 public class DataHandeler {
     
+    private String mvnDir = System.getProperty("user.dir");
+    private String filepath = mvnDir + "/../core/src/main/resources/core/datastorage/";
+
     public List<Workout> loadData(String filename){
         Scanner scanner;
         try {
-            scanner = new Scanner(new File("workout-app/core/src/main/resources/core/datastorage/" + filename));
+            scanner = new Scanner(new File(filepath + filename));
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -36,11 +39,11 @@ public class DataHandeler {
 
         PrintWriter writer;
         try{
-            writer = new PrintWriter("workout-app/core/src/main/resources/core/datastorage/" + filename);
+            writer = new PrintWriter(filepath + filename);
         }catch (FileNotFoundException e){
             try {
                 //trying to create file if the file dont exist
-                writer = new PrintWriter(new File("workout-app/core/src/main/resources/core/datastorage/" + filename));
+                writer = new PrintWriter(new File(filepath + filename));
             } catch (FileNotFoundException e1) {
                 throw new IllegalArgumentException("File not found and file could not be created"); 
             }
