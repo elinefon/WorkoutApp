@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import persistence.DataHandler;
+
 public class WorkoutLog implements Iterable<Workout> { //log that iterates over workouts
     
     private List<Workout> workouts; //collects workout objects in a list
@@ -42,10 +44,10 @@ public class WorkoutLog implements Iterable<Workout> { //log that iterates over 
         //If we want to save more files add filename as an attribute
         String filename = "workout-data.txt"; 
 
-        DataHandeler dataHandeler = new DataHandeler();
-        List<Workout> loadlist = dataHandeler.loadData(filename);
+        DataHandler dataHandler = new DataHandler();
+        // List<Workout> loadlist = dataHandler.loadData(filename);
 
-        this.setWorkouts(loadlist);
+        // this.setWorkouts(loadlist);
     }
 
     public void saveWorkout(Workout workout){
@@ -53,8 +55,8 @@ public class WorkoutLog implements Iterable<Workout> { //log that iterates over 
         this.addWorkout(workout);
         String filename =  "workout-data.txt"; 
 
-        DataHandeler dataHandeler = new DataHandeler();
-        dataHandeler.saveData(filename, this.getWorkouts());
+        DataHandler dataHandler = new DataHandler();
+        // dataHandler.saveData(filename, this.getWorkouts());
         
     }
     
