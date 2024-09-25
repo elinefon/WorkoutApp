@@ -1,13 +1,14 @@
 # Release 2 documentation
 
-## How we met the requirements
+## Work habits
 
-## Work distribution
+(valg knyttet til dette)
 
-## Choices
+## Workflow
 
-### Work habits
+ (en oversikt over rekkefølgen av hendelser som trengs for å utføre en oppgave)
 
-### Workflow
+## Code quality
 
-### Code quality
+(f.eks. tilnærming til testing, verktøy for sjekking av
+kodekvalitet og innstillinger for dem)
