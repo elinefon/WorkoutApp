@@ -1,0 +1,4 @@
+module persistence {
+
+    exports persistence;
+}
