@@ -18,6 +18,8 @@ public class WorkoutModule extends SimpleModule {
         super(NAME, VERSION_UTIL.version());
         addSerializer(Workout.class, new WorkoutSerializer());
         addSerializer(WorkoutLog.class, new WorkoutLogSerializer());
+        addDeserializer(Workout.class, new WorkoutDeserializer());
+        addDeserializer(WorkoutLog.class, new WorkoutLogDeserializer());
     }
 
     public static void main(String args[]){
@@ -29,7 +31,10 @@ public class WorkoutModule extends SimpleModule {
         wl.addWorkout(w);
         wl.addWorkout(w2);
         try {
-            System.out.println(mapper.writeValueAsString(wl));
+            String json = mapper.writeValueAsString(wl);
+            System.out.println(json);
+            WorkoutLog log = mapper.readValue(json, WorkoutLog.class);
+            System.out.println(log);
         } catch (JsonProcessingException e) {
             System.err.println("WÆÆÆÆÆÆ!!");
         }
