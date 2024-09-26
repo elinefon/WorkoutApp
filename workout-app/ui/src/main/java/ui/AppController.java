@@ -38,7 +38,7 @@ public class AppController {
         workouts_column.setCellValueFactory(new PropertyValueFactory<>("workoutInput"));
 
         //loading previous workouts and updating the table
-        workoutLog.loadWorkouts();
+      //  workoutLog.loadWorkouts();
         updateTableView();
 
     }
@@ -48,7 +48,7 @@ public class AppController {
         String session = input_workout.getText();
         if (!session.isEmpty()) {
             Workout newWorkout = new Workout(session); //create new workout from what the user typed into input
-            workoutLog.saveWorkout(newWorkout); //adds that new workout to the log
+      //      workoutLog.saveWorkout(newWorkout); //adds that new workout to the log
 
             updateTableView(); //see function below
 

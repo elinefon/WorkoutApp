@@ -38,27 +38,5 @@ public class WorkoutLog implements Iterable<Workout> { //log that iterates over 
         return "WorkoutLog [" + workouts + "]";
     }
 
-    //Write and read from file methods
-    public void loadWorkouts(){
-        //If we want to save more files add filename as an attribute
-        String filename = "workout-data.txt"; 
-
-       // DataHandler dataHandler = new DataHandler();
-        // List<Workout> loadlist = dataHandler.loadData(filename);
-
-        // this.setWorkouts(loadlist);
-    }
-
-    public void saveWorkout(Workout workout){
-        //add this workout to all workouts
-        this.addWorkout(workout);
-        String filename =  "workout-data.txt"; 
-
-     //   DataHandler dataHandler = new DataHandler();
-        // dataHandler.saveData(filename, this.getWorkouts());
-        
-    }
-    
-
 
 }
