@@ -7,22 +7,28 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 import core.Workout;
+import core.WorkoutLog;
 
-public class WorkoutSerializer extends JsonSerializer<Workout> {
+public class WorkoutLogSerializer extends JsonSerializer<WorkoutLog> {
 
     /*Format:
-     * {
-     *      "description": "...."
-     * }
+     * {"workouts": [...]}
      */
     
   
     @Override
-    public void serialize(Workout workout,
+    public void serialize(WorkoutLog workoutlog,
                           JsonGenerator jGen,
                           SerializerProvider serializerProvider) throws IOException {
       jGen.writeStartObject();
-      jGen.writeStringField("description", workout.getWorkoutInput());
+      jGen.writeArrayFieldStart("workouts");
+      
+      for(Workout workout: workoutlog){
+        jGen.writeObject(workout);
+      }
+      jGen.writeEndArray();
       jGen.writeEndObject();
     }
+
+  
   }
