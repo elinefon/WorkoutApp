@@ -93,6 +93,8 @@
                     <mainClass>ui/ui.App</mainClass>
                 </configuration>
             </plugin>
+
+             <!-- Used code for the plugins from the IT1901/todo-list-example repository -->
              <!-- Run the checkstyle code quality tool -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -113,6 +115,7 @@
                     <propertyName>jaCoCoArgLine</propertyName>
                 </configuration>
             </plugin>
+             <!-- End of used code from open repository -->
 
         </plugins>
     </build>

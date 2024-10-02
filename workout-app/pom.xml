@@ -54,6 +54,8 @@
                         <skipTests>${skipTests}</skipTests>
                     </configuration>
                 </plugin>
+
+                 <!-- Used code for the plugins from the IT1901/todo-list-example repository -->
                 <!-- Checkstyle tool plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -87,7 +89,7 @@
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>4.7.2.0</version>
+                    <version>4.8.6.4</version>
                     <configuration>
                         <xmlOutput>false</xmlOutput>
                         <htmlOutput>true</htmlOutput>
@@ -124,6 +126,8 @@
                         </execution>
                     </executions>
                 </plugin>
+                 <!-- End of used code from open repository -->
+
             </plugins>
         </pluginManagement>
     </build>

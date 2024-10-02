@@ -44,6 +44,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
         		<artifactId>maven-surefire-plugin</artifactId>
 	        </plugin>
+
+            <!-- Used code for the plugins from the IT1901/todo-list-example repository -->
              <!-- Checkstyle tool -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -61,6 +63,7 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
             </plugin>
+            <!-- End of code from open repository -->
 
         </plugins>
     </build>
