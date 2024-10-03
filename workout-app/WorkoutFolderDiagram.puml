@@ -1,0 +1,33 @@
+@startuml FolderDiagram
+
+component core {
+	package workoutapp.core
+}
+
+component persistence {
+	package workoutapp.persistence
+    package workoutapp.json
+}
+
+component jackson {
+}
+
+
+component ui {
+	package workoutapp.ui
+}
+
+component javafx {
+	component fxml {
+	}
+}
+
+workoutapp.ui ..> workoutapp.core
+workoutapp.ui ..> workoutapp.persistence
+workoutapp.persistence ..> jackson
+workoutapp.persistence ..> workoutapp.core
+workoutapp.persistence ..> workoutapp.json
+
+ui ..> fxml
+
+@enduml
