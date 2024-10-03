@@ -5,19 +5,22 @@ component core{
         -List workouts
     }
     class Workout{
-    -String input
+        -String input
     }
 
-    WorkoutLog "1" -- "*" Workout : workouts
+    WorkoutLog "1" - "*" Workout : workouts
 
 }
 component persistence{
-    class WorkoutSerializer {}
-    class WorkoutLogSerializer{}
-    class WorkoutLogDeserializer{}
-    class WorkoutDeserializer{}
 
-    class WorkoutModule{}
+    component json{
+        class WorkoutSerializer {}
+        class WorkoutLogSerializer{}
+        class WorkoutLogDeserializer{}
+        class WorkoutDeserializer{}
+        class WorkoutModule{}
+    }
+    
     class WorkoutPersistence{}
 
     WorkoutPersistence "1" -- "1" WorkoutModule 
@@ -34,18 +37,15 @@ component ui{
     }
     class App
 
-    App "1" -- "1" AppController : controller
+    App "1" - "1" AppController : controller
 }
 
-core ..> ui
-persistence ..> ui
-core ..> persistence
+ui ..> core : require
+ui ..> persistence : require
+persistence ..> core : require
 
-WorkoutPersistence --> AppController
-WorkoutLog --> AppController
-Workout --> WorkoutDeserializer
-Workout --> WorkoutSerializer
-WorkoutLog --> WorkoutLogDeserializer
-WorkoutLog --> WorkoutLogSerializer
+AppController "1" --> "1" WorkoutPersistence
+AppController "1"--> "1" WorkoutLog
+
 
 @enduml
