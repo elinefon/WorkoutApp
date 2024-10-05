@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -17,12 +19,13 @@ import persistence.json.WorkoutModule;
 public class WorkoutPersistence {
     
     private String mvnDir = System.getProperty("user.dir");
-    private String filePath = mvnDir + "/../persistence/src/main/resources/persistence/json/";
+    private String filePath = mvnDir + "/workout-app/persistence/src/main/resources/persistence/json/";
     private String fileName = "myWorkout.JSON";
 
     private ObjectMapper mapper;
 
     public WorkoutPersistence() {
+        mapper = new ObjectMapper();
         mapper.registerModule(new WorkoutModule());
     }
 
@@ -38,6 +41,14 @@ public class WorkoutPersistence {
 
     public void saveWorkoutLog(WorkoutLog workoutLog) {
         System.out.println(filePath + fileName);
+
+        //ensures there is an directory for the spesified path
+        try {
+            Files.createDirectories(Paths.get(filePath));
+        } catch (IOException e) {
+            System.err.println("Error while creating directories: " + e.getMessage());
+        }
+
         try (Writer writer = new FileWriter(filePath + fileName)) {
             mapper.writerWithDefaultPrettyPrinter().writeValue(writer, workoutLog);
         } catch (IOException e) {
@@ -54,5 +65,6 @@ public class WorkoutPersistence {
         log.addWorkout(workout);
         log.addWorkout(w2);
         persistence.saveWorkoutLog(log);
+        System.out.println(persistence.loadWorkoutLog());
     }
 }

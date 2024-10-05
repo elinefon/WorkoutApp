@@ -18,4 +18,9 @@ public class Workout {
         this.workoutInput = workoutInput;
     }
 
+    @Override
+    public String toString() {
+        return "Workout [workoutInput=" + workoutInput + "]";
+    }
+
 }
