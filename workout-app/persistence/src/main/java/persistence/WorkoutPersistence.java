@@ -19,7 +19,7 @@ import persistence.json.WorkoutModule;
 public class WorkoutPersistence {
     
     private String mvnDir = System.getProperty("user.dir");
-    private String filePath = mvnDir + "/workout-app/persistence/src/main/resources/persistence/json/";
+    private String filePath = mvnDir + "/../persistence/src/main/resources/persistence/json/";
     private String fileName = "myWorkout.JSON";
 
     private ObjectMapper mapper;
@@ -30,6 +30,7 @@ public class WorkoutPersistence {
     }
 
     public WorkoutLog loadWorkoutLog() {
+        //reads from file
         try (Reader reader = new InputStreamReader(new FileInputStream(filePath + fileName))) {
             return mapper.readValue(reader, WorkoutLog.class);
         } catch (FileNotFoundException e) {
@@ -40,7 +41,6 @@ public class WorkoutPersistence {
     }
 
     public void saveWorkoutLog(WorkoutLog workoutLog) {
-        System.out.println(filePath + fileName);
 
         //ensures there is an directory for the spesified path
         try {
@@ -49,6 +49,7 @@ public class WorkoutPersistence {
             System.err.println("Error while creating directories: " + e.getMessage());
         }
 
+        //writes to file
         try (Writer writer = new FileWriter(filePath + fileName)) {
             mapper.writerWithDefaultPrettyPrinter().writeValue(writer, workoutLog);
         } catch (IOException e) {
@@ -61,9 +62,12 @@ public class WorkoutPersistence {
         WorkoutLog log = new WorkoutLog();
         Workout workout = new Workout("yay");
         Workout w2 = new Workout("hey");
+    
         
         log.addWorkout(workout);
         log.addWorkout(w2);
+
+        //these will get error due to the pathfile. when running this change the /../ part to /workout-app/ in the path variable
         persistence.saveWorkoutLog(log);
         System.out.println(persistence.loadWorkoutLog());
     }
