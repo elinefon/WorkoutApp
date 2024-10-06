@@ -1,0 +1,51 @@
+@startuml WorkoutApp
+
+component core{
+    class WorkoutLog {
+        -List workouts
+    }
+    class Workout{
+        -String input
+    }
+
+    WorkoutLog "1" - "*" Workout : workouts
+
+}
+component persistence{
+
+    component json{
+        class WorkoutSerializer {}
+        class WorkoutLogSerializer{}
+        class WorkoutLogDeserializer{}
+        class WorkoutDeserializer{}
+        class WorkoutModule{}
+    }
+    
+    class WorkoutPersistence{}
+
+    WorkoutPersistence "1" -- "1" WorkoutModule 
+    WorkoutModule "1" -- "1" WorkoutSerializer
+    WorkoutModule "1" -- "1" WorkoutDeserializer
+    WorkoutModule "1" -- "1" WorkoutLogSerializer
+    WorkoutModule "1" -- "1" WorkoutLogDeserializer
+}
+
+component ui{
+    class AppController {
+    -WorkoutLog WorkoutLog
+    -WorkoutPersistence persistence
+    }
+    class App
+
+    App "1" - "1" AppController : controller
+}
+
+ui ..> core : require
+ui ..> persistence : require
+persistence ..> core : require
+
+AppController "1" --> "1" WorkoutPersistence
+AppController "1"--> "1" WorkoutLog
+
+
+@enduml
