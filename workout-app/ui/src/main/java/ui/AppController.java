@@ -10,6 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import persistence.WorkoutPersistence;
 import javafx.collections.FXCollections;
 
 public class AppController {
@@ -29,6 +30,7 @@ public class AppController {
     private TableColumn<Workout, String> workouts_column;
 
     private WorkoutLog workoutLog;
+    private WorkoutPersistence persistence;
 
     @FXML
     public void initialize() {
@@ -37,8 +39,9 @@ public class AppController {
         // Set up the TableColumn to display the input property
         workouts_column.setCellValueFactory(new PropertyValueFactory<>("workoutInput"));
 
+        persistence = new WorkoutPersistence();
         //loading previous workouts and updating the table
-        workoutLog.loadWorkouts();
+        workoutLog = persistence.loadWorkoutLog();
         updateTableView();
 
     }
@@ -48,7 +51,9 @@ public class AppController {
         String session = input_workout.getText();
         if (!session.isEmpty()) {
             Workout newWorkout = new Workout(session); //create new workout from what the user typed into input
-            workoutLog.saveWorkout(newWorkout); //adds that new workout to the log
+            
+            workoutLog.addWorkout(newWorkout); //adds that new workout to the log
+            persistence.saveWorkoutLog(workoutLog);
 
             updateTableView(); //see function below
 
