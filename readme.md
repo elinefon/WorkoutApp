@@ -27,4 +27,8 @@ To run the  (App.java, located in workout-app/ui/src/main/java/ui), navigate to 
 
 To run the tests, navigate to **it1901/gr2405/gr2405/workout-app** and run the command **mvn test**
 
-You can see the test coverage for each module by navigating to the module you want to check, then to **target/site/** SETT INN RESTEN
+How to check the test coverage:
+
+- Run **mvn clean install** from **it1901/gr2405/gr2405/workout-app**
+- Navigate to the module you want to check, then to **target/site/jacoco**
+- Run **index.html** in browser
