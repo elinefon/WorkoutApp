@@ -1,7 +1,7 @@
 
 # Workout Log
 
-[open in Eclipse Che](https://che.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/workout-app?new)
+[open in Eclipse Che](https://che.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/gr2405/gr2405/workout-app?new)
 
 A repository with a javafx project, with maven setup for Java 17 and JavaFX 17, and JUnit 5 (Jupiter) and TestFX for testing.
 
@@ -19,4 +19,11 @@ The completed app will have the following features:
 
 ## Run project
 
-To run the app, navigate to the right folder: **workout-app/ui** and run the command **mvn javafx:run**
+### Application
+
+To run the app, navigate to the right folder: **it1901/gr2405/gr2405/workout-app/ui** and run the command **mvn javafx:run** to run the App.java class that is located in **workout-app/ui/src/main/java/ui**
+
+### Tests
+
+To run the tests, navigate to **it1901/gr2405/gr2405/workout-app** and run the command **mvn test**
+You can see the test coverage for each module by navigating to the module you want to check, then to **target/site/** SETT INN RESTEN
