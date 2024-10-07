@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -29,9 +30,10 @@ public class WorkoutPersistence {
         mapper.registerModule(new WorkoutModule());
     }
 
+    @SuppressWarnings("exports")
     public WorkoutLog loadWorkoutLog() {
         //reads from file
-        try (Reader reader = new InputStreamReader(new FileInputStream(filePath + fileName))) {
+        try (Reader reader = new InputStreamReader(new FileInputStream(filePath + fileName), StandardCharsets.UTF_8)) {
             return mapper.readValue(reader, WorkoutLog.class);
         } catch (FileNotFoundException e) {
             throw new IllegalArgumentException("File not found", e);
@@ -40,6 +42,7 @@ public class WorkoutPersistence {
         }
     }
 
+    @SuppressWarnings("exports")
     public void saveWorkoutLog(WorkoutLog workoutLog) {
 
         //ensures there is an directory for the spesified path
@@ -50,7 +53,7 @@ public class WorkoutPersistence {
         }
 
         //writes to file
-        try (Writer writer = new FileWriter(filePath + fileName)) {
+        try (Writer writer = new FileWriter(filePath + fileName, StandardCharsets.UTF_8)) {
             mapper.writerWithDefaultPrettyPrinter().writeValue(writer, workoutLog);
         } catch (IOException e) {
             System.err.println("Error while saving the workout log: " + e.getMessage());

@@ -2,7 +2,6 @@ package persistence.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.core.util.VersionUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
@@ -14,8 +13,7 @@ public class WorkoutModule extends SimpleModule {
   private static final String NAME = "WorkoutModule";
 //  private static final VersionUtil VERSION_UTIL = new VersionUtil() {};
 
-  @SuppressWarnings("deprecation")
-    public WorkoutModule() {
+  public WorkoutModule() {
         //super(NAME, VERSION_UTIL.version());
         super(NAME, Version.unknownVersion());
 

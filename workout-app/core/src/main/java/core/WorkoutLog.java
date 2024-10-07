@@ -2,10 +2,7 @@ package core;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 
 public class WorkoutLog implements Iterable<Workout> { //log that iterates over workouts
@@ -21,11 +18,11 @@ public class WorkoutLog implements Iterable<Workout> { //log that iterates over 
     }
 
     public List<Workout> getWorkouts() {
-        return workouts;
+        return new ArrayList<Workout>(workouts);
     }
 
     public void setWorkouts(List<Workout> workouts) {
-        this.workouts = workouts;
+        this.workouts = new ArrayList<>(workouts);
     }
 
     @Override
