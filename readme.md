@@ -21,9 +21,10 @@ The completed app will have the following features:
 
 ### Application
 
-To run the app, navigate to the right folder: **it1901/gr2405/gr2405/workout-app/ui** and run the command **mvn javafx:run** to run the App.java class that is located in **workout-app/ui/src/main/java/ui**
+To run the  (App.java, located in workout-app/ui/src/main/java/ui), navigate to the right folder: **it1901/gr2405/gr2405/workout-app/ui** and run the command **mvn javafx:run**
 
 ### Tests
 
 To run the tests, navigate to **it1901/gr2405/gr2405/workout-app** and run the command **mvn test**
+
 You can see the test coverage for each module by navigating to the module you want to check, then to **target/site/** SETT INN RESTEN
