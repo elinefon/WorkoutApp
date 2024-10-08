@@ -16,13 +16,13 @@ public class WorkoutTest {
 
     @Test
     public void testConstructor(){
-        Workout cworkout = new Workout("HIIT");
-        assertEquals("HIIT", cworkout.getWorkoutInput());
+        assertEquals("Leg day", winput.getWorkoutInput());
     }
 
     @Test
     public void testGetWorkoutInput(){
-        String workout = "Leg day";
+        String workout = "Push day";
+        winput.setWorkoutInput(workout);
         assertEquals(workout, winput.getWorkoutInput());
     }
 
@@ -30,5 +30,11 @@ public class WorkoutTest {
     public void testSetWorkoutInput(){
         winput.setWorkoutInput("Tabata");
         assertEquals("Tabata", winput.getWorkoutInput());
+    }
+
+    @Test
+    public void testToString(){
+        String expected = "Workout [workoutInput=Leg day]";
+        assertEquals(expected, winput.toString());
     }
 }
