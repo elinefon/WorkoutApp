@@ -10,9 +10,9 @@ We have included credit to the person we pair programmed with in the commits whe
 
 ### Persistence
 
-Some changes in persistence were necessairy for release 2.
+Some changes in persistence were necessary for release 2.
 
-This application uses implicit storage for persistence. The reason for using this instead of document metaphor is that we want to make the app as user friendly and intuitive as possible. Saving the workouts automatically after clicking the add button makes it easier for the user as they don't need to worry about where to save it or losing the data when forgetting to save.
+This application uses implicit storage for persistence. The reason for using this instead of document metaphor is that we want to make the app as user friendly and intuitive as possible. Saving the workouts automatically after clicking the add button makes it easier for the user as they don't need to worry about where to save it or losing the data if forgetting to save.
 
 We also changed the file format from txt to JSON to make the data more organized. Key and value pairs makes it easier for later relases, as we may want to extend the application with features as adding date, duration etc. to the workouts.
 
@@ -24,7 +24,7 @@ For this release the main tasks to solve were the following:
 - Change the persistence from writing to a txt file to using JSON
 - Write tests for all methods in core module, ui module and persistence module
 - Create an architecture diagram
-- Update pom files with Jacoco, Spotbugs and Checkstyle plugins
+- Update pom files with JaCoCo, Spotbugs and Checkstyle plugins
 - Write documentation
 - Update readme.md
 
@@ -36,5 +36,5 @@ To ensure good code quality we include tests for each module, and try to keep th
 
 We use the following plugins to improve the code quality further:
 
-- **Jacoco** to make sure that the test coverage is as high as possible and that every method is tested for each class
+- **JaCoCo** to make sure that the test coverage is as high as possible and that every method is tested for each class
 - **Checkstyle** and **Spotbugs** to help us find bugs that should be fixed for better code quality that adheres to coding standards
