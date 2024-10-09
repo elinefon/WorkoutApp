@@ -25,7 +25,7 @@ The completed app will have the following features:
 
 Before running the app, run the command **mvn clean install** from [it1901/gr2405/gr2405/workout-app](/workout-app/)
 
-To run the app (App.java, located in it1901/gr2405/gr2405/workout-app/ui/src/main/java/ui), navigate to the [ui](/workout-app/ui/) folder and run the command **mvn javafx:run**
+To run the app (App.java, located in [it1901/gr2405/gr2405/workout-app/ui/src/main/java/ui](/workout-app/ui/src/main/java/ui/)), navigate to the [ui](/workout-app/ui/) folder and run the command **mvn javafx:run**
 
 ### Tests
 
