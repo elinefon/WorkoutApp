@@ -32,7 +32,7 @@ We distributed the tasks so that everyone had approximately the same amount of w
 
 ## Code quality
 
-To ensure good code quality we include tests for each module, and try to keep the test coverage as close to 100% as possible.
+To ensure good code quality we include tests for each module, and try to keep the test coverage as high as possible by testing all the main functionalities of the application.
 
 We use the following plugins to improve the code quality further:
 
