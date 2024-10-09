@@ -1,3 +1,5 @@
 # AI tools for the second release
 
-(Inkluder i dokumentasjonen en kort beskrivelse av bruken av KI-verktøy i prosjektarbeidet ditt. Hvis du bruker KI-verktøy, angi kortfattet hvilke verktøy og hva de brukes til)
+For release 2 we used ChatGPT to help trouble shooting error messages and understanding what went wrong in our code.
+
+We did not use AI tools for generating code snippets that we used directly in the project.
