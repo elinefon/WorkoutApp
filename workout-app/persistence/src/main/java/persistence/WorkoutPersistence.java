@@ -29,6 +29,10 @@ public class WorkoutPersistence {
         mapper.registerModule(new WorkoutModule());
     }
 
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
     @SuppressWarnings("exports")
     public WorkoutLog loadWorkoutLog(String fileName) {
         //reads from file

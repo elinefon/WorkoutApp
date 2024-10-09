@@ -20,35 +20,51 @@ public class WorkoutPersistenceTest {
     private WorkoutPersistence workoutPersistence;
 
     private final String mvnDir = System.getProperty("user.dir");
-    private String testFilePath;
-    private String testFileName;
+    private String testFilePath = mvnDir + "/../persistence/src/main/resources/persistence/json/";
+    private String testFileName = "aWorkout.JSON";
 
     @BeforeEach
     public void setUp() {
         workoutPersistence = new WorkoutPersistence();
 
-        testFileName = "testWorkout.JSON";
-        testFilePath = mvnDir + "/../persistence/src/main/resources/persistence/json/";
-
         workoutPersistence.setFilePath(testFilePath);
-        workoutPersistence.setFileName(testFileName);
+    }
+
+    @AfterEach //deletes files after tests
+    public void tearDown() throws IOException {
+        Path filePath = Path.of(testFilePath, testFileName);
+        Files.deleteIfExists(filePath);
     }
 
     @Test
     public void testSaveWorkoutLog() {
+        WorkoutLog log = createWorkoutLog();
+
+        workoutPersistence.saveWorkoutLog(log, testFileName); 
+
+        Path savedFilePath = Path.of(testFilePath, testFileName);
+        assertTrue(Files.exists(savedFilePath), "The workout log file should exist after saving.");
+    }
+
+
+    @Test
+    public void testLoadWorkoutLog() {
+        WorkoutLog log = createWorkoutLog();
+
+        workoutPersistence.saveWorkoutLog(log, testFileName); //save workout log to file
+
+        WorkoutLog loadedLog = workoutPersistence.loadWorkoutLog(testFileName); //load from file
+        validateWorkoutLog(loadedLog); // validate saved and loaded logs are the same
+    }
+
+    private WorkoutLog createWorkoutLog() {
         Workout w1 = new Workout("Leg day");
         Workout w2 = new Workout("Chest day");
         WorkoutLog log = new WorkoutLog();
         log.addWorkout(w1);
         log.addWorkout(w2);
-
-        workoutPersistence.saveWorkoutLog(log); //save workout log to file
-
-        WorkoutLog loadedLog = workoutPersistence.loadWorkoutLog(); //load from file
-
-        validateWorkoutLog(loadedLog); // validate saved and loaded logs are the same
+        return log;
     }
-
 
     private void validateWorkoutLog(WorkoutLog log) {
         Iterator<Workout> iterator = log.iterator();
@@ -62,36 +78,4 @@ public class WorkoutPersistenceTest {
     static void checkWorkout(Workout workout, String expectedDescription) {
         assertEquals(expectedDescription, workout.getWorkoutInput());
     }
-
-    // @Test
-    // public void testLoadWorkoutLog() {
-    //     // Arrange: Create and save a sample WorkoutLog
-    //     WorkoutLog originalLog = createSampleWorkoutLog();
-    //     workoutPersistence.saveWorkoutLog(originalLog);
-
-    //     // Act: Load the WorkoutLog
-    //     WorkoutLog loadedLog = workoutPersistence.loadWorkoutLog();
-
-    //     // Assert: Validate that the loaded log matches the original
-    //     assertNotNull(loadedLog, "Loaded WorkoutLog should not be null.");
-    //     assertEquals(originalLog.getWorkouts().size(), loadedLog.getWorkouts().size(), "Loaded WorkoutLog should contain the same number of workouts.");
-
-    //     // Further assertions can be added here to compare the contents of the WorkoutLog
-    //     validateWorkoutLog(originalLog, loadedLog);
-    // }
-
-    // private WorkoutLog createSampleWorkoutLog() {
-    //     // Create a sample WorkoutLog with dummy data
-    //     WorkoutLog log = new WorkoutLog();
-    //     log.addWorkout(new Workout("Leg day"));  // Add sample workouts
-    //     log.addWorkout(new Workout("Chest day"));
-    //     return log;
-    // }
-
-    // private void validateWorkoutLog(WorkoutLog originalLog, WorkoutLog loadedLog) {
-    //     assertEquals(originalLog.getWorkouts().size(), loadedLog.getWorkouts().size(), "Workout logs should have the same number of workouts.");
-    //     for (int i = 0; i < originalLog.getWorkouts().size(); i++) {
-    //         assertEquals(originalLog.getWorkouts().get(i).getWorkoutInput(), loadedLog.getWorkouts().get(i).getWorkoutInput(), "Workout names should match.");
-    //     }
-    // }
 }
