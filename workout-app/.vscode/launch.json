@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "WorkoutModule",
+            "request": "launch",
+            "mainClass": "persistence/persistence.json.WorkoutModule",
+            "projectName": "modules-persistence"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -16,8 +23,12 @@
             "request": "launch",
             "mainClass": "ui/ui.App",
             "projectName": "modules-ui",
-            "vmArgs": ["--add-opens", "ui/ui=ALL-UNNAMED", "--add-exports", "javafx.graphics/com.sun.javafx.application=ALL-UNNAMED"]
-
+            "vmArgs": [
+                "--add-opens",
+                "ui/ui=ALL-UNNAMED",
+                "--add-exports",
+                "javafx.graphics/com.sun.javafx.application=ALL-UNNAMED"
+            ]
         }
     ]
 }

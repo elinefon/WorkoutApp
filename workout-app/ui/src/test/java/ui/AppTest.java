@@ -1,12 +1,21 @@
 package ui;
+import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
-/* 
+
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,16 +26,21 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
-*/
+
+import core.Workout;
+import core.WorkoutLog;
+
 /**
  * TestFX App test
  */
 public class AppTest extends ApplicationTest {
-/*
+
     private AppController controller;
     private Parent root;
+    private FxRobot robot;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -35,97 +49,45 @@ public class AppTest extends ApplicationTest {
         controller = fxmlLoader.getController();
         stage.setScene(new Scene(root));
         stage.show();
+
+        robot = new FxRobot();
     }
 
     public Parent getRootNode() {
         return root;
     }
 
-    private String enterLabel = """
-        E
-        n
-        t
-        e
-        r
-        """.stripTrailing();
 
-    private void click(String... labels) {
-        for (var label : labels) {
-            clickOn(LabeledMatchers.hasText(label));
+
+    private Workout get_latest_workout() {
+        //return ((Label) getRootNode().lookup("#operandView")).;
+        String fxid = "#workouts_list";
+        TableView<Workout> workout_list = (TableView<Workout>) getRootNode().lookup(fxid);
+        ObservableList<Workout> obserbable_workout_list = workout_list.getItems();
+
+        return obserbable_workout_list.get(obserbable_workout_list.size() - 1);
+
+
+    }
+
+    private void type_string(String string){ 
+        String keys[] = string.split("");
+        for (String i : keys){
+            KeyCode key = KeyCode.getKeyCode(i.toUpperCase());
+            robot.press(key);
+            robot.release(key);
         }
     }
-
-    private String getOperandString() {
-        return ((Label) getRootNode().lookup("#operandView")).getText();
-    }
-
-    private ListView<Double> getOperandsView() {
-        return (ListView<Double>) getRootNode().lookup("#operandsView");
-    }
-
-    private void checkView(double... operands) {
-        for (int i = 0; i < operands.length; i++) {
-            Assertions.assertEquals(operands[i], controller.getCalc().peekOperand(i), "Wrong value at #" + i + " of operand stack");
-        }
-        List<Double> viewItems = getOperandsView().getItems();
-        for (int i = 0; i < operands.length; i++) {
-            Assertions.assertEquals(operands[i], viewItems.get(viewItems.size() - i - 1), "Wrong value at #" + i + " of operands view");
-        }
-    }
-
-    private void checkView(String operandString, double... operands) {
-        Assertions.assertEquals(operandString, getOperandString());
-        checkView(operands);
-    }
-
-    // see https://www.baeldung.com/parameterized-tests-junit-5
-    // about @ParameterizedTest
 
     @ParameterizedTest
-    @MethodSource
-    public void testClicksOperand(String labels, String operandString) {
-        for (var label : labels.split(" ")) {
-            click(label);
-        }
-        checkView(operandString);
+    @ValueSource(strings = {"cardio", "leggs", "core"})
+    public void test_register_button(String input){
+        Workout original_latest_workout = get_latest_workout();
+        clickOn("#input_workout" );
+        type_string(input);
+        clickOn("#register_button");
+        Workout new_latest_workout = get_latest_workout();
+        assertNotEquals(original_latest_workout, new_latest_workout);
+        assertEquals(new_latest_workout.toString(), (new Workout(input)).toString());
     }
-
-    private static Stream<Arguments> testClicksOperand() {
-        return Stream.of(
-            Arguments.of("2 7", "27"),
-            Arguments.of("2 7 .", "27."),
-            Arguments.of("2 7 . 5", "27.5"),
-            Arguments.of("2 7 . 5 .", "27.")
-        );
-    }
-    
-    @ParameterizedTest
-    @MethodSource
-    public void testClicksOperands(String labels, String operandsString) {
-        for (var label : labels.split(" ")) {
-            click(label.equals("\n") ? enterLabel : label);
-        }
-        checkView("", Stream.of(operandsString.split(" ")).mapToDouble(Double::valueOf).toArray());
-    }
-
-    private static Stream<Arguments> testClicksOperands() {
-        return Stream.of(
-            Arguments.of("2 7 . 5 \n", "27.5"),
-            Arguments.of("2 7 \n", "27.0"),
-            Arguments.of("2 \n 7 \n 5 \n", "5.0", "7.0", "2.0"),
-            Arguments.of("2 7 . \n", "27.0"),
-            Arguments.of("2 7 . 5 \n", "27.5"),
-            Arguments.of("2 \n 7 +", "9.0"),
-            Arguments.of("2 \n 7 -", "-5.0"),
-            Arguments.of("2 \n 7 *", "14.0"),
-            Arguments.of("6 \n 3 /", "2.0"),
-            Arguments.of("2 5 \n √", "5.0")
-        );
-    }
-
-    @Test
-    public void testPi() {
-        click("π");
-        checkView("", Math.PI);
-    }*/
 }

@@ -1,7 +1,5 @@
 package ui;
 
-import java.util.List;
-
 import core.Workout;
 import core.WorkoutLog;
 import javafx.fxml.FXML;
@@ -11,7 +9,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import persistence.WorkoutPersistence;
-import javafx.collections.FXCollections;
 
 public class AppController {
 
