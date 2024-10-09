@@ -9,6 +9,8 @@ A repository with a javafx project, with maven setup for Java 17 and JavaFX 17, 
 
 Contains the source code for the workout logging app
 
+The project is a maven modules project with three modules; [core](/workout-app/core/), [persistence](/workout-app/persistence/) and [ui](/workout-app/ui/)
+
 ## Features
 
 The completed app will have the following features:
@@ -21,14 +23,15 @@ The completed app will have the following features:
 
 ### Application
 
-To run the  (App.java, located in workout-app/ui/src/main/java/ui), navigate to the right folder: **it1901/gr2405/gr2405/workout-app/ui** and run the command **mvn javafx:run**
+Before running the app, run the command **mvn clean install** from it1901/gr2405/gr2405/workout-app ([link](/workout-app/))
+
+To run the app (App.java, located in it1901/gr2405/gr2405/workout-app/ui/src/main/java/ui), navigate to the [ui](/workout-app/ui/) folder and run the command **mvn javafx:run**
 
 ### Tests
 
-To run the tests, navigate to **it1901/gr2405/gr2405/workout-app** and run the command **mvn test**
+To run the tests, navigate to it1901/gr2405/gr2405/workout-app ([link](/workout-app/)) and run the command **mvn test**
 
-How to check the test coverage:
+How to check the test coverage after running tests:
 
-- Run **mvn clean install** from **it1901/gr2405/gr2405/workout-app**
-- Navigate to the module you want to check, then to **target/site/jacoco**
+- Navigate to the module you want to check (ui, persistence or core), then to **target/site/jacoco**
 - Run **index.html** in browser
