@@ -47,6 +47,7 @@ public class AppTest extends ApplicationTest {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("App.fxml"));
         root = fxmlLoader.load();
         controller = fxmlLoader.getController();
+        controller.updateFileName("testFile.JSON");
         stage.setScene(new Scene(root));
         stage.show();
 

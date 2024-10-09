@@ -21,7 +21,6 @@ public class WorkoutPersistence {
     
     private String mvnDir = System.getProperty("user.dir");
     private String filePath = mvnDir + "/../persistence/src/main/resources/persistence/json/";
-    private String fileName = "myWorkout.JSON";
 
     private ObjectMapper mapper;
 
@@ -31,7 +30,7 @@ public class WorkoutPersistence {
     }
 
     @SuppressWarnings("exports")
-    public WorkoutLog loadWorkoutLog() {
+    public WorkoutLog loadWorkoutLog(String fileName) {
         //reads from file
         try (Reader reader = new InputStreamReader(new FileInputStream(filePath + fileName), StandardCharsets.UTF_8)) {
             return mapper.readValue(reader, WorkoutLog.class);
@@ -43,7 +42,7 @@ public class WorkoutPersistence {
     }
 
     @SuppressWarnings("exports")
-    public void saveWorkoutLog(WorkoutLog workoutLog) {
+    public void saveWorkoutLog(WorkoutLog workoutLog, String fileName) {
 
         //ensures there is an directory for the spesified path
         try {
@@ -71,7 +70,7 @@ public class WorkoutPersistence {
         log.addWorkout(w2);
 
         //these will get error due to the pathfile. when running this change the /../ part to /workout-app/ in the path variable
-        persistence.saveWorkoutLog(log);
-        System.out.println(persistence.loadWorkoutLog());
+        persistence.saveWorkoutLog(log, "myWorkout.JSON");
+        System.out.println(persistence.loadWorkoutLog( "myWorkout.JSON"));
     }
 }

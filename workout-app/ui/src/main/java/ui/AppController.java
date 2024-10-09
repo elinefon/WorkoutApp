@@ -28,6 +28,7 @@ public class AppController {
 
     private WorkoutLog workoutLog;
     private WorkoutPersistence persistence;
+    private String fileName;
 
     @FXML
     public void initialize() {
@@ -38,9 +39,7 @@ public class AppController {
 
         persistence = new WorkoutPersistence();
         //loading previous workouts and updating the table
-        workoutLog = persistence.loadWorkoutLog();
-        updateTableView();
-
+        updateFileName("myWorkout.JSON");
     }
 
     @FXML
@@ -50,12 +49,19 @@ public class AppController {
             Workout newWorkout = new Workout(session); //create new workout from what the user typed into input
             
             workoutLog.addWorkout(newWorkout); //adds that new workout to the log
-            persistence.saveWorkoutLog(workoutLog);
+            persistence.saveWorkoutLog(workoutLog, fileName);
 
             updateTableView(); //see function below
-
+            
             input_workout.clear(); //clear input field to allow for a new input
         }
+    }
+
+    //public so that tests can be written in another file
+    public void updateFileName(String fileName){
+        this.fileName = fileName;
+        workoutLog = persistence.loadWorkoutLog(fileName);
+        updateTableView();
     }
 
     private void updateTableView() {
