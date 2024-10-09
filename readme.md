@@ -23,13 +23,13 @@ The completed app will have the following features:
 
 ### Application
 
-Before running the app, run the command **mvn clean install** from it1901/gr2405/gr2405/workout-app ([link](/workout-app/))
+Before running the app, run the command **mvn clean install** from [it1901/gr2405/gr2405/workout-app](/workout-app/)
 
 To run the app (App.java, located in it1901/gr2405/gr2405/workout-app/ui/src/main/java/ui), navigate to the [ui](/workout-app/ui/) folder and run the command **mvn javafx:run**
 
 ### Tests
 
-To run the tests, navigate to it1901/gr2405/gr2405/workout-app ([link](/workout-app/)) and run the command **mvn test**
+To run the tests, navigate to [it1901/gr2405/gr2405/workout-app](/workout-app/) and run the command **mvn test**
 
 How to check the test coverage after running tests:
 
