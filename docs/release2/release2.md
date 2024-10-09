@@ -34,6 +34,8 @@ We distributed the tasks so that everyone had approximately the same amount of w
 
 To ensure good code quality we include tests for each module, and try to keep the test coverage as high as possible by testing all the main functionalities of the application.
 
+We try to keep the test coverage as close to 100% as possible, but some of the modules has a lower percent. In the ui module we have lower coverage because App.java isn't tested, but this is because the class has no functionality. The functionality we thought was necessary to test in this module is in the controller class.
+
 We use the following plugins to improve the code quality further:
 
 - **JaCoCo** to make sure that the test coverage is as high as possible and that every method is tested for each class
