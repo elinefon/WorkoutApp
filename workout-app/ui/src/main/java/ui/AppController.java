@@ -57,7 +57,8 @@ public class AppController {
         }
     }
 
-    private void updateFileName(String fileName){
+    //public so that tests can be written in another file
+    public void updateFileName(String fileName){
         this.fileName = fileName;
         workoutLog = persistence.loadWorkoutLog(fileName);
         updateTableView();
