@@ -4,11 +4,11 @@ public class Workout {
 
     private String workoutInput; //only possible input will be a random string for now
 
-    public Workout(String workoutInput) { //constructor for one workout
+    public Workout(String workoutInput) {
         this.workoutInput = workoutInput;
     }
 
-    //getters og setters
+    //Getters, Setters and toString
 
     public String getWorkoutInput() {
         return workoutInput;
