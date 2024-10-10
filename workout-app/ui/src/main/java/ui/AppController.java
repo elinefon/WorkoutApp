@@ -34,12 +34,11 @@ public class AppController {
     public void initialize() {
         workoutLog = new WorkoutLog(); //creates a new workout log instance
 
-        // Set up the TableColumn to display the input property
-        workouts_column.setCellValueFactory(new PropertyValueFactory<>("workoutInput"));
+        workouts_column.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
 
-        persistence = new WorkoutPersistence();
-        //loading previous workouts and updating the table
-        updateFileName("myWorkout.JSON");
+        persistence = new WorkoutPersistence(); //Create an persistence object
+        
+        updateFileName("myWorkout.JSON"); //loading previous workouts and updating the table
     }
 
     @FXML
@@ -49,15 +48,17 @@ public class AppController {
             Workout newWorkout = new Workout(session); //create new workout from what the user typed into input
             
             workoutLog.addWorkout(newWorkout); //adds that new workout to the log
-            persistence.saveWorkoutLog(workoutLog, fileName);
 
-            updateTableView(); //see function below
+            persistence.saveWorkoutLog(workoutLog, fileName); //save the workout to persistence
+
+            updateTableView(); //update table
             
             input_workout.clear(); //clear input field to allow for a new input
         }
     }
 
     //public so that tests can be written in another file
+    //This updates the filename and the table so that you can write to another json file
     public void updateFileName(String fileName){
         this.fileName = fileName;
         workoutLog = persistence.loadWorkoutLog(fileName);

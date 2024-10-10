@@ -1,7 +1,4 @@
 {
-  "workouts" : [ {
-    "description" : "yay"
-  }, {
-    "description" : "hey"
-  } ]
+  "workouts" : [ 
+     ]
 }
