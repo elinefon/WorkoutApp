@@ -14,7 +14,6 @@ public class WorkoutLogSerializer extends JsonSerializer<WorkoutLog> {
     /*Format:
      * {"workouts": [...]}
      */
-    
   
     @Override
     public void serialize(WorkoutLog workoutlog,

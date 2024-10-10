@@ -13,26 +13,26 @@ import java.nio.file.Paths;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import core.Workout;
 import core.WorkoutLog;
 import persistence.json.WorkoutModule;
 
 public class WorkoutPersistence {
     
-    private String mvnDir = System.getProperty("user.dir");
+    private String mvnDir = System.getProperty("user.dir"); //these are variables to find the path
     private String filePath = mvnDir + "/../persistence/src/main/resources/persistence/json/";
 
     private ObjectMapper mapper;
 
     public WorkoutPersistence() {
         mapper = new ObjectMapper();
-        mapper.registerModule(new WorkoutModule());
+        mapper.registerModule(new WorkoutModule()); //the mapper is connected to the WorkoutModule
     }
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
 
+    //This method read a workout from the file given. This is never called whitin this module
     @SuppressWarnings("exports")
     public WorkoutLog loadWorkoutLog(String fileName) {
         //reads from file
@@ -44,7 +44,8 @@ public class WorkoutPersistence {
             throw new IllegalArgumentException("File could not be loaded", e);
         }
     }
-
+    
+    //This method saves a workout from the file given. This is never called whitin this module
     @SuppressWarnings("exports")
     public void saveWorkoutLog(WorkoutLog workoutLog, String fileName) {
 
@@ -63,18 +64,4 @@ public class WorkoutPersistence {
         }
     }
 
-    public static void main(String[] args) {
-        WorkoutPersistence persistence = new WorkoutPersistence();
-        WorkoutLog log = new WorkoutLog();
-        Workout workout = new Workout("yay");
-        Workout w2 = new Workout("hey");
-    
-        
-        log.addWorkout(workout);
-        log.addWorkout(w2);
-
-        //these will get error due to the pathfile. when running this change the /../ part to /workout-app/ in the path variable
-        persistence.saveWorkoutLog(log, "myWorkout.JSON");
-        System.out.println(persistence.loadWorkoutLog( "myWorkout.JSON"));
-    }
 }

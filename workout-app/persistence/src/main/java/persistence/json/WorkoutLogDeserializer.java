@@ -23,9 +23,7 @@ public class WorkoutLogDeserializer extends JsonDeserializer<WorkoutLog> {
         TreeNode treeNode = parser.getCodec().readTree(parser);
         if(treeNode instanceof ObjectNode){
             ObjectNode objectNode = (ObjectNode) treeNode;
-            
             WorkoutLog workoutLog = new WorkoutLog();
-
             JsonNode workoutsNode = objectNode.get("workouts");
 
             if(workoutsNode instanceof ArrayNode){
