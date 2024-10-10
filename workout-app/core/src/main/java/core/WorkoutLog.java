@@ -9,20 +9,25 @@ public class WorkoutLog implements Iterable<Workout> { //log that iterates over 
     
     private List<Workout> workouts; //collects workout objects in a list
 
-    public WorkoutLog() { //constructor initiates the list of workouts
+    //Constructor
+    public WorkoutLog() { 
         this.workouts = new ArrayList<>();
     }
 
-    public void addWorkout(Workout workout) { //adds a workout to the log
+
+    //Add one workout to existing log
+    public void addWorkout(Workout workout) { 
         workouts.add(workout);
     }
 
-    public List<Workout> getWorkouts() {
-        return new ArrayList<Workout>(workouts);
-    }
-
+    //Getters and Setters
     public void setWorkouts(List<Workout> workouts) {
         this.workouts = new ArrayList<>(workouts);
+    }
+
+    
+    public List<Workout> getWorkouts() {
+        return new ArrayList<Workout>(workouts); //returns copy of workoutlist
     }
 
     @Override

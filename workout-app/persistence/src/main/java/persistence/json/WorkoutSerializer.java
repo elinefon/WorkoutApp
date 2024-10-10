@@ -15,7 +15,6 @@ public class WorkoutSerializer extends JsonSerializer<Workout> {
      *      "description": "...."
      * }
      */
-    
   
     @Override
     public void serialize(Workout workout,
