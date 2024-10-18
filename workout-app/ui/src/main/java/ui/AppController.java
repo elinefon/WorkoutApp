@@ -64,9 +64,17 @@ public class AppController {
     }
 
     public void handleEdit(Workout w) {
-        System.out.println(w);
-        System.out.println("Running");
-        workouts_list.edit(0, workouts_column);
+    
+        if(input_workout.getText().equals("")){ //if there is written something in the field this need to be added first
+
+            input_workout.setText(w.getWorkoutInput()); //set the input field
+            
+            //TODO: after adding date need to set the date as well
+
+            workoutLog.removeWorkout(w);
+            updateTableView();
+        }
+        
     }
 
     //public so that tests can be written in another file

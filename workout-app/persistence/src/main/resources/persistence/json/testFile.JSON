@@ -1,5 +1,27 @@
 {
   "workouts" : [ {
     "description" : "yay"
-  }]
+  }, {
+    "description" : "leggs"
+  }, {
+    "description" : "core"
+  }, {
+    "description" : "cardio"
+  }, {
+    "description" : "leggs"
+  }, {
+    "description" : "core"
+  }, {
+    "description" : "cardio"
+  }, {
+    "description" : "leggs"
+  }, {
+    "description" : "core"
+  }, {
+    "description" : "cardio"
+  }, {
+    "description" : "leggs"
+  }, {
+    "description" : "core"
+  } ]
 }
