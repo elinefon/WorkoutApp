@@ -32,9 +32,6 @@ public class AppController {
     @FXML
     private TableColumn<Workout, String> workouts_column;
 
-    @FXML
-    private TableColumn<Workout, LocalDate> date_column;
-
     private WorkoutLog workoutLog;
     private WorkoutPersistence persistence;
     private String fileName;
@@ -44,8 +41,6 @@ public class AppController {
         workoutLog = new WorkoutLog(); //creates a new workout log instance
 
         workouts_column.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
-
-        date_column.setCellValueFactory(new PropertyValueFactory<>("date"));
         
         persistence = new WorkoutPersistence(); //Create an persistence object
         

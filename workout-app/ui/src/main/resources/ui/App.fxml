@@ -31,7 +31,7 @@
                <font>
                   <Font name="Arial Nova Cond Light" size="40.0" />
                </font></Text>
-            <DatePicker layoutX="14.0" layoutY="86.0" prefHeight="25.0" prefWidth="288.0" style="-fx-font-family: Arial Nova Light; -fx-background-color: #C3CBD6;" />
+            <DatePicker fx:id="input_date" layoutX="14.0" layoutY="86.0" prefHeight="25.0" prefWidth="288.0" style="-fx-font-family: Arial Nova Light; -fx-background-color: #C3CBD6;" />
             <Button layoutX="521.0" layoutY="30.0" mnemonicParsing="false" style="-fx-background-color: #D05663; -fx-cursor: hand;" text="Clear All" textFill="#c3cbd6">
                <font>
                   <Font name="Arial Nova Light" size="13.0" />

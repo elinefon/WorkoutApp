@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.DatePicker;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
@@ -20,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Stream;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -64,9 +66,12 @@ public class AppTest extends ApplicationTest {
         //return ((Label) getRootNode().lookup("#operandView")).;
         String fxid = "#workouts_list";
         TableView<Workout> workout_list = (TableView<Workout>) getRootNode().lookup(fxid);
-        ObservableList<Workout> obserbable_workout_list = workout_list.getItems();
+        ObservableList<Workout> observable_workout_list = workout_list.getItems();
 
-        return obserbable_workout_list.get(obserbable_workout_list.size() - 1);
+        if (observable_workout_list.isEmpty()) {
+            return null;
+        }
+        return observable_workout_list.get(observable_workout_list.size() - 1);
 
 
     }
@@ -80,15 +85,33 @@ public class AppTest extends ApplicationTest {
         }
     }
 
+    private void pick_date(LocalDate date) {
+        interact(() -> {
+            DatePicker datePicker = (DatePicker) getRootNode().lookup("#input_date");
+            datePicker.setValue(date);
+        });
+    }
+
     @ParameterizedTest
-    @ValueSource(strings = {"cardio", "leggs", "core"})
-    public void test_register_button(String input){
+    //@ValueSource(strings = {"cardio", "leggs", "core"})
+    @MethodSource("provideWorkoutData")
+    public void test_register_button(String input, LocalDate expectedDate){
         Workout original_latest_workout = get_latest_workout();
         clickOn("#input_workout" );
         type_string(input);
+        pick_date(expectedDate);
         clickOn("#register_button");
         Workout new_latest_workout = get_latest_workout();
+        Workout expectedWorkout = new Workout(input, expectedDate);
         assertNotEquals(original_latest_workout, new_latest_workout);
-        assertEquals(new_latest_workout.toString(), (new Workout(input)).toString());
+        assertEquals(new_latest_workout.toString(), expectedWorkout.toString());
+    }
+
+    private static Stream<Arguments> provideWorkoutData() {
+        return Stream.of(
+            Arguments.of("cardio", LocalDate.of(2024, 10, 11)),
+            Arguments.of("leggs", LocalDate.of(2024, 10, 12)),
+            Arguments.of("core", LocalDate.of(2024, 10, 13))
+        );
     }
 }
