@@ -63,7 +63,7 @@ public class AppController {
         }
     }
 
-    public void handleEdit(Workout w) {
+    public void handleEdit(Workout w) { //fired when double clicking on element in the workout_list
     
         if(input_workout.getText().equals("")){ //if there is written something in the field this need to be added first
 
