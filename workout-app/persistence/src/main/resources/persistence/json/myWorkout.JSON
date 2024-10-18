@@ -1,4 +1,7 @@
 {
-  "workouts" : [ 
-     ]
+  "workouts" : [ {
+    "description" : "sdfgh"
+  }, {
+    "description" : "kkdd"
+  } ]
 }
