@@ -12,9 +12,9 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AppController">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="380.0" prefWidth="517.0" style="-fx-background-color: #748B6F; -fx-border-width: 10;" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="380.0" prefWidth="517.0" style="-fx-background-color: #CAE9F5; -fx-border-width: 10;" VBox.vgrow="ALWAYS">
       <children>
-            <TextArea fx:id="input_workout" layoutX="14.0" layoutY="119.0" prefHeight="200.0" prefWidth="288.0" style="-fx-background-color: #C3CBD6; -fx-highlight-text-fill: #C3CBD6; -fx-fill: #2A403D;">
+            <TextArea fx:id="input_workout" layoutX="14.0" layoutY="119.0" prefHeight="200.0" prefWidth="288.0" style="-fx-background-color: #C3CBD6; -fx-highlight-text-fill: #C3CBD6;">
                <font>
                   <Font name="Arial Nova Light" size="13.0" />
                </font></TextArea>
@@ -22,16 +22,16 @@
                <font>
                   <Font name="Arial Nova Light" size="18.0" />
                </font></Button>
-            <TableView fx:id="workouts_list" layoutX="334.0" layoutY="62.0" prefHeight="326.0" prefWidth="252.0" style="-fx-border-width: 2; -fx-border-color: #2A403D; ">
+            <TableView fx:id="workouts_list" layoutX="334.0" layoutY="62.0" prefHeight="326.0" prefWidth="252.0" style="-fx-border-width: 2; -fx-border-color: #0E86D4;">
               <columns>
                 <TableColumn fx:id="workouts_column" prefWidth="251.0" style="-fx-font-family: Arial Nova Light; -fx-cursor: hand;" text="Previous workouts" />
               </columns>
             </TableView>
-            <Text fill="WHITE" layoutX="14.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #C3CBD6;" text="Workout Log" wrappingWidth="265.38037109375">
+            <Text fill="WHITE" layoutX="14.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #0E86D4;" text="Workout Log" wrappingWidth="265.38037109375">
                <font>
                   <Font name="Arial Nova Cond Light" size="40.0" />
                </font></Text>
-            <DatePicker layoutX="14.0" layoutY="86.0" prefHeight="25.0" prefWidth="288.0" style="-fx-font-family: Arial Nova Light; -fx-background-color: #C3CBD6; -fx-fill: #2A403D;" />
+            <DatePicker layoutX="14.0" layoutY="86.0" prefHeight="25.0" prefWidth="288.0" style="-fx-font-family: Arial Nova Light; -fx-background-color: #C3CBD6;" />
             <Button layoutX="521.0" layoutY="30.0" mnemonicParsing="false" style="-fx-background-color: #D05663; -fx-cursor: hand;" text="Clear All" textFill="#c3cbd6">
                <font>
                   <Font name="Arial Nova Light" size="13.0" />
