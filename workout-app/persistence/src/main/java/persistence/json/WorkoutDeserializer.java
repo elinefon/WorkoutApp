@@ -1,6 +1,8 @@
 package persistence.json;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
@@ -25,12 +27,14 @@ public class WorkoutDeserializer extends JsonDeserializer<Workout> {
         if(jsonNode instanceof ObjectNode){
             ObjectNode objectNode = (ObjectNode) jsonNode;
             JsonNode textNode = objectNode.get("description");
-            if(textNode instanceof TextNode){
-                Workout workout = new Workout(((TextNode) textNode).asText());
+            JsonNode dateNode = objectNode.get("date");
+            if(textNode instanceof TextNode && dateNode instanceof TextNode){
+                String dateString = ((TextNode) dateNode).asText();
+                LocalDate date = LocalDate.parse(dateString);
+                Workout workout = new Workout(((TextNode) textNode).asText(), date);
                 return workout;
             }
         }
         return null;
     }
-
 }
