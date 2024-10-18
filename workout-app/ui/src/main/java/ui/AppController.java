@@ -9,6 +9,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import persistence.WorkoutPersistence;
+import java.time.LocalDate;
+import javafx.scene.control.DatePicker;
+
 
 public class AppController {
 
@@ -18,6 +21,9 @@ public class AppController {
     private TextArea input_workout;
 
     @FXML
+    private DatePicker input_date;
+
+    @FXML
     private Button register_button;
 
     @FXML
@@ -25,6 +31,9 @@ public class AppController {
 
     @FXML
     private TableColumn<Workout, String> workouts_column;
+
+    @FXML
+    private TableColumn<Workout, LocalDate> date_column;
 
     private WorkoutLog workoutLog;
     private WorkoutPersistence persistence;
@@ -36,6 +45,8 @@ public class AppController {
 
         workouts_column.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
 
+        date_column.setCellValueFactory(new PropertyValueFactory<>("date"));
+        
         persistence = new WorkoutPersistence(); //Create an persistence object
         
         updateFileName("myWorkout.JSON"); //loading previous workouts and updating the table
@@ -44,8 +55,9 @@ public class AppController {
     @FXML
     public void handleRegister() {
         String session = input_workout.getText();
-        if (!session.isEmpty()) {
-            Workout newWorkout = new Workout(session); //create new workout from what the user typed into input
+        LocalDate date = input_date.getValue();
+        if (!session.isEmpty() && date != null) {
+            Workout newWorkout = new Workout(session, date); //create new workout from what the user typed into input
             
             workoutLog.addWorkout(newWorkout); //adds that new workout to the log
 
@@ -54,6 +66,7 @@ public class AppController {
             updateTableView(); //update table
             
             input_workout.clear(); //clear input field to allow for a new input
+            input_date.setValue(null);
         }
     }
 
