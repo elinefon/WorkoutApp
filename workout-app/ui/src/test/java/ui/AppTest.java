@@ -58,18 +58,19 @@ public class AppTest extends ApplicationTest {
         return root;
     }
 
-
-
     private Workout get_latest_workout() {
-        //return ((Label) getRootNode().lookup("#operandView")).;
         String fxid = "#workouts_list";
         TableView<Workout> workout_list = (TableView<Workout>) getRootNode().lookup(fxid);
         ObservableList<Workout> obserbable_workout_list = workout_list.getItems();
-
         return obserbable_workout_list.get(obserbable_workout_list.size() - 1);
-
-
     }
+
+    private int getAmoutWorkouts() {
+        TableView<Workout> workout_list = (TableView<Workout>) getRootNode().lookup("#workouts_list");
+        ObservableList<Workout> obserbable_workout_list = workout_list.getItems();
+        return obserbable_workout_list.size();
+    }
+
 
     private void type_string(String string){ 
         String keys[] = string.split("");
@@ -90,5 +91,23 @@ public class AppTest extends ApplicationTest {
         Workout new_latest_workout = get_latest_workout();
         assertNotEquals(original_latest_workout, new_latest_workout);
         assertEquals(new_latest_workout.toString(), (new Workout(input)).toString());
+    }
+
+    @Test
+    public void testEditing(){
+        Workout original_latest_workout = get_latest_workout();
+
+        int workoutLogSize = getAmoutWorkouts();
+        Node lastRow = lookup("#workouts_list .table-row-cell").nth(workoutLogSize-1).query();
+        doubleClickOn(lastRow);
+      
+        clickOn("#input_workout" );
+        type_string("change");
+        clickOn("#register_button");
+
+        Workout new_latest_workout = get_latest_workout();
+        System.out.println(original_latest_workout + ", " + new_latest_workout);
+        assertNotEquals(original_latest_workout, new_latest_workout);
+        assertEquals(new_latest_workout.toString(), (new Workout("corechange")).toString());
     }
 }
