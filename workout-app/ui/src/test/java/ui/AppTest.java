@@ -83,6 +83,13 @@ public class AppTest extends ApplicationTest {
     }
 
     @Test
+    public void testRegiserButtonWhenEmptyInputField(){
+        int workoutLogSize = getAmoutWorkouts();
+        clickOn("#register_button");
+        assertEquals(workoutLogSize, getAmoutWorkouts());
+    }
+    
+    @Test
     public void testHandleEdit(){
         Workout original_latest_workout = get_latest_workout();
         //get the row to click on
