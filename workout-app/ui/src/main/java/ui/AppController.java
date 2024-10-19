@@ -2,7 +2,9 @@ package ui;
 
 import core.Workout;
 import core.WorkoutLog;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -34,9 +36,13 @@ public class AppController {
     public void initialize() {
         workoutLog = new WorkoutLog(); //creates a new workout log instance
 
+        workouts_list.setEditable(true);
         workouts_column.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
+        workouts_column.setOnEditStart(e -> {
+                handleEdit(e.getRowValue());});
 
         persistence = new WorkoutPersistence(); //Create an persistence object
+
         
         updateFileName("myWorkout.JSON"); //loading previous workouts and updating the table
     }
@@ -55,6 +61,20 @@ public class AppController {
             
             input_workout.clear(); //clear input field to allow for a new input
         }
+    }
+
+    public void handleEdit(Workout w) { //fired when double clicking on element in the workout_list
+    
+        if(input_workout.getText().equals("")){ //if there is written something in the field this need to be added first
+
+            input_workout.setText(w.getWorkoutInput()); //set the input field
+            
+            //TODO: after adding date need to set the date as well
+
+            workoutLog.removeWorkout(w);
+            updateTableView();
+        }
+        
     }
 
     //public so that tests can be written in another file
