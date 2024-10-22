@@ -1,12 +1,9 @@
 package ui;
 
-import java.util.ArrayList;
-
 import core.Workout;
 import core.WorkoutLog;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -20,9 +17,6 @@ public class AppController {
 
     @FXML
     private TextArea input_workout;
-
-    @FXML
-    private Button register_button;
 
     @FXML
     private TableView<Workout> workouts_list;
