@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import core.Workout;
 import core.WorkoutLog;
-import javafx.event.Event;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -47,6 +47,8 @@ public class AppController {
 
         
         updateFileName("myWorkout.JSON"); //loading previous workouts and updating the table
+        
+        workouts_list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     @FXML
@@ -77,6 +79,16 @@ public class AppController {
             updateTableView();
         }
         
+    }
+
+    public void handleDelete() {
+        ObservableList<Workout> selectedRows;
+        selectedRows = workouts_list.getSelectionModel().getSelectedItems();
+        for (Workout w : selectedRows) {
+            workoutLog.removeWorkout(w);
+        }
+        persistence.saveWorkoutLog(workoutLog, fileName);
+        updateTableView();
     }
 
     @FXML

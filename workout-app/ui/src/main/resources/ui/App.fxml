@@ -37,6 +37,11 @@
                   <Font name="Arial Nova Light" size="13.0" />
                </font>
             </Button>
+            <Button fx:id="deleteButton" layoutX="461.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleDelete" style="-fx-background-color: #D05663; -fx-cursor: hand;" text="Delete" textFill="#c3cbd6">
+               <font>
+                  <Font name="Arial Nova Light" size="13.0" />
+               </font>
+            </Button>
       </children>
     </AnchorPane>
   </children>
