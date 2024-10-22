@@ -56,23 +56,15 @@ The screenshot shows the date input field
 
 As a person that logs my workouts, I want to be able to edit earlier registered workouts, so that I can correct mistakes and add important information.
 
-The user wants a place to save completed workout excercises to make it easy to find them again later. The excercises should be added to a file by entering the details into a text field and clicking an "Add" button. All the excercises should end up in the same file and displayed on screen after they are registered so that the user can easily view their workout history.
+The user want the oppertunety to add changes after clicking register on a workout. This will be added by doubleclicking on the element that the user wish to change. If the user is in the process of adding a new element this will need to be regisered before editing another.
 
 ### Important to be able to see
 
-- When working out: a text field to write excercises into and a button to register them
-- After working out: history of previous excercises displayed on screen
+- When doubleclicking on an element the user can edit a workout
 
 ### Important to be able to do
   
-- Add new excercises
-
-### Screenshot
-
-![App Screenshot](ui/src/main/resources/ui/img/workoutapp.PNG)
-*Figure 1: Screenshot of the UI*
-
-The screenshot shows the input field with the "Add" button underneath and a display area where the workout history will appear when excercises are registered.
+- Edit (the workout is deleted from list and the input fields are filled out)
 
 ## Delete and Clear input (us-4)
 
