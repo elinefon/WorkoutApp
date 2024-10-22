@@ -1,5 +1,7 @@
 package ui;
 
+import java.util.ArrayList;
+
 import core.Workout;
 import core.WorkoutLog;
 import javafx.event.Event;
@@ -75,6 +77,15 @@ public class AppController {
             updateTableView();
         }
         
+    }
+
+    @FXML
+    public void handleClear(){ //Triggers on clicking "clear all" button
+        for (Workout workout : workoutLog.getWorkouts()){
+            workoutLog.removeWorkout(workout);
+        }
+        persistence.saveWorkoutLog(workoutLog, fileName);
+        updateTableView();
     }
 
     //public so that tests can be written in another file
