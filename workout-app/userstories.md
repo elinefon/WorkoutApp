@@ -54,17 +54,17 @@ The user need to connect each workout to a date to make it easier for the user t
 
 ### Screenshot
 
-Se bottom figure 2
+See bottom figure 2
 
 ## Edit (us-3)
 
-As a person that logs my workouts, I want to be able to edit earlier registered workouts, so that I can correct mistakes and add important information.
+As a person that logs my workouts, I want to be able to edit previously registered workouts, so that I can correct mistakes and add important information.
 
-The user want the oppertunety to add changes after clicking register on a workout. This will be added by doubleclicking on the element that the user wish to change. If the user is in the process of adding a new element this will need to be regisered before editing another.
+The user want the opportunity to add changes after clicking register on a workout. This will be added by double clicking on the element that the user wish to change. If the user is in the process of adding a new element this will need to be regisered before editing another.
 
 ### Important to be able to see
 
-- When doubleclicking on an element the user can edit a workout
+- When double clicking on an element the user can edit a workout
 
 ### Important to be able to do
   
@@ -74,9 +74,9 @@ The user want the oppertunety to add changes after clicking register on a workou
 
 As a person that logs my workouts, I want to be able to delete workouts that was very long ago or was added by mistake so that my workout log contains only the workouts I want.
 
-Also I want the option to clear all workout from the list, so that I can start creating a new list fast without having to use a lot of time to delete each workout individually.
+I also want the option to clear all workouts from the list, so that I can start creating a new list fast without having to use a lot of time deleting each workout individually.
 
-The user want to be able to remove (delete and clear (delete all) )workout in list if something is added by mistake or if the user do not want any of their previous workouts.
+The user want to be able to remove (delete and clear) workouts in list if something is added by mistake or if the user don't want any of their previous workouts. On all the elements there will be added a delete button on the right side, under the condition that the workout exists. If there are no elements there won't be any delete buttons, also if you click clear in this case, nothing will happen.
 
 ### Important to be able to see
 
@@ -90,7 +90,7 @@ The user want to be able to remove (delete and clear (delete all) )workout in li
 
 ### Screenshot
 
-![App Screenshot](ui/src/main/resources/ui/img/workoutapp-release2.PNG)
-*Figure 2: Screenshot of the UI after release 2*
+![App Screenshot](ui/src/main/resources/ui/img/workoutapp-release3.PNG)
+*Figure 2: Screenshot of the UI after release 3*
 
-The screenshot with clear button and dateinput
+The screenshot with clear button and date input
