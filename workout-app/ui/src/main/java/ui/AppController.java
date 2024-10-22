@@ -1,5 +1,7 @@
 package ui;
 
+import java.util.ArrayList;
+
 import core.Workout;
 import core.WorkoutLog;
 import javafx.collections.ObservableList;
@@ -84,6 +86,15 @@ public class AppController {
         selectedRows = workouts_list.getSelectionModel().getSelectedItems();
         for (Workout w : selectedRows) {
             workoutLog.removeWorkout(w);
+        }
+        persistence.saveWorkoutLog(workoutLog, fileName);
+        updateTableView();
+    }
+
+    @FXML
+    public void handleClear(){ //Triggers on clicking "clear all" button
+        for (Workout workout : workoutLog.getWorkouts()){
+            workoutLog.removeWorkout(workout);
         }
         persistence.saveWorkoutLog(workoutLog, fileName);
         updateTableView();
