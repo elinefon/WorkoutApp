@@ -47,12 +47,9 @@ The user need to connect each workout to a date to make it easier for the user t
 
 ### Screenshot
 
-![App Screenshot](ui/src/main/resources/ui/img/workoutapp.PNG)
-*Figure 1: Screenshot of the UI*
+Se bottom figure 2
 
-The screenshot shows the date input field
-
-## Add Changes (us-3)
+## Edit (us-3)
 
 As a person that logs my workouts, I want to be able to edit earlier registered workouts, so that I can correct mistakes and add important information.
 
@@ -68,22 +65,25 @@ The user want the oppertunety to add changes after clicking register on a workou
 
 ## Delete and Clear input (us-4)
 
-As a health and fitness interested person, I want to keep track of my workouts so that I can repeat the excercises later without worrying about remembering past sessions.
+As a person that logs my workouts, I want to be able to delete workouts that was very long ago or was added by mistake so that my workout log contains only the workouts I want.
 
-The user wants a place to save completed workout excercises to make it easy to find them again later. The excercises should be added to a file by entering the details into a text field and clicking an "Add" button. All the excercises should end up in the same file and displayed on screen after they are registered so that the user can easily view their workout history.
+Also I want the option to clear all workout from the list, so that I can start creating a new list fast without having to use a lot of time to delete each workout individually.
+
+The user want to be able to remove (delete and clear (delete all) )workout in list if something is added by mistake or if the user do not want any of their previous workouts.
 
 ### Important to be able to see
 
-- When working out: a text field to write excercises into and a button to register them
-- After working out: history of previous excercises displayed on screen
+- Clear: button for removing all of the workouts
+- Delete: buttons on all the workouts
 
 ### Important to be able to do
   
-- Add new excercises
+- Remove all the workouts
+- Remove workouts individually
 
 ### Screenshot
 
-![App Screenshot](ui/src/main/resources/ui/img/workoutapp.PNG)
-*Figure 1: Screenshot of the UI*
+![App Screenshot](ui/src/main/resources/ui/img/workoutapp-release2.PNG)
+*Figure 2: Screenshot of the UI after release 2*
 
-The screenshot shows the input field with the "Add" button underneath and a display area where the workout history will appear when excercises are registered.
+The screenshot with clear button and dateinput
