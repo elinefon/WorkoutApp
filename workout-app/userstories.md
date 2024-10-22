@@ -6,7 +6,14 @@ This application functions as a workout diary. The purpose is for the users to b
 
 To keep track of requirements and priorities when developing the app, we have user stories. These describe the key functionalities our app should have and why they are important.
 
-## Workout log (us-1)
+Userstories below:
+
+- Register workout
+- Date log
+- Edit
+- Delete and Clear
+
+## Register workout (us-1)
 
 As a health and fitness interested person, I want to keep track of my workouts so that I can repeat the excercises later without worrying about remembering past sessions.
 
