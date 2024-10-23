@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -70,12 +71,6 @@ public class AppTest extends ApplicationTest {
         return observable_workout_list.get(observable_workout_list.size() - 1);
 
 
-    }
-
-    private int getAmoutWorkouts() {
-        TableView<Workout> workout_list = (TableView<Workout>) getRootNode().lookup("#workouts_list");
-        ObservableList<Workout> obserbable_workout_list = workout_list.getItems();
-        return obserbable_workout_list.size();
     }
 
     private int getAmoutWorkouts() {

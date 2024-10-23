@@ -12,6 +12,11 @@ public class Workout {
         this.date = date;
     }
 
+    public Workout(String workoutInput) {
+        this.workoutInput = workoutInput;
+        this.date = LocalDate.now();
+    }
+
     //Getters, Setters and toString
 
     public String getWorkoutInput() {
