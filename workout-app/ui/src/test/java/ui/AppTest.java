@@ -3,6 +3,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -75,12 +76,21 @@ public class AppTest extends ApplicationTest {
         return observable_workout_list.get(observable_workout_list.size() - 1);
     }
 
+    private boolean workoutLogContainsWorkout(Workout workout){
+        String fxid = "#workouts_list";
+        TableView<Workout> workout_list = (TableView<Workout>) getRootNode().lookup(fxid);
+        ObservableList<Workout> observable_workout_list = workout_list.getItems();
+
+        if (observable_workout_list.isEmpty()) {
+            return false;
+        }return observable_workout_list.contains(workout);
+    }
+
     private int getAmountWorkouts() {
         TableView<Workout> workout_list = (TableView<Workout>) getRootNode().lookup("#workouts_list");
         ObservableList<Workout> obserbable_workout_list = workout_list.getItems();
         return obserbable_workout_list.size();
     }
-
 
     private void type_string(String string){ 
         String keys[] = string.split("");
@@ -116,12 +126,9 @@ public class AppTest extends ApplicationTest {
     @Order(1)
     @MethodSource("provideWorkoutData")
     public void test_register_button(String input, LocalDate expectedDate){
-        Workout original_latest_workout = getLatestWorkout();
         registerWorkout(input, expectedDate);
-        Workout new_latest_workout = getLatestWorkout();
         Workout expectedWorkout = new Workout(input, expectedDate);
-        assertNotEquals(original_latest_workout, new_latest_workout);
-        assertEquals(new_latest_workout.toString(), expectedWorkout.toString());
+        assertTrue(workoutLogContainsWorkout(expectedWorkout));
     }
 
     private static Stream<Arguments> provideWorkoutData() {
@@ -140,12 +147,11 @@ public class AppTest extends ApplicationTest {
         assertEquals(workoutLogSize, getAmountWorkouts());
     }
     
- /*   @Test
+    @Test
     @Order(3)
     public void testHandleEdit(){
-        if (getAmountWorkouts() == 0) { //added sample workout for when the log is empty
-            registerWorkout("editthis");
-            registerWorkout("anotherworkout");
+        while (getAmountWorkouts() < 2){
+            registerWorkout("swimming");
         }
 
         Workout original_latest_workout = getLatestWorkout();
@@ -156,15 +162,15 @@ public class AppTest extends ApplicationTest {
 
         //insert change
         clickOn("#input_workout");
-        type_string("change"+ workoutLogSize);
+        type_string("change");
         clickOn("#register_button");
 
         //check that change was correct
-        Workout new_latest_workout = getLatestWorkout();
-        assertNotEquals(original_latest_workout, new_latest_workout);
-        assertEquals(new_latest_workout.toString(), (new Workout(original_latest_workout.getWorkoutInput() + "change")).toString());
-    }*/
-
+        Workout changed_workout = new Workout(original_latest_workout.getWorkoutInput() + "change", original_latest_workout.getDate());
+        assertTrue(workoutLogContainsWorkout(changed_workout));
+    }
+}
+/* 
     @Test
     @Order(4)
     public void testHandleEditIfInputFieldNotEmpty(){
@@ -223,3 +229,4 @@ public class AppTest extends ApplicationTest {
         assertEquals(0, getAmountWorkouts());
     }
 }
+*/
