@@ -1,20 +1,20 @@
 package ui;
 
+import java.time.LocalDate;
+
 import core.Workout;
 import core.WorkoutLog;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import persistence.WorkoutPersistence;
-import java.time.LocalDate;
-
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 
 
 public class AppController {
@@ -22,25 +22,25 @@ public class AppController {
     //adding all fields in app
 
     @FXML
-    private TextArea input_workout;
+    private TextArea inputWorkout;
 
     @FXML
-    private DatePicker input_date;
+    private DatePicker inputDate;
 
     @FXML
-    private Button register_button;
+    private Button registerButton;
 
     @FXML
-    private TableView<Workout> workouts_list;
+    private TableView<Workout> workoutsList;
 
     @FXML
-    private TableColumn<Workout, String> workouts_column;
+    private TableColumn<Workout, String> workoutsColumn;
 
     @FXML
-    private TableColumn<Workout, String> date_column;
+    private TableColumn<Workout, String> dateColumn;
 
     @FXML
-    private Label error_label;
+    private Label errorLabel;
 
     private WorkoutLog workoutLog;
     private WorkoutPersistence persistence;
@@ -50,34 +50,34 @@ public class AppController {
     public void initialize() {
         workoutLog = new WorkoutLog(); //creates a new workout log instance
 
-        input_date.setEditable(false); // Makes the user unable to write in the date picker field
+        inputDate.setEditable(false); // Makes the user unable to write in the date picker field
 
-        workouts_list.setEditable(true);
-        workouts_column.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
-        workouts_column.setOnEditStart(e -> {
+        workoutsList.setEditable(true);
+        workoutsColumn.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
+        workoutsColumn.setOnEditStart(e -> {
                 handleEdit(e.getRowValue());});
 
-        workouts_column.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
-        date_column.setCellValueFactory(new PropertyValueFactory<>("date"));
+        workoutsColumn.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         
         persistence = new WorkoutPersistence(); //Create an persistence object
 
         
         updateFileName("myWorkout.JSON"); //loading previous workouts and updating the table
         
-        workouts_list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        workoutsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     @FXML
     public void handleRegister() {
-        String session = input_workout.getText();
-        LocalDate date = input_date.getValue();
+        String session = inputWorkout.getText();
+        LocalDate date = inputDate.getValue();
 
-        error_label.setText("");
+        errorLabel.setText("");
 
         if (!session.isEmpty() && date != null) {
             if (date.isAfter(LocalDate.now())) {
-                error_label.setText("Date can not be in the future");
+                errorLabel.setText("Date can not be in the future");
                 return;
             }
             
@@ -89,17 +89,17 @@ public class AppController {
 
             updateTableView(); //update table
             
-            input_workout.clear(); //clear input field to allow for a new input
-            input_date.setValue(null);
-            error_label.setText("");
+            inputWorkout.clear(); //clear input field to allow for a new input
+            inputDate.setValue(null);
+            errorLabel.setText("");
         }
     }
 
-    public void handleEdit(Workout w) { //fired when double clicking on element in the workout_list
+    public void handleEdit(Workout w) { //fired when double clicking on element in the workoutList
     
-        if(input_workout.getText().equals("")){ //if there is written something in the field this need to be added first
+        if(inputWorkout.getText().equals("")){ //if there is written something in the field this need to be added first
 
-            input_workout.setText(w.getWorkoutInput()); //set the input field
+            inputWorkout.setText(w.getWorkoutInput()); //set the input field
             
             //TODO: after adding date need to set the date as well
 
@@ -111,7 +111,7 @@ public class AppController {
 
     public void handleDelete() {
         ObservableList<Workout> selectedRows;
-        selectedRows = workouts_list.getSelectionModel().getSelectedItems();
+        selectedRows = workoutsList.getSelectionModel().getSelectedItems();
         for (Workout w : selectedRows) {
             workoutLog.removeWorkout(w);
         }
@@ -138,8 +138,8 @@ public class AppController {
 
     private void updateTableView() {
         workoutLog.sortByDate();
-        workouts_list.getItems().clear(); //clear existing items to prevent doubles
-        workouts_list.getItems().addAll(workoutLog.getWorkouts()); //adds items from workoutlog to the table
+        workoutsList.getItems().clear(); //clear existing items to prevent doubles
+        workoutsList.getItems().addAll(workoutLog.getWorkouts()); //adds items from workoutlog to the table
     }
   
 }
