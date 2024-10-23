@@ -33,7 +33,7 @@ import javafx.scene.control.Label;
 /**
  * TestFX App test
  */
-public class AppTest extends ApplicationTest {
+public class AppControllerTest extends ApplicationTest {
 
     private AppController controller;
     private Parent root;
