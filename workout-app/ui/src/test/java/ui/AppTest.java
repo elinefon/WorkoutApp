@@ -1,7 +1,15 @@
 package ui;
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
+import core.Workout;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -60,6 +68,12 @@ public class AppTest extends ApplicationTest {
         return obserbable_workout_list.size();
     }
 
+    private int getAmoutWorkouts() {
+        TableView<Workout> workout_list = (TableView<Workout>) getRootNode().lookup("#workouts_list");
+        ObservableList<Workout> obserbable_workout_list = workout_list.getItems();
+        return obserbable_workout_list.size();
+    }
+
 
     private void type_string(String string){ 
         String keys[] = string.split("");
@@ -91,6 +105,12 @@ public class AppTest extends ApplicationTest {
     
     @Test
     public void testHandleEdit(){
+        if (getAmoutWorkouts() == 0) { //added sample workout for when the log is empty
+            clickOn("#input_workout");
+            type_string("sampleWorkout");
+            clickOn("#register_button");
+        }
+
         Workout original_latest_workout = get_latest_workout();
         //get the row to click on
         int workoutLogSize = getAmoutWorkouts();
@@ -121,5 +141,29 @@ public class AppTest extends ApplicationTest {
         clickOn("#register_button");
 
         assertEquals(get_latest_workout().toString(), (new Workout("placeholderaddchange").toString()));
+    }
+
+    @Test
+    public void testHandleDelete() {
+        int originalSize = getAmoutWorkouts();
+        Node lastRow = lookup("#workouts_list .table-row-cell").nth(originalSize - 1).query();
+        clickOn(lastRow);
+        
+        clickOn("#deleteButton");
+        
+        assertEquals(originalSize - 1, getAmoutWorkouts()); //verifies that size has decreased by 1
+    }
+
+    @Test
+    public void testHandleDeleteIfNoWorkoutSelected() {
+        int originalSize = getAmoutWorkouts();
+        clickOn("#deleteButton");
+        assertEquals(originalSize, getAmoutWorkouts());
+    }
+
+    @Test
+    public void testHandleClear() {
+        clickOn("#clearAllButton");
+        assertEquals(0, getAmoutWorkouts());
     }
 }
