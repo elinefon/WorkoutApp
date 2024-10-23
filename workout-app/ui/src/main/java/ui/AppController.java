@@ -84,8 +84,12 @@ public class AppController {
 
         errorLabel.setText("");
 
-        if (!session.isEmpty() && date != null) {
-            if (date.isAfter(LocalDate.now())) {
+        if (!session.isEmpty() ) {
+            //La denne stå
+            if (date == null){
+                date = LocalDate.now();
+            }
+            else if (date.isAfter(LocalDate.now())) {
                 errorLabel.setText("Date can not be in the future");
                 return;
             }

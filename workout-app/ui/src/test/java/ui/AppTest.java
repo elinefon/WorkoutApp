@@ -65,12 +65,29 @@ public class AppTest extends ApplicationTest {
         return observableWorkoutList.get(observableWorkoutList.size() - 1);
     }
 
+    private boolean workoutLogContainsWorkout(Workout workout){
+        String fxid = "#workoutsList";
+        TableView<Workout> workoutList = (TableView<Workout>) getRootNode().lookup(fxid);
+        ObservableList<Workout> observableWorkoutList = workoutList.getItems();
+
+        if (observableWorkoutList.isEmpty()) {
+            return false;
+        }
+
+        for (Workout w: observableWorkoutList){
+            if(w.getWorkoutInput().equals(workout.getWorkoutInput()) && w.getDate().equals(workout.getDate())){
+                return true;
+            }
+        }
+        return false;
+
+    }
+
     private int getAmountWorkouts() {
         TableView<Workout> workoutList = (TableView<Workout>) getRootNode().lookup("#workoutsList");
         ObservableList<Workout> obserbableWorkoutList = workoutList.getItems();
         return obserbableWorkoutList.size();
     }
-
 
     private void typeString(String string){ 
         String keys[] = string.split("");
@@ -106,12 +123,9 @@ public class AppTest extends ApplicationTest {
     @Order(1)
     @MethodSource("provideWorkoutData")
     public void testRegisterButton(String input, LocalDate expectedDate){
-        Workout originalLatestWorkout = getLatestWorkout();
         registerWorkout(input, expectedDate);
-        Workout newLatestWorkout = getLatestWorkout();
         Workout expectedWorkout = new Workout(input, expectedDate);
-        assertNotEquals(originalLatestWorkout, newLatestWorkout);
-        assertEquals(newLatestWorkout.toString(), expectedWorkout.toString());
+        assertTrue(workoutLogContainsWorkout(expectedWorkout));
     }
 
     private static Stream<Arguments> provideWorkoutData() {
@@ -130,31 +144,31 @@ public class AppTest extends ApplicationTest {
         assertEquals(workoutLogSize, getAmountWorkouts());
     }
     
- /*   @Test
+    @Test
     @Order(3)
     public void testHandleEdit(){
-        if (getAmountWorkouts() == 0) { //added sample workout for when the log is empty
-            clickOn("#input_workout");
-            type_string("sampleWorkout");
-            clickOn("#register_button");
+
+        while (getAmountWorkouts() < 2){
+            registerWorkout("swimming");
         }
 
         Workout originalLatestWorkout = getLatestWorkout();
         //get the row to click on
         int workoutLogSize = getAmountWorkouts();
-        Node lastRow = lookup("#workoutsList .table-row-cell").nth(workoutLogSize-1).query();
-        doubleClickOn(lastRow);
+        Node lastCell = lookup("#workoutsList .table-row-cell").nth(workoutLogSize - 1).lookup(".table-cell:nth-child(1)").query();
+        doubleClickOn(lastCell);
+
 
         //insert change
         clickOn("#inputWorkout");
-        typeString("change"+ workoutLogSize);
+        typeString("change");
         clickOn("#registerButton");
 
         //check that change was correct
-        Workout newLatestWorkout = getLatestWorkout();
-        assertNotEquals(originalLatestWorkout, newLatestWorkout);
-        assertEquals(newLatestWorkout.toString(), (new Workout(originalLatestWorkout.getWorkoutInput() + "change")).toString());
-    }*/
+        Workout changedWorkout = new Workout(originalLatestWorkout.getWorkoutInput() + "change", originalLatestWorkout.getDate());
+        assertTrue(workoutLogContainsWorkout(changedWorkout));
+    }
+
 
     @Test
     @Order(4)
@@ -167,8 +181,8 @@ public class AppTest extends ApplicationTest {
         typeString("placeholder");
 
         int workoutLogSize = getAmountWorkouts();
-        Node lastRow = lookup("#workoutsList .table-row-cell").nth(workoutLogSize-1).query();
-        doubleClickOn(lastRow);
+        Node lastCell = lookup("#workoutsList .table-row-cell").nth(workoutLogSize - 1).lookup(".table-cell:nth-child(1)").query();
+        doubleClickOn(lastCell);
 
         clickOn("#inputWorkout" );
         typeString("addchange");
@@ -185,12 +199,12 @@ public class AppTest extends ApplicationTest {
             registerWorkout("editthis");
         }
 
-        int originalSize = getAmountWorkouts();
-        Node lastRow = lookup("#workoutsList .table-row-cell").nth(originalSize - 1).query();
-        clickOn(lastRow);
+        int workoutLogSize = getAmountWorkouts();
+        Node lastCell = lookup("#workoutsList .table-row-cell").nth(workoutLogSize - 1).lookup(".table-cell:nth-child(1)").query();
+        clickOn(lastCell);
         clickOn("#deleteButton");
         
-        assertEquals(originalSize - 1, getAmountWorkouts()); //verifies that size has decreased by 1
+        assertEquals(workoutLogSize - 1, getAmountWorkouts()); //verifies that size has decreased by 1
     }
 
     @Test
@@ -199,20 +213,23 @@ public class AppTest extends ApplicationTest {
         if (getAmountWorkouts() == 0) { //added sample workout for when the log is empty
             registerWorkout("editthis");
         }
-        int originalSize = getAmountWorkouts();
+        int workoutLogSize = getAmountWorkouts();
         clickOn("#deleteButton");
-        assertEquals(originalSize, getAmountWorkouts());
+        assertEquals(workoutLogSize, getAmountWorkouts());
     }
 
     @Test
     @Order(7)
     public void testHandleClear() {
-        if (getAmountWorkouts() == 0) { //added sample workout for when the log is empty
-            registerWorkout("editthis");
-            registerWorkout("another workout");
+        while (getAmountWorkouts() < 2){
+            registerWorkout("running");
         }
         clickOn("#clearAllButton");
         assertEquals(0, getAmountWorkouts());
+
+        while (getAmountWorkouts() < 2){
+            registerWorkout("running");
+        }
     }
 
     @Test
@@ -224,10 +241,9 @@ public class AppTest extends ApplicationTest {
         }
 
         registerWorkout("cardio", LocalDate.of(2025, 10, 10));
-        Label errorLabel = (Label) getRootNode().lookup("#error_label");
+        Label errorLabel = (Label) getRootNode().lookup("#errorLabel");
         assertEquals("Date can not be in the future", errorLabel.getText());
-        Workout original_latest_workout = getLatestWorkout();
-        assertNotEquals(LocalDate.of(2025, 10, 10), original_latest_workout.getDate());
-         
+        Workout originalLatestWorkout = getLatestWorkout();
+        assertNotEquals(LocalDate.of(2025, 10, 10), originalLatestWorkout.getDate());
     }
-}
+    }
