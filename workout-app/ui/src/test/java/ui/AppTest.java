@@ -19,17 +19,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
-import java.io.IOException;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-
-import core.Workout;
-
 /**
  * TestFX App test
  */
@@ -62,18 +51,11 @@ public class AppTest extends ApplicationTest {
         return obserbable_workout_list.get(obserbable_workout_list.size() - 1);
     }
 
-    private int getAmoutWorkouts() {
+    private int getAmountWorkouts() {
         TableView<Workout> workout_list = (TableView<Workout>) getRootNode().lookup("#workouts_list");
         ObservableList<Workout> obserbable_workout_list = workout_list.getItems();
         return obserbable_workout_list.size();
     }
-
-    private int getAmoutWorkouts() {
-        TableView<Workout> workout_list = (TableView<Workout>) getRootNode().lookup("#workouts_list");
-        ObservableList<Workout> obserbable_workout_list = workout_list.getItems();
-        return obserbable_workout_list.size();
-    }
-
 
     private void type_string(String string){ 
         String keys[] = string.split("");
@@ -98,14 +80,14 @@ public class AppTest extends ApplicationTest {
 
     @Test
     public void testRegiserButtonWhenEmptyInputField(){
-        int workoutLogSize = getAmoutWorkouts();
+        int workoutLogSize = getAmountWorkouts();
         clickOn("#register_button");
-        assertEquals(workoutLogSize, getAmoutWorkouts());
+        assertEquals(workoutLogSize, getAmountWorkouts());
     }
     
     @Test
     public void testHandleEdit(){
-        if (getAmoutWorkouts() == 0) { //added sample workout for when the log is empty
+        if (getAmountWorkouts() == 0) { //added sample workout for when the log is empty
             clickOn("#input_workout");
             type_string("sampleWorkout");
             clickOn("#register_button");
@@ -113,7 +95,7 @@ public class AppTest extends ApplicationTest {
 
         Workout original_latest_workout = get_latest_workout();
         //get the row to click on
-        int workoutLogSize = getAmoutWorkouts();
+        int workoutLogSize = getAmountWorkouts();
         Node lastRow = lookup("#workouts_list .table-row-cell").nth(workoutLogSize-1).query();
         doubleClickOn(lastRow);
         //insert change
@@ -133,7 +115,7 @@ public class AppTest extends ApplicationTest {
         clickOn("#input_workout");
         type_string("placeholder");
 
-        int workoutLogSize = getAmoutWorkouts();
+        int workoutLogSize = getAmountWorkouts();
         Node lastRow = lookup("#workouts_list .table-row-cell").nth(workoutLogSize-1).query();
         doubleClickOn(lastRow);
         clickOn("#input_workout" );
@@ -145,25 +127,25 @@ public class AppTest extends ApplicationTest {
 
     @Test
     public void testHandleDelete() {
-        int originalSize = getAmoutWorkouts();
+        int originalSize = getAmountWorkouts();
         Node lastRow = lookup("#workouts_list .table-row-cell").nth(originalSize - 1).query();
         clickOn(lastRow);
         
         clickOn("#deleteButton");
         
-        assertEquals(originalSize - 1, getAmoutWorkouts()); //verifies that size has decreased by 1
+        assertEquals(originalSize - 1, getAmountWorkouts()); //verifies that size has decreased by 1
     }
 
     @Test
     public void testHandleDeleteIfNoWorkoutSelected() {
-        int originalSize = getAmoutWorkouts();
+        int originalSize = getAmountWorkouts();
         clickOn("#deleteButton");
-        assertEquals(originalSize, getAmoutWorkouts());
+        assertEquals(originalSize, getAmountWorkouts());
     }
 
     @Test
     public void testHandleClear() {
         clickOn("#clearAllButton");
-        assertEquals(0, getAmoutWorkouts());
+        assertEquals(0, getAmountWorkouts());
     }
 }

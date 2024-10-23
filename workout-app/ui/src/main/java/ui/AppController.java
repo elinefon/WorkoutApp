@@ -4,6 +4,7 @@ import core.Workout;
 import core.WorkoutLog;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -24,6 +25,9 @@ public class AppController {
     @FXML
     private TableColumn<Workout, String> workouts_column;
 
+    @FXML
+    private Button deleteButton;
+
     private WorkoutLog workoutLog;
     private WorkoutPersistence persistence;
     private String fileName;
@@ -43,6 +47,12 @@ public class AppController {
         updateFileName("myWorkout.JSON"); //loading previous workouts and updating the table
         
         workouts_list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        deleteButton.setDisable(true);
+
+        workouts_list.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> { //listener to check if user selected row
+            deleteButton.setDisable(newSelection == null); //if no row is selected, disable the button
+        });
     }
 
     @FXML
