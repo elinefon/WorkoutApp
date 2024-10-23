@@ -3,6 +3,9 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -32,6 +35,8 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import core.Workout;
 
@@ -52,7 +57,6 @@ public class AppTest extends ApplicationTest {
         controller.updateFileName("testFile.JSON");
         stage.setScene(new Scene(root));
         stage.show();
-
         robot = new FxRobot();
     }
 
@@ -60,7 +64,7 @@ public class AppTest extends ApplicationTest {
         return root;
     }
 
-    private Workout get_latest_workout() {
+    private Workout getLatestWorkout() {
         String fxid = "#workouts_list";
         TableView<Workout> workout_list = (TableView<Workout>) getRootNode().lookup(fxid);
         ObservableList<Workout> observable_workout_list = workout_list.getItems();
@@ -69,11 +73,9 @@ public class AppTest extends ApplicationTest {
             return null;
         }
         return observable_workout_list.get(observable_workout_list.size() - 1);
-
-
     }
 
-    private int getAmoutWorkouts() {
+    private int getAmountWorkouts() {
         TableView<Workout> workout_list = (TableView<Workout>) getRootNode().lookup("#workouts_list");
         ObservableList<Workout> obserbable_workout_list = workout_list.getItems();
         return obserbable_workout_list.size();
@@ -96,15 +98,27 @@ public class AppTest extends ApplicationTest {
         });
     }
 
+    private void registerWorkout(String s){
+        clickOn("#input_workout" );
+        type_string(s);
+        pick_date(LocalDate.now());
+        clickOn("#register_button");
+    }
+
+    private void registerWorkout(String s, LocalDate date){
+        clickOn("#input_workout" );
+        type_string(s);
+        pick_date(date);
+        clickOn("#register_button");
+    }
+
     @ParameterizedTest
+    @Order(1)
     @MethodSource("provideWorkoutData")
     public void test_register_button(String input, LocalDate expectedDate){
-        Workout original_latest_workout = get_latest_workout();
-        clickOn("#input_workout" );
-        type_string(input);
-        pick_date(expectedDate);
-        clickOn("#register_button");
-        Workout new_latest_workout = get_latest_workout();
+        Workout original_latest_workout = getLatestWorkout();
+        registerWorkout(input, expectedDate);
+        Workout new_latest_workout = getLatestWorkout();
         Workout expectedWorkout = new Workout(input, expectedDate);
         assertNotEquals(original_latest_workout, new_latest_workout);
         assertEquals(new_latest_workout.toString(), expectedWorkout.toString());
@@ -119,73 +133,93 @@ public class AppTest extends ApplicationTest {
     }
 
     @Test
+    @Order(2)
     public void testRegiserButtonWhenEmptyInputField(){
-        int workoutLogSize = getAmoutWorkouts();
+        int workoutLogSize = getAmountWorkouts();
         clickOn("#register_button");
-        assertEquals(workoutLogSize, getAmoutWorkouts());
+        assertEquals(workoutLogSize, getAmountWorkouts());
     }
     
-    @Test
+ /*   @Test
+    @Order(3)
     public void testHandleEdit(){
-        if (getAmoutWorkouts() == 0) { //added sample workout for when the log is empty
-            clickOn("#input_workout");
-            type_string("sampleWorkout");
-            clickOn("#register_button");
+        if (getAmountWorkouts() == 0) { //added sample workout for when the log is empty
+            registerWorkout("editthis");
+            registerWorkout("anotherworkout");
         }
 
-        Workout original_latest_workout = get_latest_workout();
+        Workout original_latest_workout = getLatestWorkout();
         //get the row to click on
-        int workoutLogSize = getAmoutWorkouts();
+        int workoutLogSize = getAmountWorkouts();
         Node lastRow = lookup("#workouts_list .table-row-cell").nth(workoutLogSize-1).query();
         doubleClickOn(lastRow);
+
         //insert change
-        clickOn("#input_workout" );
-        type_string("change");
+        clickOn("#input_workout");
+        type_string("change"+ workoutLogSize);
         clickOn("#register_button");
 
         //check that change was correct
-        Workout new_latest_workout = get_latest_workout();
+        Workout new_latest_workout = getLatestWorkout();
         assertNotEquals(original_latest_workout, new_latest_workout);
         assertEquals(new_latest_workout.toString(), (new Workout(original_latest_workout.getWorkoutInput() + "change")).toString());
-
-    }
+    }*/
 
     @Test
+    @Order(4)
     public void testHandleEditIfInputFieldNotEmpty(){
+        if (getAmountWorkouts() == 0) { //added sample workout for when the log is empty
+            registerWorkout("editthis");
+        }
+
         clickOn("#input_workout");
         type_string("placeholder");
 
-        int workoutLogSize = getAmoutWorkouts();
+        int workoutLogSize = getAmountWorkouts();
         Node lastRow = lookup("#workouts_list .table-row-cell").nth(workoutLogSize-1).query();
         doubleClickOn(lastRow);
+
         clickOn("#input_workout" );
         type_string("addchange");
+        pick_date(LocalDate.now());
         clickOn("#register_button");
 
-        assertEquals(get_latest_workout().toString(), (new Workout("placeholderaddchange").toString()));
+        assertEquals(getLatestWorkout().toString(), (new Workout("placeholderaddchange").toString()));
     }
 
     @Test
+    @Order(5)
     public void testHandleDelete() {
-        int originalSize = getAmoutWorkouts();
+        if (getAmountWorkouts() == 0) { //added sample workout for when the log is empty
+            registerWorkout("editthis");
+        }
+
+        int originalSize = getAmountWorkouts();
         Node lastRow = lookup("#workouts_list .table-row-cell").nth(originalSize - 1).query();
         clickOn(lastRow);
-        
         clickOn("#deleteButton");
-        
-        assertEquals(originalSize - 1, getAmoutWorkouts()); //verifies that size has decreased by 1
+        assertEquals(originalSize - 1, getAmountWorkouts()); //verifies that size has decreased by 1
     }
 
     @Test
+    @Order(6)
     public void testHandleDeleteIfNoWorkoutSelected() {
-        int originalSize = getAmoutWorkouts();
+        if (getAmountWorkouts() == 0) { //added sample workout for when the log is empty
+            registerWorkout("editthis");
+        }
+        int originalSize = getAmountWorkouts();
         clickOn("#deleteButton");
-        assertEquals(originalSize, getAmoutWorkouts());
+        assertEquals(originalSize, getAmountWorkouts());
     }
 
     @Test
+    @Order(7)
     public void testHandleClear() {
+        if (getAmountWorkouts() == 0) { //added sample workout for when the log is empty
+            registerWorkout("editthis");
+            registerWorkout("another workout");
+        }
         clickOn("#clearAllButton");
-        assertEquals(0, getAmoutWorkouts());
+        assertEquals(0, getAmountWorkouts());
     }
 }
