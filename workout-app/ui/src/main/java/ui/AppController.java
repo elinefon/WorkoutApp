@@ -10,6 +10,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import persistence.WorkoutPersistence;
+import java.time.LocalDate;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+
 
 public class AppController {
 
@@ -19,10 +25,22 @@ public class AppController {
     private TextArea input_workout;
 
     @FXML
+    private DatePicker input_date;
+
+    @FXML
+    private Button register_button;
+
+    @FXML
     private TableView<Workout> workouts_list;
 
     @FXML
     private TableColumn<Workout, String> workouts_column;
+
+    @FXML
+    private TableColumn<Workout, String> date_column;
+
+    @FXML
+    private Label error_label;
 
     private WorkoutLog workoutLog;
     private WorkoutPersistence persistence;
@@ -32,11 +50,16 @@ public class AppController {
     public void initialize() {
         workoutLog = new WorkoutLog(); //creates a new workout log instance
 
+        input_date.setEditable(false); // Makes the user unable to write in the date picker field
+
         workouts_list.setEditable(true);
         workouts_column.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
         workouts_column.setOnEditStart(e -> {
                 handleEdit(e.getRowValue());});
 
+        workouts_column.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
+        date_column.setCellValueFactory(new PropertyValueFactory<>("date"));
+        
         persistence = new WorkoutPersistence(); //Create an persistence object
 
         
@@ -48,8 +71,17 @@ public class AppController {
     @FXML
     public void handleRegister() {
         String session = input_workout.getText();
-        if (!session.isEmpty()) {
-            Workout newWorkout = new Workout(session); //create new workout from what the user typed into input
+        LocalDate date = input_date.getValue();
+
+        error_label.setText("");
+
+        if (!session.isEmpty() && date != null) {
+            if (date.isAfter(LocalDate.now())) {
+                error_label.setText("Date can not be in the future");
+                return;
+            }
+            
+            Workout newWorkout = new Workout(session, date); //create new workout from what the user typed into input
             
             workoutLog.addWorkout(newWorkout); //adds that new workout to the log
 
@@ -58,6 +90,8 @@ public class AppController {
             updateTableView(); //update table
             
             input_workout.clear(); //clear input field to allow for a new input
+            input_date.setValue(null);
+            error_label.setText("");
         }
     }
 
@@ -103,6 +137,7 @@ public class AppController {
     }
 
     private void updateTableView() {
+        workoutLog.sortByDate();
         workouts_list.getItems().clear(); //clear existing items to prevent doubles
         workouts_list.getItems().addAll(workoutLog.getWorkouts()); //adds items from workoutlog to the table
     }

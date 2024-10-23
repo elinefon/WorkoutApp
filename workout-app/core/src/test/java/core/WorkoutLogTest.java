@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -30,17 +31,17 @@ public class WorkoutLogTest {
     @Test
     public void testAddingWorkout(){
         assertEquals(0, wlog.getWorkouts().size());
-        wlog.addWorkout(new Workout("Gå opp trappa"));
+        wlog.addWorkout(new Workout("Gå opp trappa", LocalDate.of(2024, 10, 17)));
         assertEquals(1, wlog.getWorkouts().size());
-        wlog.addWorkout(new Workout("Jogge opp trappa"));
+        wlog.addWorkout(new Workout("Jogge opp trappa", LocalDate.of(2024, 10, 18)));
         assertEquals(2, wlog.getWorkouts().size());
     }
 
     @Test
     public void testGetWorkouts(){
         List<Workout> wlist = new ArrayList<>();
-        wlist.add(new Workout("Joggetur"));
-        wlist.add(new Workout("Svømmetur"));
+        wlist.add(new Workout("Joggetur", LocalDate.of(2024, 10, 13)));
+        wlist.add(new Workout("Svømmetur", LocalDate.of(2024, 10, 12)));
         wlog.setWorkouts(wlist);
         assertEquals(wlist, wlog.getWorkouts());
     }
@@ -48,8 +49,8 @@ public class WorkoutLogTest {
     @Test
     public void testSetWorkouts(){
         List<Workout> wlist = new ArrayList<>();
-        wlist.add(new Workout("Svømming"));
-        wlist.add(new Workout("Joggetur"));
+        wlist.add(new Workout("Svømming", LocalDate.of(2024, 10, 8)));
+        wlist.add(new Workout("Joggetur", LocalDate.of(2024, 10, 7)));
         wlog.setWorkouts(wlist);
         assertEquals(wlist, wlog.getWorkouts());
     }
@@ -69,8 +70,8 @@ public class WorkoutLogTest {
 
     @Test
     public void testIterator(){
-        wlog.addWorkout(new Workout("Leg day"));
-        wlog.addWorkout(new Workout("Tabata"));
+        wlog.addWorkout(new Workout("Leg day", LocalDate.of(2024, 10, 4)));
+        wlog.addWorkout(new Workout("Tabata", LocalDate.of(2024, 10, 3)));
         Iterator<Workout> iterator = wlog.iterator();
         assertEquals("Leg day", iterator.next().getWorkoutInput());
         assertEquals("Tabata", iterator.next().getWorkoutInput());
@@ -78,11 +79,10 @@ public class WorkoutLogTest {
 
     @Test
     public void testToString(){
-        wlog.addWorkout(new Workout("Joggetur"));
-        wlog.addWorkout(new Workout("Intervaller"));
-        String expected = "WorkoutLog [[Workout [workoutInput=Joggetur], Workout [workoutInput=Intervaller]]]";
+        wlog.addWorkout(new Workout("Joggetur", LocalDate.of(2024, 10, 2)));
+        wlog.addWorkout(new Workout("Intervaller", LocalDate.of(2024, 10, 1)));
+        String expected = "WorkoutLog [[Workout [workoutInput=Joggetur, date=2024-10-02], Workout [workoutInput=Intervaller, date=2024-10-01]]]";
         assertEquals(expected, wlog.toString());
     }
-
 
 }

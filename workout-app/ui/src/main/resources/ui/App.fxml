@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
@@ -14,7 +15,7 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="380.0" prefWidth="517.0" style="-fx-background-color: #CAE9F5; -fx-border-width: 10;" VBox.vgrow="ALWAYS">
       <children>
-            <TextArea fx:id="input_workout" layoutX="14.0" layoutY="119.0" prefHeight="200.0" prefWidth="288.0" style="-fx-background-color: #C3CBD6; -fx-highlight-text-fill: #C3CBD6;">
+            <TextArea fx:id="input_workout" layoutX="14.0" layoutY="124.0" prefHeight="190.0" prefWidth="288.0" style="-fx-background-color: #C3CBD6; -fx-highlight-text-fill: #C3CBD6;">
                <font>
                   <Font name="Arial Nova Light" size="13.0" />
                </font></TextArea>
@@ -24,14 +25,15 @@
                </font></Button>
             <TableView fx:id="workouts_list" layoutX="334.0" layoutY="62.0" prefHeight="326.0" prefWidth="252.0" style="-fx-border-width: 2; -fx-border-color: #0E86D4;">
               <columns>
-                <TableColumn fx:id="workouts_column" prefWidth="251.0" style="-fx-font-family: Arial Nova Light; -fx-cursor: hand;" text="Previous workouts" />
+                <TableColumn fx:id="workouts_column" prefWidth="125.0" style="-fx-font-family: Arial Nova Light; -fx-cursor: hand;" text="Previous workouts" />
+                <TableColumn fx:id="date_column" prefWidth="125.0" style="-fx-font-family: Arial Nova Light; -fx-cursor: hand;" text="Date" />
               </columns>
             </TableView>
             <Text fill="WHITE" layoutX="14.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #0E86D4;" text="Workout Log" wrappingWidth="265.38037109375">
                <font>
                   <Font name="Arial Nova Cond Light" size="40.0" />
                </font></Text>
-            <DatePicker layoutX="14.0" layoutY="86.0" prefHeight="25.0" prefWidth="288.0" style="-fx-font-family: Arial Nova Light; -fx-background-color: #C3CBD6;" />
+            <DatePicker fx:id="input_date" layoutX="14.0" layoutY="86.0" prefHeight="25.0" prefWidth="288.0" style="-fx-font-family: Arial Nova Light; -fx-background-color: #C3CBD6;" />
             <Button fx:id="clearAllButton" layoutX="521.0" layoutY="30.0" mnemonicParsing="false" style="-fx-background-color: #D05663; -fx-cursor: hand;" text="Clear All" onAction="#handleClear" textFill="#c3cbd6">
                <font>
                   <Font name="Arial Nova Light" size="13.0" />
@@ -42,6 +44,7 @@
                   <Font name="Arial Nova Light" size="13.0" />
                </font>
             </Button>
+            <Label fx:id="error_label" layoutX="150.0" layoutY="110.0" textFill="red" style="-fx-font-family: Arial Nova Light;" />
       </children>
     </AnchorPane>
   </children>

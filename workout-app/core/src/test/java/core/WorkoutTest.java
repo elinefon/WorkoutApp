@@ -2,21 +2,25 @@ package core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class WorkoutTest {
 
     private Workout winput;
+    private LocalDate date;
 
     @BeforeEach
     public void setUp(){
-        winput = new Workout("Leg day");
+        date = LocalDate.of(2024, 10, 18);
+        winput = new Workout("Leg day", date);
     }
 
     @Test
     public void testConstructor(){
         assertEquals("Leg day", winput.getWorkoutInput());
+        assertEquals(date, winput.getDate());
     }
 
     @Test
@@ -34,7 +38,7 @@ public class WorkoutTest {
 
     @Test
     public void testToString(){
-        String expected = "Workout [workoutInput=Leg day]";
+        String expected = "Workout [workoutInput=Leg day, date=2024-10-18]";
         assertEquals(expected, winput.toString());
     }
 }

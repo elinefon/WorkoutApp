@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Iterator;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,8 +59,8 @@ public class WorkoutPersistenceTest {
     }
 
     private WorkoutLog createWorkoutLog() {
-        Workout w1 = new Workout("Leg day");
-        Workout w2 = new Workout("Chest day");
+        Workout w1 = new Workout("Leg day", LocalDate.of(2024, 10, 2));
+        Workout w2 = new Workout("Chest day", LocalDate.of(2024, 10, 1));
         WorkoutLog log = new WorkoutLog();
         log.addWorkout(w1);
         log.addWorkout(w2);
