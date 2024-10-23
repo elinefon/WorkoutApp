@@ -19,6 +19,17 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import java.io.IOException;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import core.Workout;
+
 /**
  * TestFX App test
  */
@@ -56,6 +67,13 @@ public class AppTest extends ApplicationTest {
         ObservableList<Workout> obserbable_workout_list = workout_list.getItems();
         return obserbable_workout_list.size();
     }
+
+    private int getAmoutWorkouts() {
+        TableView<Workout> workout_list = (TableView<Workout>) getRootNode().lookup("#workouts_list");
+        ObservableList<Workout> obserbable_workout_list = workout_list.getItems();
+        return obserbable_workout_list.size();
+    }
+
 
     private void type_string(String string){ 
         String keys[] = string.split("");

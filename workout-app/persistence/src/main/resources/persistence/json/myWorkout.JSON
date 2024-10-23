@@ -1,4 +1,9 @@
 {
-  "workouts" : [ 
-    ]
+  "workouts" : [ {
+    "description" : "legs"
+  }, {
+    "description" : "hhh"
+  }, {
+    "description" : "heykjkjk\n"
+  } ]
 }
