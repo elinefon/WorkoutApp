@@ -75,8 +75,10 @@ public class AppController {
 
         error_label.setText("");
 
-        if (!session.isEmpty() && date != null) {
-            if (date.isAfter(LocalDate.now())) {
+        if (!session.isEmpty()) {
+            if(date == null){
+                date = LocalDate.now();
+            } else if (date.isAfter(LocalDate.now())) {
                 error_label.setText("Date can not be in the future");
                 return;
             }
@@ -101,7 +103,7 @@ public class AppController {
 
             input_workout.setText(w.getWorkoutInput()); //set the input field
             
-            //TODO: after adding date need to set the date as well
+            input_date.setValue(w.getDate());
 
             workoutLog.removeWorkout(w);
             updateTableView();
