@@ -76,12 +76,12 @@ As a person that logs my workouts, I want to be able to delete workouts that was
 
 I also want the option to clear all workouts from the list, so that I can start creating a new list fast without having to use a lot of time deleting each workout individually.
 
-The user want to be able to remove (delete and clear) workouts in list if something is added by mistake or if the user don't want any of their previous workouts. On all the elements there will be added a delete button on the right side, under the condition that the workout exists. If there are no elements there won't be any delete buttons, also if you click clear in this case, nothing will happen.
+The user want to be able to remove (delete and clear) workouts in list if something is added by mistake or if the user don't want any of their previous workouts. The user can click on the elements they want to delete and then the delete button. If there are no elements there won't be any delete buttons, also if you click clear in this case, nothing will happen.
 
 ### Important to be able to see
 
 - Clear: button for removing all of the workouts
-- Delete: buttons on all the workouts
+- Delete: button that removes chosen elements
 
 ### Important to be able to do
   
@@ -93,4 +93,4 @@ The user want to be able to remove (delete and clear) workouts in list if someth
 ![App Screenshot](ui/src/main/resources/ui/img/workoutapp-release3.PNG)
 *Figure 2: Screenshot of the UI after release 3*
 
-The screenshot with clear button and date input
+The screenshot with clear and delete button and date input
