@@ -84,8 +84,6 @@ public class AppTest extends ApplicationTest {
         TableView<Workout> workout_list = (TableView<Workout>) getRootNode().lookup(fxid);
         ObservableList<Workout> observable_workout_list = workout_list.getItems();
 
-        System.out.println(observable_workout_list +", "+ workout);
-
         if (observable_workout_list.isEmpty()) {
             return false;
         }
@@ -133,7 +131,7 @@ public class AppTest extends ApplicationTest {
         pick_date(date);
         clickOn("#register_button");
     }
-/* 
+ 
     @ParameterizedTest
     @Order(1)
     @MethodSource("provideWorkoutData")
@@ -150,7 +148,7 @@ public class AppTest extends ApplicationTest {
             Arguments.of("core", LocalDate.of(2024, 10, 13))
         );
     }
-*/
+
     @Test
     @Order(2)
     public void testRegiserButtonWhenEmptyInputField(){
@@ -165,20 +163,20 @@ public class AppTest extends ApplicationTest {
         while (getAmountWorkouts() < 2){
             registerWorkout("swimming");
         }
-
         Workout original_latest_workout = getLatestWorkout();
         //get the cell to click on
+      
         int workoutLogSize = getAmountWorkouts();
+
         Node lastCell = lookup("#workouts_list .table-row-cell").nth(workoutLogSize - 1)
                           .lookup(".table-cell:nth-child(1)").query();
+
         doubleClickOn(lastCell);
 
         //insert change
         clickOn("#input_workout");
         type_string("change");
         clickOn("#register_button");
-
-        System.out.println(original_latest_workout);
 
         //check that change was correct
         Workout changed_workout = new Workout(original_latest_workout.getWorkoutInput() + "change", original_latest_workout.getDate());
@@ -206,8 +204,8 @@ public class AppTest extends ApplicationTest {
 
         assertTrue(workoutLogContainsWorkout(new Workout("placeholderaddchange")));
     }
-}
-/*
+
+
     @Test
     @Order(5)
     public void testHandleDelete() {
@@ -215,19 +213,16 @@ public class AppTest extends ApplicationTest {
             registerWorkout("editthis");
         }
 
-        int originalSize = getAmountWorkouts();
-        Node lastRow = lookup("#workouts_list .table-row-cell").nth(originalSize - 1).query();
-        clickOn(lastRow);
+        int workoutLogSize = getAmountWorkouts();
+        Node lastCell = lookup("#workouts_list .table-row-cell").nth(workoutLogSize - 1).lookup(".table-cell:nth-child(1)").query();
+        clickOn(lastCell);
         clickOn("#deleteButton");
-        assertEquals(originalSize - 1, getAmountWorkouts()); //verifies that size has decreased by 1
+        assertEquals(workoutLogSize - 1, getAmountWorkouts()); //verifies that size has decreased by 1
     }
 
     @Test
     @Order(6)
     public void testHandleDeleteIfNoWorkoutSelected() {
-        if (getAmountWorkouts() == 0) { //added sample workout for when the log is empty
-            registerWorkout("editthis");
-        }
         int originalSize = getAmountWorkouts();
         clickOn("#deleteButton");
         assertEquals(originalSize, getAmountWorkouts());
@@ -236,12 +231,14 @@ public class AppTest extends ApplicationTest {
     @Test
     @Order(7)
     public void testHandleClear() {
-        if (getAmountWorkouts() == 0) { //added sample workout for when the log is empty
-            registerWorkout("editthis");
-            registerWorkout("another workout");
+        while (getAmountWorkouts() < 2){
+            registerWorkout("running");
         }
         clickOn("#clearAllButton");
         assertEquals(0, getAmountWorkouts());
+
+        while (getAmountWorkouts() < 2){
+            registerWorkout("running");
+        }
     }
 }
-*/
