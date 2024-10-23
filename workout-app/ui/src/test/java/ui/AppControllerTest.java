@@ -32,7 +32,7 @@ import org.junit.jupiter.params.provider.Arguments;
 /**
  * TestFX App test
  */
-public class AppTest extends ApplicationTest {
+public class AppControllerTest extends ApplicationTest {
 
     private AppController controller;
     private Parent root;
