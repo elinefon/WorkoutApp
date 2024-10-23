@@ -21,6 +21,12 @@ public class WorkoutLog implements Iterable<Workout> { //log that iterates over 
     public void addWorkout(Workout workout) { 
         workouts.add(workout);
     }
+ 
+    public void removeWorkout(Workout workout) {
+        if(workout != null){
+            workouts.remove(workout);
+        }
+    }
 
     //Getters and Setters
     public void setWorkouts(List<Workout> workouts) {

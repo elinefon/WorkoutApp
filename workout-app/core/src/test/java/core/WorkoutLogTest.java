@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,6 +53,19 @@ public class WorkoutLogTest {
         wlist.add(new Workout("Joggetur", LocalDate.of(2024, 10, 7)));
         wlog.setWorkouts(wlist);
         assertEquals(wlist, wlog.getWorkouts());
+    }
+
+    @Test
+    public void testRemovingWorkout(){
+        Workout w1 = new Workout("Svømming");
+        Workout w2 = new Workout("Turn");
+        wlog.setWorkouts(Arrays.asList(w1, w2));
+        assertEquals(2, wlog.getWorkouts().size());
+        wlog.removeWorkout(w1);
+        assertEquals(1, wlog.getWorkouts().size());
+        wlog.removeWorkout(new Workout("False workout"));
+        wlog.removeWorkout(null);
+        assertEquals(1, wlog.getWorkouts().size());
     }
 
     @Test

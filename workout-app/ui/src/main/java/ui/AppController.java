@@ -2,8 +2,9 @@ package ui;
 
 import core.Workout;
 import core.WorkoutLog;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -49,12 +50,20 @@ public class AppController {
 
         input_date.setEditable(false); // Makes the user unable to write in the date picker field
 
+        workouts_list.setEditable(true);
+        workouts_column.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
+        workouts_column.setOnEditStart(e -> {
+                handleEdit(e.getRowValue());});
+
         workouts_column.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
         date_column.setCellValueFactory(new PropertyValueFactory<>("date"));
         
         persistence = new WorkoutPersistence(); //Create an persistence object
+
         
         updateFileName("myWorkout.JSON"); //loading previous workouts and updating the table
+        
+        workouts_list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     @FXML
@@ -82,6 +91,39 @@ public class AppController {
             input_date.setValue(null);
             error_label.setText("");
         }
+    }
+
+    public void handleEdit(Workout w) { //fired when double clicking on element in the workout_list
+    
+        if(input_workout.getText().equals("")){ //if there is written something in the field this need to be added first
+
+            input_workout.setText(w.getWorkoutInput()); //set the input field
+            
+            //TODO: after adding date need to set the date as well
+
+            workoutLog.removeWorkout(w);
+            updateTableView();
+        }
+        
+    }
+
+    public void handleDelete() {
+        ObservableList<Workout> selectedRows;
+        selectedRows = workouts_list.getSelectionModel().getSelectedItems();
+        for (Workout w : selectedRows) {
+            workoutLog.removeWorkout(w);
+        }
+        persistence.saveWorkoutLog(workoutLog, fileName);
+        updateTableView();
+    }
+
+    @FXML
+    public void handleClear(){ //Triggers on clicking "clear all" button
+        for (Workout workout : workoutLog.getWorkouts()){
+            workoutLog.removeWorkout(workout);
+        }
+        persistence.saveWorkoutLog(workoutLog, fileName);
+        updateTableView();
     }
 
     //public so that tests can be written in another file
