@@ -97,7 +97,6 @@ public class AppTest extends ApplicationTest {
     }
 
     @ParameterizedTest
-    //@ValueSource(strings = {"cardio", "leggs", "core"})
     @MethodSource("provideWorkoutData")
     public void test_register_button(String input, LocalDate expectedDate){
         Workout original_latest_workout = get_latest_workout();
@@ -114,7 +113,7 @@ public class AppTest extends ApplicationTest {
     private static Stream<Arguments> provideWorkoutData() {
         return Stream.of(
             Arguments.of("cardio", LocalDate.of(2024, 10, 11)),
-            Arguments.of("leggs", LocalDate.of(2024, 10, 12)),
+            Arguments.of("legs", LocalDate.of(2024, 10, 12)),
             Arguments.of("core", LocalDate.of(2024, 10, 13))
         );
     }
