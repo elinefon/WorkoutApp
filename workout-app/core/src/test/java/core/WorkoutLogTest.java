@@ -78,6 +78,26 @@ public class WorkoutLogTest {
     }
 
     @Test
+    public void testSortByDate(){
+        Workout boxing = new Workout("Boxing", LocalDate.of(2024, 10, 2));
+        Workout hike = new Workout("Hike", LocalDate.of(2024, 10, 1));
+        Workout hiit = new Workout("HIIT", LocalDate.of(2024, 10, 4));
+        Workout run = new Workout("Run", LocalDate.of(2024, 10, 3));
+        
+        wlog.addWorkout(boxing);
+        wlog.addWorkout(hike);
+        wlog.addWorkout(hiit);
+        wlog.addWorkout(run);
+
+        wlog.sortByDate();
+
+        assertEquals(hike, wlog.getWorkouts().get(0));
+        assertEquals(boxing, wlog.getWorkouts().get(1));
+        assertEquals(run, wlog.getWorkouts().get(2));
+        assertEquals(hiit, wlog.getWorkouts().get(3));
+    }
+
+    @Test
     public void testToString(){
         wlog.addWorkout(new Workout("Joggetur", LocalDate.of(2024, 10, 2)));
         wlog.addWorkout(new Workout("Intervaller", LocalDate.of(2024, 10, 1)));

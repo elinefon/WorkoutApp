@@ -37,6 +37,19 @@ public class WorkoutTest {
     }
 
     @Test
+    public void testGetDate(){
+        LocalDate d = LocalDate.of(2024, 10, 10);
+        winput.setDate(d);
+        assertEquals(d, winput.getDate());
+    }
+
+    @Test
+    public void testSetDate(){
+        winput.setDate(LocalDate.of(2024, 10, 14));
+        assertEquals(LocalDate.of(2024, 10, 14), winput.getDate());
+    }
+
+    @Test
     public void testToString(){
         String expected = "Workout [workoutInput=Leg day, date=2024-10-18]";
         assertEquals(expected, winput.toString());
