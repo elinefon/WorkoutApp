@@ -128,8 +128,9 @@ public class AppTest extends ApplicationTest {
     @Order(3)
     public void testHandleEdit(){
         if (getAmountWorkouts() == 0) { //added sample workout for when the log is empty
-            registerWorkout("editthis");
-            registerWorkout("anotherworkout");
+            clickOn("#input_workout");
+            type_string("sampleWorkout");
+            clickOn("#register_button");
         }
 
         Workout originalLatestWorkout = getLatestWorkout();
@@ -182,6 +183,7 @@ public class AppTest extends ApplicationTest {
         Node lastRow = lookup("#workoutsList .table-row-cell").nth(originalSize - 1).query();
         clickOn(lastRow);
         clickOn("#deleteButton");
+        
         assertEquals(originalSize - 1, getAmountWorkouts()); //verifies that size has decreased by 1
     }
 

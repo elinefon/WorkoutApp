@@ -42,6 +42,9 @@ public class AppController {
     @FXML
     private Label errorLabel;
 
+    @FXML
+    private Button deleteButton;
+
     private WorkoutLog workoutLog;
     private WorkoutPersistence persistence;
     private String fileName;
@@ -66,6 +69,12 @@ public class AppController {
         updateFileName("myWorkout.JSON"); //loading previous workouts and updating the table
         
         workoutsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        deleteButton.setDisable(true);
+
+        workoutsList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> { //listener to check if user selected row
+            deleteButton.setDisable(newSelection == null); //if no row is selected, disable the button
+        });
     }
 
     @FXML
