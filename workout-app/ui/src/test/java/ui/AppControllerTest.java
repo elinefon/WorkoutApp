@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
 /**
- * TestFX App test
+ * TestFX App testrunning
  */
 public class AppControllerTest extends ApplicationTest {
 
