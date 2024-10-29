@@ -1,3 +1,18 @@
 {
-  "workouts" : [ ]
+  "workouts" : [ {
+    "description" : "cardio",
+    "date" : "2024-10-11"
+  }, {
+    "description" : "legs",
+    "date" : "2024-10-12"
+  }, {
+    "description" : "running",
+    "date" : "2024-10-29"
+  }, {
+    "description" : "runningchange",
+    "date" : "2024-10-29"
+  }, {
+    "description" : "core",
+    "date" : "2024-10-13"
+  } ]
 }

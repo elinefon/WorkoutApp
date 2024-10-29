@@ -84,12 +84,15 @@ public class AppController {
 
         errorLabel.setText("");
 
-        if (!session.isEmpty() && date != null) {
-            if (date.isAfter(LocalDate.now())) {
+        if (!session.isEmpty() ) {
+            //La denne stå
+            if (date == null){
+                date = LocalDate.now();
+            }
+            else if (date.isAfter(LocalDate.now())) {
                 errorLabel.setText("Date can not be in the future");
                 return;
             }
-            
             Workout newWorkout = new Workout(session, date); //create new workout from what the user typed into input
             
             workoutLog.addWorkout(newWorkout); //adds that new workout to the log
@@ -103,6 +106,7 @@ public class AppController {
             errorLabel.setText("");
         }
     }
+    
 
     public void handleEdit(Workout w) { //fired when double clicking on element in the workoutList
     
@@ -110,7 +114,7 @@ public class AppController {
 
             inputWorkout.setText(w.getWorkoutInput()); //set the input field
             
-            //TODO: after adding date need to set the date as well
+            inputDate.setValue(w.getDate());
 
             workoutLog.removeWorkout(w);
             updateTableView();
