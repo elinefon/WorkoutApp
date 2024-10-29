@@ -3,6 +3,9 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -23,6 +26,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -221,5 +225,33 @@ public class AppTest extends ApplicationTest {
         }
         clickOn("#clearAllButton");
         assertEquals(0, getAmountWorkouts());
+    }
+
+    @Test
+    @Order(8)
+    public void testRegisterWithInvalidDate() {
+        if (getAmountWorkouts() == 0) { //added sample workout for when the log is empty
+            registerWorkout("tabata", LocalDate.of(2024, 10, 13));
+            registerWorkout("hiit", LocalDate.of(2024, 10, 24));
+        }
+
+        registerWorkout("cardio", LocalDate.of(2025, 10, 10));
+        Label errorLabel = (Label) getRootNode().lookup("#error_label");
+        assertEquals("Date can not be in the future", errorLabel.getText());
+        Workout original_latest_workout = getLatestWorkout();
+        assertNotEquals(LocalDate.of(2025, 10, 10), original_latest_workout.getDate());
+
+        // Check that error label is removed after changing to a valid date (use handleEdit with just changing the date)
+        /* 
+        clickOn("#input_date");
+        pick_date(LocalDate.of(2024, 10, 10));
+        clickOn("#register_button")
+
+        assertTrue(errorLabel.getText().isEmpty());
+        Workout new_latest_workout = getLatestWorkout();
+        assertNotNull(new_latest_workout);
+        assertEquals("cardio", new_latest_workout.getWorkoutInput());
+        assertEquals(LocalDate.of(2024, 10, 10), new_latest_workout.getDate());
+        */
     }
 }
