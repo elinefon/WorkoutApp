@@ -1,3 +1,9 @@
 {
-  "workouts" : [ ]
+  "workouts" : [ {
+    "description" : "running",
+    "date" : "2024-10-29"
+  }, {
+    "description" : "runningchange",
+    "date" : "2024-10-29"
+  } ]
 }
