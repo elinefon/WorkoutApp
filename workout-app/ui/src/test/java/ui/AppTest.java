@@ -5,6 +5,11 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,6 +28,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
 /**
  * TestFX App test
@@ -207,5 +213,21 @@ public class AppTest extends ApplicationTest {
         }
         clickOn("#clearAllButton");
         assertEquals(0, getAmountWorkouts());
+    }
+
+    @Test
+    @Order(8)
+    public void testRegisterWithInvalidDate() {
+        if (getAmountWorkouts() == 0) { //added sample workout for when the log is empty
+            registerWorkout("tabata", LocalDate.of(2024, 10, 13));
+            registerWorkout("hiit", LocalDate.of(2024, 10, 24));
+        }
+
+        registerWorkout("cardio", LocalDate.of(2025, 10, 10));
+        Label errorLabel = (Label) getRootNode().lookup("#error_label");
+        assertEquals("Date can not be in the future", errorLabel.getText());
+        Workout original_latest_workout = getLatestWorkout();
+        assertNotEquals(LocalDate.of(2025, 10, 10), original_latest_workout.getDate());
+         
     }
 }
