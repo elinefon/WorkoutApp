@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +20,7 @@ import persistence.json.WorkoutModule;
 public class WorkoutModuleTest {
 
     private static ObjectMapper mapper;
-    private final static String expectedString = "{\"workouts\":[" + "{\"description\":\"Leg day\"}," + "{\"description\":\"Chest day\"}]}";
+    private final static String expectedString = "{\"workouts\":[" + "{\"description\":\"Leg day\",\"date\":\"2024-10-11\"}," + "{\"description\":\"Chest day\",\"date\":\"2024-10-10\"}" + "]}";
 
     @BeforeAll
     public static void setUp() {
@@ -29,8 +30,8 @@ public class WorkoutModuleTest {
     
     //helper method to create a new workout, used in multiple methods
     private WorkoutLog createWorkoutLog() {
-        Workout w1 = new Workout("Leg day");
-        Workout w2 = new Workout("Chest day");
+        Workout w1 = new Workout("Leg day", LocalDate.of(2024, 10, 11));
+        Workout w2 = new Workout("Chest day", LocalDate.of(2024, 10, 10));
         WorkoutLog log = new WorkoutLog();
         log.addWorkout(w1);
         log.addWorkout(w2);
