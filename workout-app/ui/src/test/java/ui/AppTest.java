@@ -243,9 +243,8 @@ public class AppTest extends ApplicationTest {
 
         // Check that error label is removed after changing to a valid date (use handleEdit with just changing the date)
         /* 
-        clickOn("#input_date");
         pick_date(LocalDate.of(2024, 10, 10));
-        clickOn("#register_button")
+        registerWorkout(" ", LocalDate.of(2024, 10, 10));
 
         assertTrue(errorLabel.getText().isEmpty());
         Workout new_latest_workout = getLatestWorkout();
@@ -253,5 +252,6 @@ public class AppTest extends ApplicationTest {
         assertEquals("cardio", new_latest_workout.getWorkoutInput());
         assertEquals(LocalDate.of(2024, 10, 10), new_latest_workout.getDate());
         */
+        
     }
 }
