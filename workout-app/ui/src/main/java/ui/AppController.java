@@ -68,11 +68,11 @@ public class AppController {
         
         updateFileName("myWorkout.JSON"); //loading previous workouts and updating the table
         
-        workouts_list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        workoutsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         deleteButton.setDisable(true);
 
-        workouts_list.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> { //listener to check if user selected row
+        workoutsList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> { //listener to check if user selected row
             deleteButton.setDisable(newSelection == null); //if no row is selected, disable the button
         });
     }
