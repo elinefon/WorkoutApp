@@ -240,18 +240,6 @@ public class AppTest extends ApplicationTest {
         assertEquals("Date can not be in the future", errorLabel.getText());
         Workout original_latest_workout = getLatestWorkout();
         assertNotEquals(LocalDate.of(2025, 10, 10), original_latest_workout.getDate());
-
-        /* 
-        // Check that error label is removed after changing to a valid date
-        pick_date(LocalDate.of(2024, 10, 10));
-        registerWorkout("cardio", LocalDate.of(2024, 10, 10));
-
-        assertTrue(errorLabel.getText().isEmpty());
-        Workout new_latest_workout = getLatestWorkout();
-        assertNotNull(new_latest_workout);
-        assertEquals("cardio", new_latest_workout.getWorkoutInput());
-        assertEquals(LocalDate.of(2024, 10, 10), new_latest_workout.getDate());
-        */
          
     }
 }
