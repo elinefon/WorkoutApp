@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.WelcomeController">
+  <children>
+    <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #CAE9F5; -fx-border-width: 10;">
+      <children>
+        <Button fx:id="getStartedButton" layoutX="245.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleGetStarted" style="-fx-background-color: #D05663; -fx-text-fill: #FFFFFF; -fx-cursor: hand; -fx-font-size: 18px;" text="Get Started" />
+            <Text layoutX="93.0" layoutY="164.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial Nova Cond Light;" text="Welcome to your personal workout log!">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
