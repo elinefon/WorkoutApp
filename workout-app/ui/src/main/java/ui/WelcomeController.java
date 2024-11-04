@@ -10,10 +10,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class WelcomeController {
-
+    
     @FXML
-    private void handleGetStarted(ActionEvent event) {
-        try {
+    public void handleGetStarted(ActionEvent event) throws IOException {
             FXMLLoader loader;
             loader = new FXMLLoader(getClass().getResource("App.fxml")); //creates new fxml-loader instance with the main page with the log
             Parent appRoot = loader.load(); //loads content of App.fxml into parent node to initialize the interface of App.fxml
@@ -21,9 +20,5 @@ public class WelcomeController {
             Stage primaryStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow(); //retrieves the main window of the app
 
             primaryStage.setScene(new Scene(appRoot)); //sets scene of primary scene created using approot (which loads content of App.fxml)
-        } catch (IOException e) {
-            System.err.println("Error occurred: " + e.getMessage());
-        }
     }
-    
 }
