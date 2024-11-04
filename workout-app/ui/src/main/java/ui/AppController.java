@@ -28,9 +28,6 @@ public class AppController {
     private DatePicker inputDate;
 
     @FXML
-    private Button registerButton;
-
-    @FXML
     private TableView<Workout> workoutsList;
 
     @FXML
