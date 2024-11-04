@@ -45,6 +45,9 @@ public class AppController {
     @FXML
     private Button deleteButton;
 
+    @FXML
+    private Button editButton;
+
     private WorkoutLog workoutLog;
     private WorkoutPersistence persistence;
     private String fileName;
@@ -58,7 +61,7 @@ public class AppController {
         workoutsList.setEditable(true);
         workoutsColumn.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
         workoutsColumn.setOnEditStart(e -> {
-                handleEdit(e.getRowValue());});
+                handleEditDoubleClick(e.getRowValue());});
 
         workoutsColumn.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -71,9 +74,12 @@ public class AppController {
         workoutsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         deleteButton.setDisable(true);
+        editButton.setDisable(true);
 
         workoutsList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> { //listener to check if user selected row
-            deleteButton.setDisable(newSelection == null); //if no row is selected, disable the button
+            //if no row is selected, disable the buttons
+            deleteButton.setDisable(newSelection == null);
+            editButton.setDisable(newSelection == null);
         });
     }
 
@@ -108,7 +114,7 @@ public class AppController {
     }
     
 
-    public void handleEdit(Workout w) { //fired when double clicking on element in the workoutList
+    public void handleEditDoubleClick(Workout w) { //fired when double clicking on element in the workoutList
     
         if(inputWorkout.getText().equals("")){ //if there is written something in the field this need to be added first
 
@@ -120,6 +126,14 @@ public class AppController {
             updateTableView();
         }
         
+    }
+
+    public void handleEditButton() {
+        Workout selectedWorkout = workoutsList.getSelectionModel().getSelectedItem();
+        if (inputWorkout.getText().equals("")) {
+            inputWorkout.setText(selectedWorkout.getWorkoutInput());
+            inputDate.setValue(selectedWorkout.getDate());
+        }
     }
 
     public void handleDelete() {

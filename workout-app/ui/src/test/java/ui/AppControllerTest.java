@@ -155,7 +155,6 @@ public class AppControllerTest extends ApplicationTest {
         Node lastCell = lookup("#workoutsList .table-row-cell").nth(workoutLogSize - 1).lookup(".table-cell:nth-child(1)").query();
         doubleClickOn(lastCell);
 
-
         //insert change
         clickOn("#inputWorkout");
         typeString("change");
@@ -164,8 +163,21 @@ public class AppControllerTest extends ApplicationTest {
         //check that change was correct
         Workout changedWorkout = new Workout(originalLatestWorkout.getWorkoutInput() + "change", originalLatestWorkout.getDate());
         assertTrue(workoutLogContainsWorkout(changedWorkout));
-    }
 
+        //doing the same for editing a workout using the button
+        originalLatestWorkout = getLatestWorkout();
+        workoutLogSize = getAmountWorkouts();
+        lastCell = lookup("#workoutsList .table-row-cell").nth(workoutLogSize - 1).lookup(".table-cell:nth-child(1)").query();
+        clickOn(lastCell);
+        clickOn("#editButton");
+
+        clickOn("#inputWorkout");
+        typeString("change");
+        clickOn("#registerButton");
+
+        changedWorkout = new Workout(originalLatestWorkout.getWorkoutInput() + "change", originalLatestWorkout.getDate());
+        assertTrue(workoutLogContainsWorkout(changedWorkout));
+    }
 
     @Test
     @Order(4)
