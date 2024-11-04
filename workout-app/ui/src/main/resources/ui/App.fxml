@@ -34,7 +34,7 @@
                   <Font name="Arial Nova Cond Light" size="40.0" />
                </font></Text>
             <DatePicker fx:id="inputDate" layoutX="14.0" layoutY="86.0" prefHeight="25.0" prefWidth="288.0" style="-fx-font-family: Arial Nova Light; -fx-background-color: #C3CBD6;" />
-            <Button fx:id="clearAllButton" layoutX="521.0" layoutY="30.0" mnemonicParsing="false" style="-fx-background-color: #D05663; -fx-cursor: hand;" text="Clear All" onAction="#handleClear" textFill="#c3cbd6">
+            <Button fx:id="clearAllButton" layoutX="521.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleClear" style="-fx-background-color: #D05663; -fx-cursor: hand;" text="Clear All" textFill="#c3cbd6">
                <font>
                   <Font name="Arial Nova Light" size="13.0" />
                </font>
@@ -44,7 +44,12 @@
                   <Font name="Arial Nova Light" size="13.0" />
                </font>
             </Button>
-            <Label fx:id="errorLabel" layoutX="150.0" layoutY="110.0" textFill="red" style="-fx-font-family: Arial Nova Light;" />
+            <Label fx:id="errorLabel" layoutX="150.0" layoutY="110.0" style="-fx-font-family: Arial Nova Light;" textFill="red" />
+            <Button fx:id="editButton" layoutX="415.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleEditButton" style="-fx-background-color: #D05663; -fx-cursor: hand;" text="Edit" textFill="#c3cbd6">
+               <font>
+                  <Font name="Arial Nova Light" size="13.0" />
+               </font>
+            </Button>
       </children>
     </AnchorPane>
   </children>
