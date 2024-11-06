@@ -58,7 +58,7 @@ public class AppController {
         workoutsList.setEditable(true);
         workoutsColumn.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
         workoutsColumn.setOnEditStart(e -> {
-                handleEditDoubleClick(e.getRowValue());});
+                handleEdit();});
 
         workoutsColumn.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -109,26 +109,13 @@ public class AppController {
         }
     }
     
-
-    public void handleEditDoubleClick(Workout w) { //fired when double clicking on element in the workoutList
-    
-        if(inputWorkout.getText().equals("")){ //if there is written something in the field this need to be added first
-
-            inputWorkout.setText(w.getWorkoutInput()); //set the input field
-            
-            inputDate.setValue(w.getDate());
-
-            workoutLog.removeWorkout(w);
-            updateTableView();
-        }
-        
-    }
-
-    public void handleEditButton() {
+    public void handleEdit() { //fired when double clicking element or clicking edit button
         Workout selectedWorkout = workoutsList.getSelectionModel().getSelectedItem();
         if (inputWorkout.getText().equals("")) {
             inputWorkout.setText(selectedWorkout.getWorkoutInput());
             inputDate.setValue(selectedWorkout.getDate());
+            workoutLog.removeWorkout(selectedWorkout);
+            updateTableView();
         }
     }
 
