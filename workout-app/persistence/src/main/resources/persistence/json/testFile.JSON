@@ -1,21 +1,21 @@
 {
   "workouts" : [ {
-    "description" : "cardio",
+    "workoutInput" : "cardio",
     "date" : "2024-10-11"
   }, {
-    "description" : "legs",
+    "workoutInput" : "legs",
     "date" : "2024-10-12"
   }, {
-    "description" : "running",
+    "workoutInput" : "running",
     "date" : "2024-11-06"
   }, {
-    "description" : "runningchange",
+    "workoutInput" : "runningchange",
     "date" : "2024-11-06"
   }, {
-    "description" : "runningchangechange",
+    "workoutInput" : "runningchangechange",
     "date" : "2024-11-06"
   }, {
-    "description" : "core",
+    "workoutInput" : "core",
     "date" : "2024-10-13"
   } ]
 }

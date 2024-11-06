@@ -20,7 +20,7 @@ import persistence.json.WorkoutModule;
 public class WorkoutModuleTest {
 
     private static ObjectMapper mapper;
-    private final static String expectedString = "{\"workouts\":[" + "{\"description\":\"Leg day\",\"date\":\"2024-10-11\"}," + "{\"description\":\"Chest day\",\"date\":\"2024-10-10\"}" + "]}";
+    private final static String expectedString = "{\"workouts\":[" + "{\"workoutInput\":\"Leg day\",\"date\":\"2024-10-11\"}," + "{\"workoutInput\":\"Chest day\",\"date\":\"2024-10-10\"}" + "]}";
 
     @BeforeAll
     public static void setUp() {

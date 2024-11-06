@@ -11,8 +11,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import core.Workout;
 import core.WorkoutLog;
 import persistence.json.WorkoutModule;
 
@@ -30,6 +33,26 @@ public class WorkoutPersistence {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    @SuppressWarnings("exports")
+    public Workout readValueToWorkout(String value) {
+        try {
+            return mapper.readValue(value, Workout.class);
+        } catch (JsonMappingException e) {
+            throw new IllegalStateException("Issue with creating workout of json: " + e.getMessage());
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException("Issue with creating workout of json: " + e.getMessage());
+        }
+    }   
+
+    @SuppressWarnings("exports")
+    public String writeWorkoutAsJson(Workout workout){
+        try {
+            return mapper.writeValueAsString(workout);
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException("Issue with writing the workout object as json: " + e.getMessage());
+        }
     }
 
     //This method read a workout from the file given. This is never called whitin this module
