@@ -14,28 +14,20 @@ public class WelcomeController {
     private void launchApplication(AppController controller, ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml")); //creates new fxml-loader instance with the main page with the log
         loader.setController(controller);
-            
         Parent appRoot = loader.load(); //loads content of App.fxml into parent node to initialize the interface of App.fxml
-
         Stage primaryStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow(); //retrieves the main window of the app
-
         primaryStage.setScene(new Scene(appRoot)); //sets scene of primary scene created using approot (which loads content of App.fxml)
     }    
     
     @FXML
     public void handleStartLocally(ActionEvent event) throws IOException {
-            
-            AppController controller = new AppController();
-            
-            launchApplication(controller, event);
-            
+            AppController controller = new LocalAppController();
+            launchApplication(controller, event);  
     }
 
     @FXML
-    public void handleStartRemote(ActionEvent event) throws IOException {
-                  
+    public void handleStartRemote(ActionEvent event) throws IOException {  
         AppController controller = new RemoteAppController();
-            
         launchApplication(controller, event);
     
         }

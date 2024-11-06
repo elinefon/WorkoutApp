@@ -2,6 +2,7 @@ package ui;
 
 import core.Workout;
 import core.WorkoutLog;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import persistence.WorkoutPersistence;
 
@@ -26,7 +27,7 @@ public class RemoteAppController extends AppController{
         access = new RemoteAccess();
     }
 
-    public void handleRegister() {
+    public Workout handleRegister() {
         System.out.println(LocalDate.now());
         access.getWorkoutLog();
         access.getWorkout("Arms", LocalDate.now());
@@ -35,6 +36,7 @@ public class RemoteAppController extends AppController{
 
         access.addWorkout(workout);
         access.removeWorkout(workout);
+        return null;
     }
 
     public void handleEditDoubleClick(Workout w) {
@@ -43,11 +45,23 @@ public class RemoteAppController extends AppController{
     public void handleEditButton() {
     }
 
-    public void handleDelete() {
-        
+    public ObservableList handleDelete() {
+        return null;
     }
 
     public void handleClear(){ //Triggers on clicking "clear all" button
+    }
+
+    @Override
+    public void updateTableView() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateTableView'");
+    }
+
+    @Override
+    public void updateFileName(String name) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateFileName'");
     }
 
    

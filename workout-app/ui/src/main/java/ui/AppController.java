@@ -3,7 +3,6 @@ package ui;
 import java.time.LocalDate;
 
 import core.Workout;
-import core.WorkoutLog;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,59 +13,57 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
-import persistence.WorkoutPersistence;
 
+/**
+ * This abstract class is implemented in both the local and the remote controller.
+ * It contains all the fxml imports and parts of the methods that are to be used in 
+ * both controllers to avoid duplicating code
+ * 
+ * The implementations remote and local app controllers mostly only have code related to 
+ * saving the workoutlog to appropriate places.
+ */
 
-public class AppController {
-
-    //adding all fields in app
-
-    @FXML
-    private TextArea inputWorkout;
-
-    @FXML
-    private DatePicker inputDate;
-
-    @FXML
-    private TableView<Workout> workoutsList;
+abstract class AppController {
 
     @FXML
-    private TableColumn<Workout, String> workoutsColumn;
+    protected TextArea inputWorkout;
 
     @FXML
-    private TableColumn<Workout, String> dateColumn;
+    protected DatePicker inputDate;
 
     @FXML
-    private Label errorLabel;
+    protected TableView<Workout> workoutsList;
 
     @FXML
-    private Button deleteButton;
+    protected TableColumn<Workout, String> workoutsColumn;
 
     @FXML
-    private Button editButton;
+    protected TableColumn<Workout, String> dateColumn;
 
-    private WorkoutLog workoutLog;
-    private WorkoutPersistence persistence;
-    private String fileName;
+    @FXML
+    protected Label errorLabel;
 
+    @FXML
+    protected Button deleteButton;
+
+    @FXML
+    protected Button editButton;
+ 
+
+    /**
+     * initialize: initializes all fields that needs to be set to certain values 
+     * before the application is to be used
+     */
     @FXML
     public void initialize() {
-        workoutLog = new WorkoutLog(); //creates a new workout log instance
-
         inputDate.setEditable(false); // Makes the user unable to write in the date picker field
-
-        workoutsList.setEditable(true);
+        
         workoutsColumn.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
-        workoutsColumn.setOnEditStart(e -> {
-                handleEditDoubleClick(e.getRowValue());});
-
-        workoutsColumn.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
+        workoutsColumn.setOnEditStart(e -> { //on doubleclick the edit function will run
+                handleEdit(e.getRowValue());});
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         
-        persistence = new WorkoutPersistence(); //Create an persistence object
-
-        updateFileName("myWorkout.JSON"); //loading previous workouts and updating the table
-        
+        workoutsList.setEditable(true);
         workoutsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         deleteButton.setDisable(true);
@@ -79,90 +76,85 @@ public class AppController {
         });
     }
 
+    /**
+     * handleRegister: running when user have written in the description area and clicked 
+     * on register. 
+     * 
+     * @return Workout (the inheritance function is implemented to use this workout to add to workoutlog)
+     * 
+     * If the user have not chosen a date the date will be sat to today. If the
+     * user has chosen a future date/invalid date, there will be an error displayed.
+     */
     @FXML
-    public void handleRegister() {
+    public Workout handleRegister() {
         String session = inputWorkout.getText();
         LocalDate date = inputDate.getValue();
 
         errorLabel.setText("");
 
         if (!session.isEmpty() ) {
-            //La denne stå
             if (date == null){
                 date = LocalDate.now();
             }
             else if (date.isAfter(LocalDate.now())) {
                 errorLabel.setText("Date can not be in the future");
-                return;
+                return null;
             }
-            Workout newWorkout = new Workout(session, date); //create new workout from what the user typed into input
-            
-            workoutLog.addWorkout(newWorkout); //adds that new workout to the log
-
-            persistence.saveWorkoutLog(workoutLog, fileName); //save the workout to persistence
-
-            updateTableView(); //update table
-            
-            inputWorkout.clear(); //clear input field to allow for a new input
-            inputDate.setValue(null);
-            errorLabel.setText("");
-        }
+            return new Workout(session, date); 
+        }return null;
     }
     
-
-    public void handleEditDoubleClick(Workout w) { //fired when double clicking on element in the workoutList
-    
-        if(inputWorkout.getText().equals("")){ //if there is written something in the field this need to be added first
-
-            inputWorkout.setText(w.getWorkoutInput()); //set the input field
-            
+    /**
+     * handleEdit: fired when user is doubleclicking on an element in the workoutList
+     * the element is removed from the list and the date and input is added to the input field.
+     * @param w (workout to edit)
+     * @return boolean to represent weather this method is editing or not
+     * 
+     * if there is written something in the field this need to be added first
+     */
+    public boolean handleEdit(Workout w) { 
+        if(inputWorkout.getText().equals("")){
+            inputWorkout.setText(w.getWorkoutInput()); 
             inputDate.setValue(w.getDate());
-
-            workoutLog.removeWorkout(w);
-            updateTableView();
+            return true;
         }
-        
+        return false;
     }
 
+    /**
+     * handleEditButton: fired on the edit button
+     * this method calls the handle edit after finding the active workout
+     */
     public void handleEditButton() {
         Workout selectedWorkout = workoutsList.getSelectionModel().getSelectedItem();
-        if (inputWorkout.getText().equals("")) {
-            inputWorkout.setText(selectedWorkout.getWorkoutInput());
-            inputDate.setValue(selectedWorkout.getDate());
-        }
+        handleEdit(selectedWorkout);
     }
 
-    public void handleDelete() {
-        ObservableList<Workout> selectedRows;
-        selectedRows = workoutsList.getSelectionModel().getSelectedItems();
-        for (Workout w : selectedRows) {
-            workoutLog.removeWorkout(w);
-        }
-        persistence.saveWorkoutLog(workoutLog, fileName);
-        updateTableView();
+    /**
+     * handleDelete: fired on the delete button after activating an element
+     * @return a list that the implemented class can use to find the element to remove
+     */
+    public ObservableList<Workout> handleDelete() {
+        ObservableList<Workout> selectedRows = workoutsList.getSelectionModel().getSelectedItems();
+        return selectedRows;
     }
 
+    /**
+     * handleClear: abstract method to implement, fired on clear button
+     */
     @FXML
-    public void handleClear(){ //Triggers on clicking "clear all" button
-        for (Workout workout : workoutLog.getWorkouts()){
-            workoutLog.removeWorkout(workout);
-        }
-        persistence.saveWorkoutLog(workoutLog, fileName);
-        updateTableView();
-    }
+    public abstract void handleClear();
 
-    //public so that tests can be written in another file
-    //This updates the filename and the table so that you can write to another json file
-    public void updateFileName(String fileName){
-        this.fileName = fileName;
-        workoutLog = persistence.loadWorkoutLog(fileName);
-        updateTableView();
-    }
+    /**
+     * updateTableView: abstract method to implement, updates the table according to the workoutLog
+     * Also need to sort all the workouts in order of date
+     */
+    public abstract void updateTableView();
 
-    private void updateTableView() {
-        workoutLog.sortByDate();
-        workoutsList.getItems().clear(); //clear existing items to prevent doubles
-        workoutsList.getItems().addAll(workoutLog.getWorkouts()); //adds items from workoutlog to the table
-    }
+    /**
+     * updateFileName: abstract method to implement
+     * @param name
+     */
+    public abstract void updateFileName(String name);
   
 }
