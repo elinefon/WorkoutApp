@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import springboot.workoutApi.api.model.Workout;
-import springboot.workoutApi.api.model.WorkoutLog;
+import core.Workout;
+import core.WorkoutLog;
 
 
 @Service

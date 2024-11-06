@@ -1,5 +1,6 @@
 package core;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
@@ -18,14 +19,26 @@ public class WorkoutLog implements Iterable<Workout> { //log that iterates over 
 
 
     //Add one workout to existing log
-    public void addWorkout(Workout workout) { 
-        workouts.add(workout);
+    public boolean addWorkout(Workout workout) { 
+        if(workout != null){
+            workouts.add(workout);
+            return true;
+        }return false;
     }
  
     public void removeWorkout(Workout workout) {
         if(workout != null){
             workouts.remove(workout);
         }
+    }
+
+    public boolean removeWorkout(String workoutInput, LocalDate date) {
+        for(Workout w: workouts){
+            if(w.getWorkoutInput().equals(workoutInput) && (date == null || w.getDate().equals(date))){
+                workouts.remove(w);
+                return true;
+            }
+        }return false;
     }
 
     //Getters and Setters
@@ -36,6 +49,15 @@ public class WorkoutLog implements Iterable<Workout> { //log that iterates over 
     
     public List<Workout> getWorkouts() {
         return new ArrayList<Workout>(workouts); //returns copy of workoutlist
+    }
+
+    public Workout getWorkout(String workoutInput) {
+        for(Workout w: workouts){
+            if(w.getWorkoutInput().equals(workoutInput)){
+                return w;
+            }
+        }
+        return null;
     }
 
     //Sort workouts by date
