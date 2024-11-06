@@ -1,0 +1,17 @@
+@startuml
+actor User
+participant Client
+participant Server
+database ServerFile
+
+User --> Client: Opens app
+Client --> Server: HTTP GET request
+Server --> Client: HTTP response 200 OK
+Client --> User: Display WorkoutList
+
+User --> Client: Register new workout
+Client --> Server: HTTP POST request
+Server --> ServerFile: Save new workout
+Server --> Client: HTTP 201 Created
+Client --> User: Display new workout
+@enduml

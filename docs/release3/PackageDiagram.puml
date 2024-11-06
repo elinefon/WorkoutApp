@@ -1,0 +1,42 @@
+@startuml PackageDiagram
+
+package ui{
+    object ui{
+    +clearAll
+    +delete
+    +registerWorkout
+    +edit
+}
+}
+
+package persistance{
+    object persistance{
+        +saveWorkoutLog
+        +loadWorkoutLog
+    }
+}
+
+package rest{
+    object rest
+}
+
+package access{
+    object local{
+        +addWorkout
+        +removeWorkout
+        +setWorkouts
+        +getWorkouts
+    }
+    object remote{
+        +addWorkout
+        +removeWorkout
+        +setWorkouts
+        +getWorkouts
+    }
+}
+
+ui-->access
+remote --> rest
+local --> persistance
+rest --> persistance
+
