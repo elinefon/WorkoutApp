@@ -3,7 +3,7 @@ package ui;
 import core.Workout;
 import javafx.fxml.FXML;
 
-public class RemoteAppController {
+public class RemoteAppController extends AppController{
     
  
     String endpointUri = "http://localhost:8080/workout/";
