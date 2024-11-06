@@ -65,7 +65,6 @@ public class AppController {
         
         persistence = new WorkoutPersistence(); //Create an persistence object
 
-        
         updateFileName("myWorkout.JSON"); //loading previous workouts and updating the table
         
         workoutsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
