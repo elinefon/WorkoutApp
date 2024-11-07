@@ -8,15 +8,23 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 import core.Workout;
 
+/**
+ * Serializer to convert Workout object to JSON.
+ */
 public class WorkoutSerializer extends JsonSerializer<Workout> {
 
-    /*Format:
+    /**
+     *Format:
      * {
      *      "description": "....",
      *      "date": "...."
      * }
+     * 
+     * @param workout Workout object to serialize to JSON
+     * @param JGen JsonGenerator used to write JSON content
+     * @param serializerProvider provider for serializing instances
+     * @throws IOException if an error happens while generating JSON
      */
-  
     @Override
     public void serialize(Workout workout,
                           JsonGenerator jGen,

@@ -16,9 +16,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import core.WorkoutLog;
 import persistence.json.WorkoutModule;
 
+/**
+ * Handles persistence of Workout data. Loads and saves workout logs as JSON files.
+ */
 public class WorkoutPersistence {
     
-    private String mvnDir = System.getProperty("user.dir"); //these are variables to find the path
+    //Variables to find the path
+    private String mvnDir = System.getProperty("user.dir");
     private String filePath = mvnDir + "/../persistence/src/main/resources/persistence/json/";
 
     private ObjectMapper mapper;
@@ -32,10 +36,13 @@ public class WorkoutPersistence {
         this.filePath = filePath;
     }
 
-    //This method read a workout from the file given. This is never called whitin this module
+    /**
+     * Loads a WorkoutLog from a JSON file
+     * @param fileName name of JSON file to read from
+     * @return WorkoutLog object loaded from JSON
+     */
     @SuppressWarnings("exports")
     public WorkoutLog loadWorkoutLog(String fileName) {
-        //reads from file
         try (Reader reader = new InputStreamReader(new FileInputStream(filePath + fileName), StandardCharsets.UTF_8)) {
             return mapper.readValue(reader, WorkoutLog.class);
         } catch (FileNotFoundException e) {
@@ -44,12 +51,16 @@ public class WorkoutPersistence {
             throw new IllegalArgumentException("File could not be loaded", e);
         }
     }
-    
-    //This method saves a workout from the file given. This is never called whitin this module
+
+    /**
+     * Saves a workout to a JSON file
+     * @param workoutLog the WorkoutLog to save
+     * @param fileName where the file will be saved
+     */
     @SuppressWarnings("exports")
     public void saveWorkoutLog(WorkoutLog workoutLog, String fileName) {
 
-        //ensures there is an directory for the spesified path
+        //ensures there is a directory for the specified path
         try {
             Files.createDirectories(Paths.get(filePath));
         } catch (IOException e) {
@@ -63,5 +74,4 @@ public class WorkoutPersistence {
             System.err.println("Error while saving the workout log: " + e.getMessage());
         }
     }
-
 }

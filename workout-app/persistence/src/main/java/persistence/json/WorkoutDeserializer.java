@@ -14,14 +14,30 @@ import com.fasterxml.jackson.databind.node.TextNode;
 
 import core.Workout;
 
+/**
+ * Deserializer to convert JSON data into a single Workout object.
+ */
 public class WorkoutDeserializer extends JsonDeserializer<Workout> {
 
+    /**
+     * Deserializes JSON into Workout object
+     * @param parser used to parse JSON content
+     * @param ctxt provides configuration and control over deserialization process
+     * @throws IOException if there is a parsing error
+     * @throws JacksonException if there is an error with Jackson processing
+     */
     @Override
     public Workout deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException, JacksonException {
         TreeNode treeNode = parser.getCodec().readTree(parser);
         return deserialize((JsonNode) treeNode);
     }
 
+    /**
+     * Helper method to handle JSON node deserialization.
+     * Reads description and date fields to create Workout instance
+     * @param jsonNode node containing data to be deserialized
+     * @return Workout object if parsing is successful, null otherwise
+     */
     public Workout deserialize(JsonNode jsonNode)  {
         if(jsonNode instanceof ObjectNode){
             ObjectNode objectNode = (ObjectNode) jsonNode;

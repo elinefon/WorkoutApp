@@ -14,10 +14,19 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import core.Workout;
 import core.WorkoutLog;
 
+/**
+ * Deserializer to convert JSON data into a WorkoutLog object (list of Workout objects)
+ */
 public class WorkoutLogDeserializer extends JsonDeserializer<WorkoutLog> {
 
     private WorkoutDeserializer workoutDeserializer = new WorkoutDeserializer();
 
+    /**
+     * @param parser used to parse JSON content
+     * @param ctxt provides configuration and control over deserialization process
+     * @throws IOException if there is a parsing error
+     * @throws JacksonException if there is an error with Jackson processing
+     */
     @Override
     public WorkoutLog deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException, JacksonException {
         TreeNode treeNode = parser.getCodec().readTree(parser);

@@ -19,8 +19,6 @@ import persistence.WorkoutPersistence;
 
 public class AppController {
 
-    //adding all fields in app
-
     @FXML
     private TextArea inputWorkout;
 
@@ -49,11 +47,14 @@ public class AppController {
     private WorkoutPersistence persistence;
     private String fileName;
 
+    /**
+     * Initializes what the user sees when launching the app.
+     */
     @FXML
     public void initialize() {
-        workoutLog = new WorkoutLog(); //creates a new workout log instance
+        workoutLog = new WorkoutLog(); 
 
-        inputDate.setEditable(false); // Makes the user unable to write in the date picker field
+        inputDate.setEditable(false); // Makes the user unable to write in the date picker field, to ensure valid date format
 
         workoutsList.setEditable(true);
         workoutsColumn.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
@@ -63,9 +64,9 @@ public class AppController {
         workoutsColumn.setCellValueFactory(new PropertyValueFactory<>("workoutInput")); // Set up the TableColumn to display the input property
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         
-        persistence = new WorkoutPersistence(); //Create an persistence object
+        persistence = new WorkoutPersistence();
 
-        updateFileName("myWorkout.JSON"); //loading previous workouts and updating the table
+        updateFileName("myWorkout.JSON"); //Loads previously saved workouts and updates the table
         
         workoutsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -79,6 +80,9 @@ public class AppController {
         });
     }
 
+    /**
+     * Handles what happens when the user presses the register button
+     */
     @FXML
     public void handleRegister() {
         String session = inputWorkout.getText();
@@ -95,20 +99,23 @@ public class AppController {
                 errorLabel.setText("Date can not be in the future");
                 return;
             }
-            Workout newWorkout = new Workout(session, date); //create new workout from what the user typed into input
+            Workout newWorkout = new Workout(session, date); //creates new workout from what the user typed into input
             
             workoutLog.addWorkout(newWorkout); //adds that new workout to the log
 
-            persistence.saveWorkoutLog(workoutLog, fileName); //save the workout to persistence
+            persistence.saveWorkoutLog(workoutLog, fileName); //saves the workout to persistence
 
-            updateTableView(); //update table
+            updateTableView(); //updates table
             
-            inputWorkout.clear(); //clear input field to allow for a new input
+            inputWorkout.clear(); //clears input field to allow for a new input
             inputDate.setValue(null);
             errorLabel.setText("");
         }
     }
     
+    /**
+     * Handles what happens when the user double clicks on a row or presses edit button
+     */
     public void handleEdit() { //fired when double clicking element or clicking edit button
         Workout selectedWorkout = workoutsList.getSelectionModel().getSelectedItem();
         if (inputWorkout.getText().equals("")) {
