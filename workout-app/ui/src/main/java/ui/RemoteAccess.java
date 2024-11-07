@@ -25,6 +25,10 @@ public class RemoteAccess {
         persistence = new WorkoutPersistence();
     }
 
+    private String convertInputtoURI(String input){
+        return input.replace(" ", "_");
+    }
+
     public WorkoutLog getWorkoutLog(){
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(endpoint)).build();
@@ -33,10 +37,10 @@ public class RemoteAccess {
             HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
             if (response.statusCode() == 200){
                 String jsonstr = "{\"workouts\" : " + response.body() + "}";
-                System.out.println(jsonstr);
-                WorkoutLog w = persistence.readValueToWorkoutLog(jsonstr);
-                System.out.println(w);
-                return w;
+              
+                WorkoutLog wlog = persistence.readValueToWorkoutLog(jsonstr);
+               
+                return wlog;
             }
         } catch (IOException | InterruptedException e) {
             throw new IllegalStateException("Could not access the response");
@@ -46,12 +50,13 @@ public class RemoteAccess {
     }
 
     public Workout getWorkout(String workoutInput, LocalDate date){
+        String workoutInputURI = convertInputtoURI(workoutInput);
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request;
         if(date == null){
-            request = HttpRequest.newBuilder().uri(URI.create(endpoint + "workout?workoutInput="+ workoutInput)).build();
+            request = HttpRequest.newBuilder().uri(URI.create(endpoint + "workout?workoutInput="+ workoutInputURI)).build();
         }else {
-            request = HttpRequest.newBuilder().uri(URI.create(endpoint + "workout?workoutInput="+ workoutInput + "&date="+date)).build();
+            request = HttpRequest.newBuilder().uri(URI.create(endpoint + "workout?workoutInput="+ workoutInputURI + "&date="+date)).build();
         }
         try{
             HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
@@ -71,7 +76,7 @@ public class RemoteAccess {
        
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create(endpoint + "workout?workoutInput="+ workout.getWorkoutInput() + "&date="+workout.getDate()))
+        .uri(URI.create(endpoint + "workout?workoutInput="+ convertInputtoURI(workout.getWorkoutInput()) + "&date="+workout.getDate()))
         .header(CONTENT_TYPE_HEADER, APPLICATION_JSON)
         .POST(BodyPublishers.ofString(jsonPayload))
         .build();
@@ -95,7 +100,7 @@ public class RemoteAccess {
        
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create(endpoint + "workout?workoutInput="+ workout.getWorkoutInput() + "&date="+workout.getDate()))
+        .uri(URI.create(endpoint + "workout?workoutInput="+ convertInputtoURI(workout.getWorkoutInput()) + "&date="+workout.getDate()))
         .header(CONTENT_TYPE_HEADER, APPLICATION_JSON)
         .DELETE()
         .build();
