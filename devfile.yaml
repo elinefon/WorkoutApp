@@ -31,4 +31,9 @@ components:
           name: 5500-tcp
           protocol: http
           targetPort: 5500
-
+commands:
+  - id: changedir
+    exec:
+      component: workout-app
+      commandLine: cd workout-app
+      label: change directory
