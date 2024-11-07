@@ -45,7 +45,7 @@
                </font>
             </Button>
             <Label fx:id="errorLabel" layoutX="150.0" layoutY="110.0" style="-fx-font-family: Arial Nova Light;" textFill="red" />
-            <Button fx:id="editButton" layoutX="415.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleEditButton" style="-fx-background-color: #D05663; -fx-cursor: hand;" text="Edit" textFill="#c3cbd6">
+            <Button fx:id="editButton" layoutX="415.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleEdit" style="-fx-background-color: #D05663; -fx-cursor: hand;" text="Edit" textFill="#c3cbd6">
                <font>
                   <Font name="Arial Nova Light" size="13.0" />
                </font>

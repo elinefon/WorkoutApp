@@ -48,7 +48,6 @@ abstract class AppController {
   @FXML
   protected Button editButton;
  
-
   /**
    * initialize: initializes all fields that needs to be set to certain values.
    * before the application is to be used
@@ -61,6 +60,7 @@ abstract class AppController {
     workoutsColumn.setOnEditStart(e -> { //on doubleclick the edit function will run
         handleEdit(e.getRowValue());});
     dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+
         
     workoutsList.setEditable(true);
     workoutsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -100,7 +100,7 @@ abstract class AppController {
       }return new Workout(session, date); 
     }return null;
   }
-    
+
   /**
    * handleEdit: fired when user is doubleclicking on an element in the workoutList
    * the element is removed from the list and the date and input is added to the input field.
@@ -146,5 +146,6 @@ abstract class AppController {
    * Also need to sort all the workouts in order of date
    */
   public abstract void updateTableView();
+
   
 }

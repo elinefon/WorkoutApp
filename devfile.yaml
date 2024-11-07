@@ -1,6 +1,6 @@
 schemaVersion: 2.1.0
 metadata:
-  name: gr2405
+  name: workout-app
 components:
   - name: workout-app
     container:
@@ -31,4 +31,9 @@ components:
           name: 5500-tcp
           protocol: http
           targetPort: 5500
-
+commands:
+  - id: changedir
+    exec:
+      component: workout-app
+      commandLine: cd workout-app
+      label: change directory
