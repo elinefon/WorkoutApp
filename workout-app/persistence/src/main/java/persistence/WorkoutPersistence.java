@@ -44,6 +44,17 @@ public class WorkoutPersistence {
         } catch (JsonProcessingException e) {
             throw new IllegalStateException("Issue with creating workout of json: " + e.getMessage());
         }
+    } 
+
+    @SuppressWarnings("exports")
+    public WorkoutLog readValueToWorkoutLog(String value) {
+        try {
+            return mapper.readValue(value, WorkoutLog.class);
+        } catch (JsonMappingException e) {
+            throw new IllegalStateException("Issue with creating workout of json: " + e.getMessage());
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException("Issue with creating workout of json: " + e.getMessage());
+        }
     }   
 
     @SuppressWarnings("exports")

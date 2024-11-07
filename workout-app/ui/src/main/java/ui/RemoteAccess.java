@@ -19,9 +19,12 @@ public class RemoteAccess {
     private static final String APPLICATION_JSON = "application/json";
     private static final String CONTENT_TYPE_HEADER = "Content-Type";
 
-    WorkoutPersistence persistence = new WorkoutPersistence();
+    WorkoutPersistence persistence;
 
-   // URI endpointUri = new URI("http://localhost:8080/workout/");
+    public RemoteAccess(){
+        persistence = new WorkoutPersistence();
+    }
+
     public WorkoutLog getWorkoutLog(){
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(endpoint)).build();
@@ -29,12 +32,16 @@ public class RemoteAccess {
         try{
             HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
             if (response.statusCode() == 200){
-                System.out.println(response.body());
+                String jsonstr = "{\"workouts\" : " + response.body() + "}";
+                System.out.println(jsonstr);
+                WorkoutLog w = persistence.readValueToWorkoutLog(jsonstr);
+                System.out.println(w);
+                return w;
             }
         } catch (IOException | InterruptedException e) {
-        e.printStackTrace();
+            throw new IllegalStateException("Could not access the response");
         }
-        return null;
+        return new WorkoutLog();
 
     }
 
@@ -50,9 +57,10 @@ public class RemoteAccess {
             HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
             if (response.statusCode() == 200){
                 System.out.println(response.body());
+                return persistence.readValueToWorkout(response.body());
             }
         } catch (IOException | InterruptedException e) {
-        e.printStackTrace();
+            throw new IllegalStateException("Could not access the response");
         }
         return null;
     }
@@ -76,7 +84,7 @@ public class RemoteAccess {
                 System.out.println("Could not add workout: " +response.body() + response.statusCode());
             }
         } catch (IOException | InterruptedException e) {
-        e.printStackTrace();
+            throw new IllegalStateException("Could not access the response");
         }
         return null;
     }
@@ -95,12 +103,12 @@ public class RemoteAccess {
         try{
             HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
             if (response.statusCode() == 200 || response.statusCode() == 204){
-                System.out.println("Workout added: " + response.body());
+                System.out.println( response.body());
             }else{
                 System.out.println("Could not add workout: " +response.body() + response.statusCode());
             }
         } catch (IOException | InterruptedException e) {
-        e.printStackTrace();
+            throw new IllegalStateException("Could not access the response");
         }
         
     }
