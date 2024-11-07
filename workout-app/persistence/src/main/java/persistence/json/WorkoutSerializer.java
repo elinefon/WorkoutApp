@@ -12,7 +12,7 @@ public class WorkoutSerializer extends JsonSerializer<Workout> {
 
     /*Format:
      * {
-     *      "description": "....",
+     *      "workoutInput": "....",
      *      "date": "...."
      * }
      */
@@ -22,7 +22,7 @@ public class WorkoutSerializer extends JsonSerializer<Workout> {
                           JsonGenerator jGen,
                           SerializerProvider serializerProvider) throws IOException {
       jGen.writeStartObject();
-      jGen.writeStringField("description", workout.getWorkoutInput());
+      jGen.writeStringField("workoutInput", workout.getWorkoutInput());
       jGen.writeStringField("date", workout.getDate().toString());
       jGen.writeEndObject();
     }

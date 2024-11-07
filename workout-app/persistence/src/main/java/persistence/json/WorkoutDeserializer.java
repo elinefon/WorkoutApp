@@ -25,7 +25,7 @@ public class WorkoutDeserializer extends JsonDeserializer<Workout> {
     public Workout deserialize(JsonNode jsonNode)  {
         if(jsonNode instanceof ObjectNode){
             ObjectNode objectNode = (ObjectNode) jsonNode;
-            JsonNode textNode = objectNode.get("description");
+            JsonNode textNode = objectNode.get("workoutInput");
             JsonNode dateNode = objectNode.get("date");
             if(textNode instanceof TextNode && dateNode instanceof TextNode){
                 String dateString = ((TextNode) dateNode).asText();
