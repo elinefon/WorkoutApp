@@ -1,6 +1,6 @@
 schemaVersion: 2.1.0
 metadata:
-  name: gr2405
+  name: workout-app
 components:
   - name: workout-app
     container:
