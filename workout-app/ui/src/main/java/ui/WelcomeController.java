@@ -9,8 +9,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * The controller for the first window of the application desciding what application 
+ * to use (remote or local storage)
+ */
 public class WelcomeController {
 
+    /**
+     * This launches the application, setting the controller to the correct version
+     * @param controller
+     * @param event
+     * @throws IOException
+     */
     private void launchApplication(AppController controller, ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml")); //creates new fxml-loader instance with the main page with the log
         loader.setController(controller);
@@ -19,16 +29,26 @@ public class WelcomeController {
         primaryStage.setScene(new Scene(appRoot)); //sets scene of primary scene created using approot (which loads content of App.fxml)
     }    
     
+    /**
+     * Creates a local controller and calls the launch application
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void handleStartLocally(ActionEvent event) throws IOException {
             AppController controller = new LocalAppController();
             launchApplication(controller, event);  
     }
 
+    /**
+     * Creates a remote controller and calls the launch application
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void handleStartRemote(ActionEvent event) throws IOException {  
         AppController controller = new RemoteAppController();
         launchApplication(controller, event);
     
-        }
+    }
 }

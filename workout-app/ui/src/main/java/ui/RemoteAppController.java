@@ -13,6 +13,10 @@ public class RemoteAppController extends AppController{
     RemoteAccess access;
     private WorkoutLog workoutLog;
     
+    /**
+     * initialize: set the values of access (http requests from server) 
+     * and workoutlog
+     */
     public void initialize() {
         super.initialize();
         access = new RemoteAccess();
@@ -21,6 +25,14 @@ public class RemoteAppController extends AppController{
         updateTableView();
     }
 
+    /**
+     * handleRegister: running when user have written in the description area and clicked 
+     * on register. 
+     * 
+     * If the superfunction was running (the input field was not empty -> workout is not null) the
+     * if sentence will run adding the workout to the log and persictence.
+     * After running all the fields will be clear.
+     */
     public Workout handleRegister() {
         Workout newWorkout = super.handleRegister();
         if(newWorkout != null){
@@ -32,10 +44,17 @@ public class RemoteAppController extends AppController{
             inputWorkout.clear(); //clear input field to allow for a new input
             inputDate.setValue(null);
             errorLabel.setText("");
-
         }return newWorkout;
     }
 
+    /**
+     * handleEdit: fired when user is doubleclicking on an element in the workoutList
+     * the element is removed from the list and the date and input is added to the input field.
+     * @param w (workout to edit)
+     * 
+     * Super returns weather this function passed the tests for editing. 
+     * This function removes Workout and updates the table
+     */
     public boolean handleEdit(Workout w) {
         boolean edit = super.handleEdit(w);
         if(edit){
@@ -46,6 +65,10 @@ public class RemoteAppController extends AppController{
         }return false;
     }
 
+     /**
+     * handleDelete: fired on the delete button after activating an element
+     * Super returns an list of workouts that are selected for removing from workout
+     */
     public ObservableList<Workout> handleDelete() {
         ObservableList<Workout> selectedRows = super.handleDelete();
         for (Workout w : selectedRows) {
@@ -56,7 +79,13 @@ public class RemoteAppController extends AppController{
         return selectedRows;
     }
 
-    public void handleClear(){ //Triggers on clicking "clear all" button
+    
+     /**
+     * handleClear: fired on clear button
+     * Removes all elements
+     */
+    @Override
+    public void handleClear(){
         for (Workout workout : workoutLog.getWorkouts()){
             access.removeWorkout(workout);
             workoutLog.removeWorkout(workout);
@@ -64,17 +93,15 @@ public class RemoteAppController extends AppController{
         updateTableView();
     }
 
+    /**
+     * updateTableView: updates the table according to the workoutLog
+     * Also need to sort all the workouts in order of date
+     */
     @Override
     public void updateTableView() {
         workoutLog.sortByDate();
         workoutsList.getItems().clear(); //clear existing items to prevent doubles
         workoutsList.getItems().addAll(workoutLog.getWorkouts()); //adds items from workoutlog to the table
-    }
-
-    @Override
-    public void updateFileName(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateFileName'");
     }
 
    

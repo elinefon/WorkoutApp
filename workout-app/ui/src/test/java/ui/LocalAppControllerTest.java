@@ -28,20 +28,21 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
 /**
- * TestFX App testrunning
+ * TestFX Local App test running
  */
-public class AppControllerTest extends ApplicationTest {
+public class LocalAppControllerTest extends ApplicationTest {
 
-    private AppController controller;
+    private LocalAppController  localController;
     private Parent root;
     private FxRobot robot;
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("App.fxml"));
+        localController = new LocalAppController();
+        fxmlLoader.setController(localController);
         root = fxmlLoader.load();
-        controller = fxmlLoader.getController();
-        controller.updateFileName("testFile.JSON");
+        localController.updateFileName("testFile.JSON");
         stage.setScene(new Scene(root));
         stage.show();
         robot = new FxRobot();
