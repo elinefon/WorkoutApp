@@ -26,6 +26,11 @@ public class RemoteAppController extends AppController{
         updateTableView();
     }
 
+    /**
+     * checkInvalidWorkoutInput: Checks if workout input is a special character, space is allowed
+     * @param workout
+     * @return true if there are special characters, false if not
+     */
     public boolean checkInvalidWorkoutInput(Workout workout){
         return workout.getWorkoutInput().matches(".*[^a-zA-Z0-9 ].*");
     }
@@ -36,6 +41,7 @@ public class RemoteAppController extends AppController{
      * 
      * If the superfunction was running (the input field was not empty -> workout is not null) the
      * if sentence will run adding the workout to the log and persictence.
+     * Checks for special characters, will only allow space.
      * After running all the fields will be clear.
      */
     @FXML

@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
@@ -43,12 +45,20 @@ public class WelcomeController {
     /**
      * Creates a remote controller and calls the launch application
      * @param event
-     * @throws IOException
+     * if there is an issue reaching the server an alert box will show
      */
     @FXML
-    public void handleStartRemote(ActionEvent event) throws IOException {  
-        AppController controller = new RemoteAppController();
-        launchApplication(controller, event);
+    public void handleStartRemote(ActionEvent event) {  
+        try{
+            AppController controller = new RemoteAppController();
+            launchApplication(controller, event);
+        } catch (Exception e){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Check that springboot is running in another terminal.");
+            alert.showAndWait();
+        }
+        
     
     }
 }
