@@ -1,0 +1,12 @@
+{
+    "workouts" : [ {
+      "workoutInput" : "Leg day",
+      "date" : "2024-10-11"
+    }, {
+      "workoutInput" : "Cardio",
+      "date" : "2024-10-12"
+    }, {
+      "workoutInput" : "Arms",
+      "date" : "2024-10-13"
+    } ]
+  }

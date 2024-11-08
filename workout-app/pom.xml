@@ -11,6 +11,8 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <skipTests>false</skipTests>
+        <jetty.port>8080</jetty.port>
+        <jetty.port.stop>8081</jetty.port.stop>
     </properties>
 
     <dependencyManagement>
@@ -161,6 +163,57 @@
                     </executions>
                 </plugin>
 
+                <!-- Jetty Plugin -->
+                <plugin>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>11.0.12</version>
+                    <configuration>
+                        <httpConnector>
+                            <port>${jetty.port}</port>
+                        </httpConnector>
+                        <stopKey>stop</stopKey>
+                        <stopPort>${jetty.port.stop}</stopPort>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>start-jetty</id>
+                            <phase>pre-integration-test</phase>
+                            <goals>
+                                <goal>start</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>stop-jetty</id>
+                            <phase>post-integration-test</phase>
+                            <goals>
+                                <goal>stop</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>3.2.0</version>
+                    <executions>
+                <execution>
+                    <id>reserve-port</id>
+                    <phase>validate</phase>
+                    <goals>
+                        <goal>reserve-network-port</goal>
+                    </goals>
+                    <configuration>
+                        <portNames>
+                            <portName>jetty.port</portName>
+                            <portName>jetty.port.stop</portName>
+                        </portNames>
+                        </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
       
                  <!-- End of used code from open repository -->
 
@@ -172,6 +225,7 @@
         <module>core</module>
         <module>persistence</module>
         <module>workoutApi</module>
+        <module>integrationtests</module>
         <module>ui</module>
     </modules>
 </project>
