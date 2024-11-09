@@ -17,19 +17,19 @@ public class WorkoutSerializer extends JsonSerializer<Workout> {
    *      "description": "....",
    *      "date": "...."
    * }
-   * 
+   *
    * @param workout Workout object to serialize to JSON
-   * @param JGen JsonGenerator used to write JSON content
+   * @param jsonGen JsonGenerator used to write JSON content
    * @param serializerProvider provider for serializing instances
    * @throws IOException if an error happens while generating JSON
    */
   @Override
   public void serialize(Workout workout,
-      JsonGenerator jGen,
+      JsonGenerator jsonGen,
       SerializerProvider serializerProvider) throws IOException {
-    jGen.writeStartObject();
-    jGen.writeStringField("description", workout.getWorkoutInput());
-    jGen.writeStringField("date", workout.getDate().toString());
-    jGen.writeEndObject();
+    jsonGen.writeStartObject();
+    jsonGen.writeStringField("description", workout.getWorkoutInput());
+    jsonGen.writeStringField("date", workout.getDate().toString());
+    jsonGen.writeEndObject();
   }
 }

@@ -12,24 +12,24 @@ import core.Workout;
 import core.WorkoutLog;
 import java.io.IOException;
 
-
 /**
- * Deserializer to convert JSON data into a WorkoutLog object (list of Workout objects).
+ * Deserializer to convert JSON data into a WorkoutLog object (list of Workout
+ * objects).
  */
 public class WorkoutLogDeserializer extends JsonDeserializer<WorkoutLog> {
 
   private WorkoutDeserializer workoutDeserializer = new WorkoutDeserializer();
 
   /**
-   * Deserializer to convert JOSN into workoutLog
-   * 
+   * Deserializer to convert JOSN into workoutLog.
+   *
    * @param parser used to parse JSON content
-   * @param ctxt provides configuration and control over deserialization process
-   * @throws IOException if there is a parsing error
+   * @param ctxt   provides configuration and control over deserialization process
+   * @throws IOException      if there is a parsing error
    * @throws JacksonException if there is an error with Jackson processing
    */
   @Override
-  public WorkoutLog deserialize(JsonParser parser, DeserializationContext ctxt) 
+  public WorkoutLog deserialize(JsonParser parser, DeserializationContext ctxt)
       throws IOException, JacksonException {
     TreeNode treeNode = parser.getCodec().readTree(parser);
     if (treeNode instanceof ObjectNode) {
@@ -48,6 +48,4 @@ public class WorkoutLogDeserializer extends JsonDeserializer<WorkoutLog> {
     }
     return null;
   }
-
-
 }

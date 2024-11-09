@@ -33,15 +33,16 @@ public class WorkoutPersistence {
     this.filePath = filePath;
   }
 
-  /**
+  /**.
    * Loads a WorkoutLog from a JSON file
-   * 
+   *
    * @param fileName name of JSON file to read from
    * @return WorkoutLog object loaded from JSON
    */
   @SuppressWarnings("exports")
   public WorkoutLog loadWorkoutLog(String fileName) {
-    try (Reader reader = new InputStreamReader(new FileInputStream(filePath + fileName), StandardCharsets.UTF_8)) {
+    try (Reader reader = new InputStreamReader(new FileInputStream(filePath + fileName),
+        StandardCharsets.UTF_8)) {
       return mapper.readValue(reader, WorkoutLog.class);
     } catch (FileNotFoundException e) {
       throw new IllegalArgumentException("File not found", e);
@@ -51,8 +52,8 @@ public class WorkoutPersistence {
   }
 
   /**
-   * Saves a workout to a JSON file
-   * 
+   * Saves a workout to a JSON file.
+   *
    * @param workoutLog the WorkoutLog to save
    * @param fileName where the file will be saved
    */

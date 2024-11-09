@@ -19,7 +19,7 @@ public class WorkoutDeserializer extends JsonDeserializer<Workout> {
 
   /**
    * Deserializes JSON into Workout object.
-   *                      
+   *
    * @param parser used to parse JSON content
    * @param ctxt provides configuration and control over deserialization process 
    * @throws IOException if there is a parsing error
@@ -35,7 +35,7 @@ public class WorkoutDeserializer extends JsonDeserializer<Workout> {
   /**
    * Helper method to handle JSON node deserialization.
    * Reads description and date fields to create Workout instance
-   * 
+   *
    * @param jsonNode node containing data to be deserialized
    * @return Workout object if parsing is successful, null otherwise
    */
