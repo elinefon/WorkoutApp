@@ -3,6 +3,7 @@ package ui;
 import core.Workout;
 import core.WorkoutLog;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 
 /**
  * AppController to the remote Api service application.
@@ -26,16 +27,31 @@ public class RemoteAppController extends AppController{
     }
 
     /**
+     * checkInvalidWorkoutInput: Checks if workout input is a special character, space is allowed
+     * @param workout
+     * @return true if there are special characters, false if not
+     */
+    public boolean checkInvalidWorkoutInput(Workout workout){
+        return workout.getWorkoutInput().matches(".*[^a-zA-Z0-9 ].*");
+    }
+
+    /**
      * handleRegister: running when user have written in the description area and clicked 
      * on register. 
      * 
      * If the superfunction was running (the input field was not empty -> workout is not null) the
      * if sentence will run adding the workout to the log and persictence.
+     * Checks for special characters, will only allow space.
      * After running all the fields will be clear.
      */
+    @FXML
     public Workout handleRegister() {
         Workout newWorkout = super.handleRegister();
-        if(newWorkout != null){
+        if (newWorkout != null) {
+            if (checkInvalidWorkoutInput(newWorkout)){
+                errorLabel.setText("There can be no special characters");
+                return null;
+            }
             workoutLog.addWorkout(newWorkout);
             access.addWorkout(newWorkout);
 
