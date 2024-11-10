@@ -45,29 +45,41 @@ public class WorkoutLogController {
     return null;
   }
 
-  @PostMapping("/workout")
-  public Workout addWorkout(@RequestParam String workoutInput,
-      @RequestParam(required = false) LocalDate date) {
-    Workout workoutAdded = service.addWorkout(workoutInput, date);
-    return workoutAdded;
-  }
-
-
-  /**
-   * Removes workout based on input and optional date.
-   * If no such workout found, an error message is returned.
-   *
-   * @param workoutInput the input of the workout
-   * @param date the date of the workout
-   * @return statements depends whether workout was deleted or not, based on boolean
-   */
-  @DeleteMapping("/workout")
-  public String removeWorkout(@RequestParam String workoutInput,
-      @RequestParam(required = false) LocalDate date) {
-    boolean wasDeleted = service.removeWorkout(workoutInput, date);
-    if (wasDeleted) {
-      return "Successfully removed workout with input: " + workoutInput;
+    private String convertURItoInput(String input){
+        return input.replace("_", " ");
     }
-    return "Could not remove workout.";
-  }
+
+    @GetMapping("/")
+    public List<Workout> getWorkouts(){
+        return service.getWorkouts();
+    }
+    
+    @GetMapping("/workout")
+    public Workout getWorkout(@RequestParam String workoutInput){
+        String workoutInputStr = convertURItoInput(workoutInput);
+        Optional<Workout> workout = service.getWorkout(workoutInputStr);
+        if(workout.isPresent()){
+            return workout.get();
+        }return null;
+    }
+
+    @PostMapping("/workout")
+    public Workout addWorkout(@RequestParam String workoutInput, @RequestParam(required=false) LocalDate date){
+        String workoutInputStr = convertURItoInput(workoutInput);
+        Workout workoutAdded = service.addWorkout(workoutInputStr, date);
+        return workoutAdded;
+    }
+
+
+    @DeleteMapping("/workout")
+    public String removeWorkout(@RequestParam String workoutInput, @RequestParam(required=false) LocalDate date){
+        String workoutInputStr = convertURItoInput(workoutInput);
+        boolean wasDeleted = service.removeWorkout(workoutInputStr, date);
+        if (wasDeleted){
+            return "Successfully removed workout with input: " + workoutInputStr;
+        }
+        return "Could not remove workout.";
+    }
+
+    
 }

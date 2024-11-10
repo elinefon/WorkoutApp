@@ -1,15 +1,16 @@
 package core;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.time.LocalDate;
-import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +36,8 @@ public class WorkoutLogTest {
         assertEquals(1, wlog.getWorkouts().size());
         wlog.addWorkout(new Workout("Jogge opp trappa", LocalDate.of(2024, 10, 18)));
         assertEquals(2, wlog.getWorkouts().size());
+        wlog.addWorkout(null);
+        assertEquals(2, wlog.getWorkouts().size());
     }
 
     @Test
@@ -57,6 +60,9 @@ public class WorkoutLogTest {
 
     @Test
     public void testRemovingWorkout(){
+
+        //Removing based on Workout object
+
         Workout w1 = new Workout("Svømming");
         Workout w2 = new Workout("Turn");
         wlog.setWorkouts(Arrays.asList(w1, w2));
@@ -66,6 +72,47 @@ public class WorkoutLogTest {
         wlog.removeWorkout(new Workout("False workout"));
         wlog.removeWorkout(null);
         assertEquals(1, wlog.getWorkouts().size());
+
+        //Removing based on input and date, testing mulitple possible branches
+
+        //Removing workout with both input and date matching
+        Workout w3 = new Workout("Running", LocalDate.of(2024, 11, 6));
+        wlog.addWorkout(w3);
+        assertEquals(2, wlog.getWorkouts().size());
+        boolean removed = wlog.removeWorkout("Running", LocalDate.of(2024, 11, 6));
+        assertTrue(removed, "Workout should be removed");
+        assertEquals(1, wlog.getWorkouts().size());
+
+        //Removing workout with only input matching, date is null
+        Workout w4 = new Workout("Walking", LocalDate.of(2024, 11, 8));
+        wlog.addWorkout(w4);
+        assertEquals(2, wlog.getWorkouts().size());
+        removed = wlog.removeWorkout("Walking", null);
+        assertTrue(removed, "Workout should be removed");
+        assertEquals(1, wlog.getWorkouts().size());
+
+        //Removing workout with matching input, but invalid date
+        Workout w5 = new Workout("Dancing", LocalDate.of(2024, 10, 21));
+        wlog.addWorkout(w5);
+        removed = wlog.removeWorkout("Dancing", LocalDate.of(2024, 11, 8));
+        assertFalse(removed, "Workout should not be removed when date does not match");
+        assertEquals(2, wlog.getWorkouts().size());
+
+        //Removing workout that is not in log
+        removed = wlog.removeWorkout("randomWorkout", LocalDate.of(2024, 10, 5));
+        assertFalse(removed, "No such workout in log to be removed");
+    }
+
+    @Test
+    public void testGetWorkout() {
+        Workout w1 = new Workout("Stairmaster");
+        wlog.addWorkout(w1);
+
+        Workout foundWorkout = wlog.getWorkout(w1.getWorkoutInput());
+        assertNotNull(foundWorkout, "Workout object should exist");
+
+        Workout workoutNotInLog = wlog.getWorkout("dancing");
+        assertNull(workoutNotInLog);
     }
 
     @Test

@@ -10,8 +10,14 @@
   <children>
     <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #CAE9F5; -fx-border-width: 10;">
       <children>
-        <Button fx:id="getStartedButton" layoutX="245.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleGetStarted" style="-fx-background-color: #D05663; -fx-text-fill: #FFFFFF; -fx-cursor: hand; -fx-font-size: 18px;" text="Get Started" />
+        <Button fx:id="getStartedLocally" layoutX="312.0" layoutY="227.0" mnemonicParsing="false" onAction="#handleStartLocally" style="-fx-background-color: #D05663; -fx-text-fill: #FFFFFF; -fx-cursor: hand; -fx-font-size: 18px;" text="Local App" />
             <Text fill="#0e86d4" layoutX="93.0" layoutY="164.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial Nova Cond Light;" text="Welcome to your personal workout log!">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Button fx:id="getStartedRemote" layoutX="173.0" layoutY="227.0" mnemonicParsing="false" onAction="#handleStartRemote" style="-fx-background-color: #D05663; -fx-text-fill: #FFFFFF; -fx-cursor: hand; -fx-font-size: 18px;" text="Remote App" />
+            <Text fill="#0e86d4" layoutX="235.0" layoutY="209.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial Nova Cond Light;" text="Get Started!">
                <font>
                   <Font size="24.0" />
                </font>

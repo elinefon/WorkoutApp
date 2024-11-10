@@ -27,7 +27,7 @@ public class WelcomeControllerTest extends ApplicationTest {
 
     @Test
     public void testHandleGetStarted() {
-        clickOn("#getStartedButton");
+        clickOn("#getStartedLocally");
         verifyThat("#workoutsList", isVisible());
     }
 }

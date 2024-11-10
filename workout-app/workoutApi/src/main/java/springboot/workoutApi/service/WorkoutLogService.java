@@ -15,18 +15,8 @@ public class WorkoutLogService {
 
   private WorkoutLog workoutLog;
 
-  /**
-   * Constructor that initializes log.
-   */
-  public WorkoutLogService() {
-    workoutLog = new WorkoutLog();
-
-    Workout w1 = new Workout("Arms");
-    Workout w2 = new Workout("Legs");
-
-    workoutLog.addWorkout(w2);
-    workoutLog.addWorkout(w1);
-  }
+    public WorkoutLogService(WorkoutLog workoutLog){
+        this.workoutLog = workoutLog;
 
   /**
    * Retrieves a workout based on input.

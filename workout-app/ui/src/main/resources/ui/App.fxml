@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AppController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="380.0" prefWidth="517.0" style="-fx-background-color: #CAE9F5; -fx-border-width: 10;" VBox.vgrow="ALWAYS">
       <children>
@@ -44,8 +44,8 @@
                   <Font name="Arial Nova Light" size="13.0" />
                </font>
             </Button>
-            <Label fx:id="errorLabel" layoutX="150.0" layoutY="110.0" style="-fx-font-family: Arial Nova Light;" textFill="red" />
-            <Button fx:id="editButton" layoutX="415.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleEdit" style="-fx-background-color: #D05663; -fx-cursor: hand;" text="Edit" textFill="#c3cbd6">
+            <Label fx:id="errorLabel" alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="34.0" layoutY="110.0" prefHeight="15.0" prefWidth="265.0" style="-fx-font-family: Arial Nova Light;" textAlignment="RIGHT" textFill="red" />
+            <Button fx:id="editButton" layoutX="415.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleEditButton" style="-fx-background-color: #D05663; -fx-cursor: hand;" text="Edit" textFill="#c3cbd6">
                <font>
                   <Font name="Arial Nova Light" size="13.0" />
                </font>

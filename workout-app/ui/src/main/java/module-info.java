@@ -5,5 +5,7 @@ module ui {
     requires javafx.fxml;
     requires javafx.base;
 
+    requires java.net.http;
+
     opens ui to javafx.graphics, javafx.fxml;
 }

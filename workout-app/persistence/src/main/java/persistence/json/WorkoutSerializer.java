@@ -11,25 +11,21 @@ import java.io.IOException;
  */
 public class WorkoutSerializer extends JsonSerializer<Workout> {
 
-  /**
-   *Format:
-   * {
-   *      "description": "....",
-   *      "date": "...."
-   * }
-   *
-   * @param workout Workout object to serialize to JSON
-   * @param jsonGen JsonGenerator used to write JSON content
-   * @param serializerProvider provider for serializing instances
-   * @throws IOException if an error happens while generating JSON
-   */
-  @Override
-  public void serialize(Workout workout,
-      JsonGenerator jsonGen,
-      SerializerProvider serializerProvider) throws IOException {
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField("description", workout.getWorkoutInput());
-    jsonGen.writeStringField("date", workout.getDate().toString());
-    jsonGen.writeEndObject();
+    /*Format:
+     * {
+     *      "workoutInput": "....",
+     *      "date": "...."
+     * }
+     */
+  
+    @Override
+    public void serialize(Workout workout,
+                          JsonGenerator jGen,
+                          SerializerProvider serializerProvider) throws IOException {
+      jGen.writeStartObject();
+      jGen.writeStringField("workoutInput", workout.getWorkoutInput());
+      jGen.writeStringField("date", workout.getDate().toString());
+      jGen.writeEndObject();
+    }
   }
 }
