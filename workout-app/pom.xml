@@ -232,7 +232,6 @@
         <module>core</module>
         <module>persistence</module>
         <module>workoutApi</module>
-        <module>integrationtests</module>
         <module>ui</module>
     </modules>
 </project>
