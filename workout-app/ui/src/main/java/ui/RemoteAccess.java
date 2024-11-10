@@ -27,6 +27,12 @@ public class RemoteAccess {
 
     public RemoteAccess(){
         persistence = new WorkoutPersistence();
+        endpoint = "http://localhost:8080/";
+    }
+
+    public RemoteAccess(String port){
+        persistence = new WorkoutPersistence();
+        endpoint = "http://localhost:"+port+"/";
     }
 
     /**

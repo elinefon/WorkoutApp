@@ -13,6 +13,14 @@ public class RemoteAppController extends AppController{
 
     RemoteAccess access;
     private WorkoutLog workoutLog;
+
+    public RemoteAppController(){
+        this.access = new RemoteAccess();
+    }
+
+    public RemoteAppController(String port){
+        this.access = new RemoteAccess(port);
+    }
     
     /**
      * initialize: set the values of access (http requests from server) 
@@ -20,7 +28,6 @@ public class RemoteAppController extends AppController{
      */
     public void initialize() {
         super.initialize();
-        access = new RemoteAccess();
         workoutLog = access.getWorkoutLog();
        
         updateTableView();
