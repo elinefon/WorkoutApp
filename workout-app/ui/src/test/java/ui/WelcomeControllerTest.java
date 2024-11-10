@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.testfx.api.FxAssert.verifyThat;
 import org.testfx.framework.junit5.ApplicationTest;
 
