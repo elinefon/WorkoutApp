@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
@@ -20,6 +21,10 @@ import core.WorkoutLog;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.Node;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /**
@@ -42,31 +47,46 @@ public class RemoteAppControllerTest extends ApplicationTest{
   private FxRobot robot;
 
   @Override
-   public void start(Stage stage) throws IOException {
+  public void start(Stage stage) throws IOException {
+    wireMockServer = new WireMockServer(8089); //Default to localserver
+    wireMockServer.start();
+
     FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("App.fxml"));
-    controller = new RemoteAppController();
+    controller = new RemoteAppController("8089");
     fxmlLoader.setController(controller);
     root = fxmlLoader.load();
     stage.setScene(new Scene(root));
     stage.show();
     robot = new FxRobot();
+  }
+  
+  private void typeString(String string){ 
+    String keys[] = string.split("");
+    for (String i : keys){
+      KeyCode key = KeyCode.getKeyCode(i.toUpperCase());
+      robot.press(key);
+      robot.release(key);
     }
+  }
 
-  @BeforeAll
-  public void setup(){
-    wireMockServer = new WireMockServer(8098); //Default to localserver
-    wireMockServer.start();
-    WireMock.configureFor("localhost", 8098);
-
+  private void registerWorkout(String s){
+    clickOn("#inputWorkout" );
+    typeString(s);
+    clickOn("#registerButton");
   }
 
   @Test
   public void testIllegalChars(){
-    assertTrue(true);
+    Label alertText = (Label) lookup("#errorLabel");
+    registerWorkout("Arms are cool");
+    assertEquals("", alertText.getText());
+    
+    registerWorkout("Arms are cool!");
+    assertEquals("There can be no special characters", alertText.getText());
 
   }
 
-  @AfterAll
+  @AfterEach
   public void stopServer(){
     wireMockServer.stop();
   }
