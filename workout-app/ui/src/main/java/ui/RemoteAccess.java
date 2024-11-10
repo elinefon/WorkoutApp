@@ -19,7 +19,7 @@ import persistence.WorkoutPersistence;
  */
 public class RemoteAccess {
 
-    String endpoint = "http://localhost:8080/";
+    String endpoint;
     private static final String APPLICATION_JSON = "application/json";
     private static final String CONTENT_TYPE_HEADER = "Content-Type";
 
