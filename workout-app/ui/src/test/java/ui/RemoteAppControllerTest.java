@@ -9,7 +9,11 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.testfx.api.FxAssert.verifyThat;
+import static org.testfx.matcher.base.NodeMatchers.isNotNull;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -18,6 +22,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 
 import core.WorkoutLog;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -46,6 +51,7 @@ public class RemoteAppControllerTest extends ApplicationTest{
   private Parent root;
   private FxRobot robot;
 
+
   @Override
   public void start(Stage stage) throws IOException {
     wireMockServer = new WireMockServer(8089); //Default to localserver
@@ -60,10 +66,25 @@ public class RemoteAppControllerTest extends ApplicationTest{
     robot = new FxRobot();
   }
   
+  /**
+   * Make the robot type a string. 
+   * This method have support for space and exclamation mark
+   * @param string to type
+   */
   private void typeString(String string){ 
     String keys[] = string.split("");
     for (String i : keys){
-      KeyCode key = KeyCode.getKeyCode(i.toUpperCase());
+      KeyCode key;
+      if (i.equals(" ")){
+        key = KeyCode.SPACE;
+      }else if (i.equals("!")){
+        robot.press(KeyCode.SHIFT, KeyCode.DIGIT1);
+        robot.release(KeyCode.SHIFT, KeyCode.DIGIT1);
+        return;
+      }else{
+        key = KeyCode.getKeyCode(i.toUpperCase());
+      }
+
       robot.press(key);
       robot.release(key);
     }
@@ -76,14 +97,17 @@ public class RemoteAppControllerTest extends ApplicationTest{
   }
 
   @Test
-  public void testIllegalChars(){
-    Label alertText = (Label) lookup("#errorLabel");
+  public void testSpace(){
     registerWorkout("Arms are cool");
-    assertEquals("", alertText.getText());
-    
-    registerWorkout("Arms are cool!");
-    assertEquals("There can be no special characters", alertText.getText());
+    Label errorLabel = (Label) lookup("#errorLabel").query();
+    assertTrue(errorLabel.getText() == "");
+  }
 
+  @Test
+  public void testIllegalChars(){
+    registerWorkout("Arms are cool!");
+    Label errorLabel = (Label) lookup("#errorLabel").query();
+    assertEquals("There can be no special characters", errorLabel.getText());
   }
 
   @AfterEach
