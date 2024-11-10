@@ -17,11 +17,13 @@ import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import ui.RemoteAppController;
+import ui.WelcomeController;
 import ui.App;
 
 public class WorkoutAppIT extends ApplicationTest {
 
-    private RemoteAppController controller;
+    private RemoteAppController rcontroller;
+    private WelcomeController controller;
 
     @BeforeAll
     public static void setupHeadless() {
@@ -30,7 +32,7 @@ public class WorkoutAppIT extends ApplicationTest {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("Welcome.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/ui/Welcome.fxml"));
         Parent parent = fxmlLoader.load();
         this.controller = fxmlLoader.getController();
         stage.setScene(new Scene(parent));
@@ -40,7 +42,7 @@ public class WorkoutAppIT extends ApplicationTest {
 
     @BeforeEach
     public void setupItems() throws URISyntaxException {
-        try (Reader reader = new InputStreamReader(getClass().getResourceAsStream("it-workoutlog.json"))) {
+        try (Reader reader = new InputStreamReader(getClass().getResourceAsStream("/it-workoutlog.json"))) {
             String port = System.getProperty("workout.port");
             assertNotNull(port, "workout.port system property was not set");
             URI baseUri = new URI("http://localhost:" + port + "/workout");
