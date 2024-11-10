@@ -8,21 +8,22 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 /**
- * Service class for managing workouts.
+ * Service class for managing workout log operations.
  */
 @Service
 public class WorkoutLogService {
 
   private WorkoutLog workoutLog;
 
-    public WorkoutLogService(WorkoutLog workoutLog){
-        this.workoutLog = workoutLog;
+  public WorkoutLogService(WorkoutLog workoutLog) {
+    this.workoutLog = workoutLog;
+  }
 
   /**
-   * Retrieves a workout based on input.
+   * Gets specific workout from log based on input.
    *
-   * @param workoutInput the input of the workout to be found
-   * @return workout if found, empty if there was no match
+   * @param workoutInput the name of the workout
+   * @return Workout object if found, empty optional otherwise
    */
   public Optional<Workout> getWorkout(String workoutInput) {
     Optional<Workout> optional = Optional.empty();
@@ -40,11 +41,11 @@ public class WorkoutLogService {
   }
 
   /**
-   * Adds a workout based on input and possbly date.
+   * Adds new workout to the log.
    *
-   * @param workoutInput the input of the workout to be added
-   * @param date the date of the workout to be added
-   * @return the newly created workout
+   * @param workoutInput name of the workout to add.
+   * @param date optional date to add, today if null
+   * @return the new workout
    */
   public Workout addWorkout(String workoutInput, LocalDate date) {
     Workout newWorkout;
@@ -53,7 +54,6 @@ public class WorkoutLogService {
     } else {
       newWorkout = new Workout(workoutInput, date);
     }
-
     workoutLog.addWorkout(newWorkout);
     return newWorkout;
   }

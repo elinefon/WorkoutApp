@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import springboot.workoutApi.service.WorkoutLogService;
 
 /**
- * Controller for the API.
+ * REST controller for handling workout log operations.
+ * Provides endpoints to get, add and delete workouts.
  */
 @RestController
 public class WorkoutLogController {
@@ -25,61 +26,61 @@ public class WorkoutLogController {
     this.service = service;
   }
 
+  private String convertUritoInput(String input) {
+    return input.replace("_", " ");
+  }
+
   @GetMapping("/")
   public List<Workout> getWorkouts() {
     return service.getWorkouts();
   }
   
   /**
-   * Retrieves workout given an input.
+   * Gets workout based on given input.
    *
-   * @param workoutInput the input that corresponds to workout
-   * @return workout if found, null otherwise
+   * @param workoutInput the input name of the workout
+   * @return the corresponding Workout if found, null otherwise
    */
   @GetMapping("/workout")
   public Workout getWorkout(@RequestParam String workoutInput) {
-    Optional<Workout> workout = service.getWorkout(workoutInput);
+    String workoutInputStr = convertUritoInput(workoutInput);
+    Optional<Workout> workout = service.getWorkout(workoutInputStr);
     if (workout.isPresent()) {
       return workout.get();
     }
     return null;
   }
 
-    private String convertURItoInput(String input){
-        return input.replace("_", " ");
-    }
+  /**
+   * Adds a new workout to the log.
+   *
+   * @param workoutInput the name of the workout to be added
+   * @param date the optional date for the workout (today if nothing specified)
+   * @return Workout object added to the log
+   */
+  @PostMapping("/workout")
+  public Workout addWorkout(@RequestParam String workoutInput,
+      @RequestParam(required = false) LocalDate date) {
+    String workoutInputStr = convertUritoInput(workoutInput);
+    Workout workoutAdded = service.addWorkout(workoutInputStr, date);
+    return workoutAdded;
+  }
 
-    @GetMapping("/")
-    public List<Workout> getWorkouts(){
-        return service.getWorkouts();
+  /**
+   * Removes workout from the log.
+   *
+   * @param workoutInput name of the workout to be removed
+   * @param date optional date of the workout to be removed
+   * @return message indicating either success or fail
+   */
+  @DeleteMapping("/workout")
+  public String removeWorkout(@RequestParam String workoutInput,
+      @RequestParam(required = false) LocalDate date) {
+    String workoutInputStr = convertUritoInput(workoutInput);
+    boolean wasDeleted = service.removeWorkout(workoutInputStr, date);
+    if (wasDeleted) {
+      return "Successfully removed workout with input: " + workoutInputStr;
     }
-    
-    @GetMapping("/workout")
-    public Workout getWorkout(@RequestParam String workoutInput){
-        String workoutInputStr = convertURItoInput(workoutInput);
-        Optional<Workout> workout = service.getWorkout(workoutInputStr);
-        if(workout.isPresent()){
-            return workout.get();
-        }return null;
-    }
-
-    @PostMapping("/workout")
-    public Workout addWorkout(@RequestParam String workoutInput, @RequestParam(required=false) LocalDate date){
-        String workoutInputStr = convertURItoInput(workoutInput);
-        Workout workoutAdded = service.addWorkout(workoutInputStr, date);
-        return workoutAdded;
-    }
-
-
-    @DeleteMapping("/workout")
-    public String removeWorkout(@RequestParam String workoutInput, @RequestParam(required=false) LocalDate date){
-        String workoutInputStr = convertURItoInput(workoutInput);
-        boolean wasDeleted = service.removeWorkout(workoutInputStr, date);
-        if (wasDeleted){
-            return "Successfully removed workout with input: " + workoutInputStr;
-        }
-        return "Could not remove workout.";
-    }
-
-    
+    return "Could not remove workout.";
+  }
 }

@@ -23,6 +23,5 @@ public class WorkoutModule extends SimpleModule {
     addDeserializer(Workout.class, new WorkoutDeserializer());
     addDeserializer(WorkoutLog.class, new WorkoutLogDeserializer());
   }
-
 }
 

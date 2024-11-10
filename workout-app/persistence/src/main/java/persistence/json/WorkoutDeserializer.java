@@ -32,18 +32,24 @@ public class WorkoutDeserializer extends JsonDeserializer<Workout> {
     return deserialize((JsonNode) treeNode);
   }
 
-    public Workout deserialize(JsonNode jsonNode)  {
-        if(jsonNode instanceof ObjectNode){
-            ObjectNode objectNode = (ObjectNode) jsonNode;
-            JsonNode textNode = objectNode.get("workoutInput");
-            JsonNode dateNode = objectNode.get("date");
-            if(textNode instanceof TextNode && dateNode instanceof TextNode){
-                String dateString = ((TextNode) dateNode).asText();
-                LocalDate date = LocalDate.parse(dateString);
-                Workout workout = new Workout(((TextNode) textNode).asText(), date);
-                return workout;
-            }
-        }
-        return null;
+  /**
+   * Helper method to deserialize JSON data.
+   *
+   * @param jsonNode JSON node representing workout data
+   * @return Workout object if input and date fields are present, null otherwise
+   */
+  public Workout deserialize(JsonNode jsonNode)  {
+    if (jsonNode instanceof ObjectNode) {
+      ObjectNode objectNode = (ObjectNode) jsonNode;
+      JsonNode textNode = objectNode.get("workoutInput");
+      JsonNode dateNode = objectNode.get("date");
+      if (textNode instanceof TextNode && dateNode instanceof TextNode) {
+        String dateString = ((TextNode) dateNode).asText();
+        LocalDate date = LocalDate.parse(dateString);
+        Workout workout = new Workout(((TextNode) textNode).asText(), date);
+        return workout;
+      }
     }
+    return null;
+  }
 }
