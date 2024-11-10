@@ -16,6 +16,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
+import ui.RemoteAppController;
+import ui.App;
+
 public class WorkoutAppIT extends ApplicationTest {
 
     private RemoteAppController controller;
@@ -29,7 +32,7 @@ public class WorkoutAppIT extends ApplicationTest {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("Welcome.fxml"));
         Parent parent = fxmlLoader.load();
-        this.controller = loader.getController();
+        this.controller = fxmlLoader.getController();
         stage.setScene(new Scene(parent));
         stage.setTitle("Workout Log");
         stage.show();

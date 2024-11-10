@@ -39,6 +39,12 @@
             <artifactId>modules-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+		<dependency>
+            <groupId>it1901</groupId>
+            <artifactId>modules-ui</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 		
 
 		<dependency>
@@ -97,6 +103,12 @@
 			<artifactId>javafx-base</artifactId>
 			<version>17.0.8</version>
     	</dependency>
+
+		<dependency>
+			<groupId>org.testfx</groupId>
+			<artifactId>testfx-junit5</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
