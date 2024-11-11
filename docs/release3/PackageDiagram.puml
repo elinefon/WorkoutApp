@@ -1,0 +1,33 @@
+@startuml PackageDiagram
+
+package ui {
+    Object ui{
+        Handle user input
+        Display information to user
+    }
+}
+
+package persistence{
+    object persistence{
+        Save to- and load file
+    }
+}
+
+package core {
+    object core{
+        Data types
+    }
+}
+
+package workoutApi {
+    object workoutApi{
+        Define and implement API
+    }
+}
+
+ui --> persistence : local
+ui --> workoutApi : remote
+workoutApi --> persistence
+ui --> core
+workoutApi --> core
+persistence --> core
