@@ -55,6 +55,7 @@ public class WelcomeController {
         } catch (Exception e){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
+            alert.getDialogPane().setId("ErrorAlert");
             alert.setContentText("Check that springboot is running in another terminal.");
             alert.showAndWait();
         }

@@ -27,12 +27,12 @@ public class RemoteAccess {
 
     public RemoteAccess(){
         persistence = new WorkoutPersistence();
-        endpoint = "http://localhost:8080/";
+        endpoint = "http://localhost:8080";
     }
 
     public RemoteAccess(String port){
         persistence = new WorkoutPersistence();
-        endpoint = "http://localhost:" + port + "/";
+        endpoint = "http://localhost:"+port;
     }
 
     /**
@@ -52,12 +52,13 @@ public class RemoteAccess {
      */
     public WorkoutLog getWorkoutLog(){
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(endpoint)).build();
-        
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(endpoint + "/")).build();
+
         try{
             HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
             if (response.statusCode() == 200){
                 String jsonstr = "{\"workouts\" : " + response.body() + "}";
+                System.out.println(jsonstr);
                 WorkoutLog wlog = persistence.readValueToWorkoutLog(jsonstr);
                 return wlog;
             }
@@ -65,7 +66,6 @@ public class RemoteAccess {
             throw new RuntimeException(e);
         }
         return new WorkoutLog();
-
     }
 
     /**
@@ -80,9 +80,9 @@ public class RemoteAccess {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request;
         if(date == null){
-            request = HttpRequest.newBuilder().uri(URI.create(endpoint + "workout?workoutInput="+ workoutInputURI)).build();
+            request = HttpRequest.newBuilder().uri(URI.create(endpoint + "/workout?workoutInput="+ workoutInputURI)).build();
         }else {
-            request = HttpRequest.newBuilder().uri(URI.create(endpoint + "workout?workoutInput="+ workoutInputURI + "&date="+date)).build();
+            request = HttpRequest.newBuilder().uri(URI.create(endpoint + "/workout?workoutInput="+ workoutInputURI + "&date="+date)).build();
         }
         try{
             HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
@@ -108,7 +108,7 @@ public class RemoteAccess {
        
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create(endpoint + "workout?workoutInput="+ convertInputtoURI(workout.getWorkoutInput()) + "&date="+workout.getDate()))
+        .uri(URI.create(endpoint + "/workout?workoutInput="+ convertInputtoURI(workout.getWorkoutInput()) + "&date="+workout.getDate()))
         .header(CONTENT_TYPE_HEADER, APPLICATION_JSON)
         .POST(BodyPublishers.ofString(jsonPayload))
         .build();
@@ -133,12 +133,10 @@ public class RemoteAccess {
      * throws RuntimeException if there is an error getting the http response
      */
     public void removeWorkout(Workout workout){
-        String jsonPayload = persistence.writeWorkoutAsJson(workout);
-        System.out.println(jsonPayload);
        
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create(endpoint + "workout?workoutInput="+ convertInputtoURI(workout.getWorkoutInput()) + "&date="+workout.getDate()))
+        .uri(URI.create(endpoint + "/workout?workoutInput="+ convertInputtoURI(workout.getWorkoutInput()) + "&date="+workout.getDate()))
         .header(CONTENT_TYPE_HEADER, APPLICATION_JSON)
         .DELETE()
         .build();
