@@ -30,11 +30,19 @@ public class WorkoutPersistence {
         mapper = new ObjectMapper();
         mapper.registerModule(new WorkoutModule()); //the mapper is connected to the WorkoutModule
     }
-
+    /**
+     * Sets the filepath where for json file
+     * @param filePath The new filepath
+     */
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Uses a string to create a workout object
+     * @param value The string used to create the Workout object
+     * @return The created Workout object
+     */
     @SuppressWarnings("exports")
     public Workout readValueToWorkout(String value) {
         try {
@@ -45,7 +53,11 @@ public class WorkoutPersistence {
             throw new IllegalStateException("Issue with creating workout of json: " + e.getMessage());
         }
     } 
-
+    /**
+     * Uses a string to create a WorkoutLog
+     * @param value The string used to create the WorkoutLog
+     * @return The WorkoutLog created from the string
+     */
     @SuppressWarnings("exports")
     public WorkoutLog readValueToWorkoutLog(String value) {
         try {
@@ -56,7 +68,11 @@ public class WorkoutPersistence {
             throw new IllegalStateException("Issue with creating workout of json: " + e.getMessage());
         }
     }   
-
+    /**
+     * Represents a workout object in json format
+     * @param workout The Workout being represented as json
+     * @return A json string representing the Workout
+     */
     @SuppressWarnings("exports")
     public String writeWorkoutAsJson(Workout workout){
         try {
@@ -66,7 +82,11 @@ public class WorkoutPersistence {
         }
     }
 
-    //This method read a workout from the file given. This is never called whitin this module
+    /**
+     * This method read a workout from the file given. This is never called whitin this module
+     * @param fileName the location of the file from which the WorkoutLog should be loaded
+     * @return The WorkoutLog stored in the file
+     */
     @SuppressWarnings("exports")
     public WorkoutLog loadWorkoutLog(String fileName) {
         //reads from file
@@ -79,7 +99,11 @@ public class WorkoutPersistence {
         }
     }
     
-    //This method saves a workout from the file given. This is never called whitin this module
+    /**
+     * This method saves a workout from the file given. This is never called whitin this module
+     * @param workoutLog The WorkoutLog being saved to a file
+     * @param fileName The location of the file where the WorkoutLog is being saved
+     */
     @SuppressWarnings("exports")
     public void saveWorkoutLog(WorkoutLog workoutLog, String fileName) {
 
