@@ -47,22 +47,25 @@ public class WelcomeController {
     launchApplication(controller, event);  
   }
 
-  /**
-   * Creates a remote controller and calls the launch application.
-   * If there is an issue reaching the server an alert box will show
-   *
-   * @param event the event that triggered this method
-   */
-  @FXML
-  public void handleStartRemote(ActionEvent event) {  
-    try {
-      AppController controller = new RemoteAppController();
-      launchApplication(controller, event);
-    } catch (Exception e) {
-      Alert alert = new Alert(AlertType.ERROR);
-      alert.setTitle("Error");
-      alert.setContentText("Check that springboot is running in another terminal.");
-      alert.showAndWait();
+    /**
+     * Creates a remote controller and calls the launch application
+     * @param event
+     * if there is an issue reaching the server an alert box will show
+     */
+    @FXML
+    public void handleStartRemote(ActionEvent event) {  
+        try{
+            AppController controller = new RemoteAppController();
+            launchApplication(controller, event);
+        } catch (Exception e){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.getDialogPane().setId("ErrorAlert");
+            alert.setContentText("Check that springboot is running in another terminal.");
+            alert.showAndWait();
+        }
+        
+    
     }
   }
 }

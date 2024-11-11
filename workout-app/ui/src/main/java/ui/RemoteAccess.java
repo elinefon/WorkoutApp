@@ -18,46 +18,20 @@ import persistence.WorkoutPersistence;
  */
 public class RemoteAccess {
 
-  String endpoint = "http://localhost:8080/";
-  private static final String APPLICATION_JSON = "application/json";
-  private static final String CONTENT_TYPE_HEADER = "Content-Type";
+    String endpoint;
+    private static final String APPLICATION_JSON = "application/json";
+    private static final String CONTENT_TYPE_HEADER = "Content-Type";
 
   WorkoutPersistence persistence;
 
-  public RemoteAccess() {
-    persistence = new WorkoutPersistence();
-  }
+    public RemoteAccess(){
+        persistence = new WorkoutPersistence();
+        endpoint = "http://localhost:8080";
+    }
 
-  /**
-   * Makes the input into format that the URI accepts,
-   * spaces will be changed to underscore.
-   *
-   * @param input the original string to be formatted
-   * @return a formatted version of the string
-   */
-  private String convertInputtoUri(String input) {
-    return input.replace(" ", "_");
-  }
-
-  /**
-   * Collects all workouts from the api.
-   *
-   * @return all the workouts in the api
-   * @throws RuntimeException if there is an error getting the http response
-   */
-  public WorkoutLog getWorkoutLog() {
-    HttpClient client = HttpClient.newHttpClient();
-    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(endpoint)).build();
-    
-    try {
-      HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-      if (response.statusCode() == 200) {
-        String jsonstr = "{\"workouts\" : " + response.body() + "}";
-        WorkoutLog wlog = persistence.readValueToWorkoutLog(jsonstr);
-        return wlog;
-      }
-    } catch (IOException | InterruptedException e) {
-      throw new RuntimeException(e);
+    public RemoteAccess(String port){
+        persistence = new WorkoutPersistence();
+        endpoint = "http://localhost:"+port;
     }
     return new WorkoutLog();
   }
@@ -81,33 +55,73 @@ public class RemoteAccess {
       request = HttpRequest.newBuilder().uri(URI.create(endpoint + "workout?workoutInput=" 
         + workoutInputUri + "&date=" + date)).build();
     }
-    try {
-      HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-      if (response.statusCode() == 200) {
-        System.out.println("Recieved object:" + response.body());
-        return persistence.readValueToWorkout(response.body());
-      }
-    } catch (IOException | InterruptedException e) {
-      throw new RuntimeException(e);
+
+    /**
+     * getWorkoutLog: collect all workouts from the api
+     * @return all the workouts in the api
+     * throws RuntimeException if there is an error getting the http response
+     */
+    public WorkoutLog getWorkoutLog(){
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(endpoint + "/")).build();
+
+        try{
+            HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+            if (response.statusCode() == 200){
+                String jsonstr = "{\"workouts\" : " + response.body() + "}";
+                System.out.println(jsonstr);
+                WorkoutLog wlog = persistence.readValueToWorkoutLog(jsonstr);
+                return wlog;
+            }
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return new WorkoutLog();
     }
     return null;
   }
 
-  /**
-   * Adds workout to the api.
-   *
-   * @param workout the workout to be added
-   * @return Workout if the workout was added to the api, null otherwise
-   * @throws RuntimeException if there is an error getting the http response
-   */
-  public Workout addWorkout(Workout workout) {
-    String jsonPayload = persistence.writeWorkoutAsJson(workout);
-    System.out.println(jsonPayload);
-    
-    HttpClient client = HttpClient.newHttpClient();
-    HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create(endpoint + "workout?workoutInput="
-        + convertInputtoUri(workout.getWorkoutInput()) + "&date=" + workout.getDate()))
+    /**
+     * getWorkout: get the individual workout from the api, based on the workoutInput
+     * @param workoutInput
+     * @param date is not required and might be null
+     * @return the workout from the api
+     * throws RuntimeException if there is an error getting the http response
+     */
+    public Workout getWorkout(String workoutInput, LocalDate date){
+        String workoutInputURI = convertInputtoURI(workoutInput);
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request;
+        if(date == null){
+            request = HttpRequest.newBuilder().uri(URI.create(endpoint + "/workout?workoutInput="+ workoutInputURI)).build();
+        }else {
+            request = HttpRequest.newBuilder().uri(URI.create(endpoint + "/workout?workoutInput="+ workoutInputURI + "&date="+date)).build();
+        }
+        try{
+            HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+            if (response.statusCode() == 200){
+                System.out.println("Recieved object:" +response.body());
+                return persistence.readValueToWorkout(response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    /**
+     * addWorkout: adds workout to the api
+     * @param workout
+     * @return workout if the workout was added to the api, null otherwise
+     * throws RuntimeException if there is an error getting the http response
+     */
+    public Workout addWorkout(Workout workout){
+        String jsonPayload = persistence.writeWorkoutAsJson(workout);
+        System.out.println(jsonPayload);
+       
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create(endpoint + "/workout?workoutInput="+ convertInputtoURI(workout.getWorkoutInput()) + "&date="+workout.getDate()))
         .header(CONTENT_TYPE_HEADER, APPLICATION_JSON)
         .POST(BodyPublishers.ofString(jsonPayload))
         .build();
@@ -126,20 +140,16 @@ public class RemoteAccess {
     return null;
   }
 
-  /**
-   * removeWorkout: removes workout from the api.
-   *
-   * @param workout the workout to be removed
-   * @throws RuntimeException if there is an error getting the http response
-   */
-  public void removeWorkout(Workout workout) {
-    String jsonPayload = persistence.writeWorkoutAsJson(workout);
-    System.out.println(jsonPayload);
-    
-    HttpClient client = HttpClient.newHttpClient();
-    HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create(endpoint + "workout?workoutInput="
-        + convertInputtoUri(workout.getWorkoutInput()) + "&date=" + workout.getDate()))
+    /**
+     * removeWorkout: removes workout from the api
+     * @param workout
+     * throws RuntimeException if there is an error getting the http response
+     */
+    public void removeWorkout(Workout workout){
+       
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create(endpoint + "/workout?workoutInput="+ convertInputtoURI(workout.getWorkoutInput()) + "&date="+workout.getDate()))
         .header(CONTENT_TYPE_HEADER, APPLICATION_JSON)
         .DELETE()
         .build();

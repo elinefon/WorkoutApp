@@ -11,54 +11,26 @@ import javafx.fxml.FXML;
  */
 public class RemoteAppController extends AppController {
 
-  RemoteAccess access;
-  private WorkoutLog workoutLog;
-  
-  /**
-   * Set the values of access (http requests from server) 
-   * and workoutlog.
-   */
-  public void initialize() {
-    super.initialize();
-    access = new RemoteAccess();
-    workoutLog = access.getWorkoutLog();
+    RemoteAccess access;
+    private WorkoutLog workoutLog;
+
+    public RemoteAppController(){
+        this.access = new RemoteAccess();
+    }
+
+    public RemoteAppController(String port){
+        this.access = new RemoteAccess(port);
+    }
     
-    updateTableView();
-  }
-
-  /**
-   * Checks if workout input is a special character, space is allowed.
-   *
-   * @param workout the workout to check
-   * @return true if there are special characters, false if not
-   */
-  public boolean checkInvalidWorkoutInput(Workout workout) {
-    return workout.getWorkoutInput().matches(".*[^a-zA-Z0-9 ].*");
-  }
-
-  /**
-   * Runs when user have written in the description area and clicked on register.
-   * If the superfunction was running (the input field was not empty -> workout is not null) the
-   * if sentence will run adding the workout to the log and persictence.
-   * Checks for special characters, will only allow space.
-   * After running all the fields will be clear.
-   */
-  @FXML
-  public Workout handleRegister() {
-    Workout newWorkout = super.handleRegister();
-    if (newWorkout != null) {
-      if (checkInvalidWorkoutInput(newWorkout)) {
-        errorLabel.setText("There can be no special characters");
-        return null;
-      }
-      workoutLog.addWorkout(newWorkout);
-      access.addWorkout(newWorkout);
-
-      updateTableView(); //update table
-      
-      inputWorkout.clear(); //clear input field to allow for a new input
-      inputDate.setValue(null);
-      errorLabel.setText("");
+    /**
+     * initialize: set the values of access (http requests from server) 
+     * and workoutlog
+     */
+    public void initialize() {
+        super.initialize();
+        workoutLog = access.getWorkoutLog();
+       
+        updateTableView();
     }
     return newWorkout;
   }
