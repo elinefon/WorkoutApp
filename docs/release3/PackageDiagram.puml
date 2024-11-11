@@ -1,42 +1,33 @@
 @startuml PackageDiagram
 
-package ui{
-    object ui{
-    +clearAll
-    +delete
-    +registerWorkout
-    +edit
-}
-}
-
-package persistance{
-    object persistance{
-        +saveWorkoutLog
-        +loadWorkoutLog
+package ui {
+    Object ui{
+        Handle user input
+        Display information to user
     }
 }
 
-package rest{
-    object rest
-}
-
-package access{
-    object local{
-        +addWorkout
-        +removeWorkout
-        +setWorkouts
-        +getWorkouts
-    }
-    object remote{
-        +addWorkout
-        +removeWorkout
-        +setWorkouts
-        +getWorkouts
+package persistence{
+    object persistence{
+        Save to- and load file
     }
 }
 
-ui-->access
-remote --> rest
-local --> persistance
-rest --> persistance
+package core {
+    object core{
+        Data types
+    }
+}
 
+package workoutApi {
+    object workoutApi{
+        Define and implement API
+    }
+}
+
+ui --> persistence : local
+ui --> workoutApi : remote
+workoutApi --> persistence
+ui --> core
+workoutApi --> core
+persistence --> core

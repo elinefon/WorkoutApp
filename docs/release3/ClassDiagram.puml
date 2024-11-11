@@ -1,51 +1,108 @@
-@startuml WorkoutApp
+@startuml
 
-component core{
-    class WorkoutLog {
-        -List workouts
+
+package ui {
+    class App{
+        +launch()
+        +start()
     }
+
+    class WelcomeController{
+        -launchApplication()
+        +handleStartLocally()
+        +handleStartRemote()
+        
+    }
+
+    class AppController{
+        +initialize()
+        +handleRegister()
+        +handleEdit()
+        +handleEditButton()
+        +handleDelete()
+        +//handleClear()//
+        +//updateTableView()//
+
+
+    }
+
+    class RemoteAccess{
+        +endpoint
+        -APPLICATION_JSON
+        -CONTENT_TYPE_HEADER
+        +RemoteAccess()
+        -convertInputtoURI()
+        +getWorkoutLog()
+        +getWorkout()
+        +addWorkout()
+        +removeWorkout()
+    }
+
+    class LocalAppController{
+        -persistence
+        -fileName
+        -workoutLog
+        +initialize()
+        +handleRegister()
+        +handleEdit()
+        +handleDelete()
+        +handleClear()
+        +updateFileName()
+        +updateTableView()
+    }
+
+    class RemoteAppController{
+        -access
+        -workoutLog
+        +initialize()
+        +checkInvalidWorkoutInput()
+        +handleRegister()
+        +handleEdit()
+        +handleDelete()
+        +handleClear()
+        +updateTableView()
+    }
+}
+
+package core{
     class Workout{
-        -String input
+        -workoutInput
+        -date
+        +getWorkoutInput()
+        +getDate()
     }
 
-    WorkoutLog "1" - "*" Workout : workouts
+    class WorkoutLog{
+        -workouts
+        +addWorkout()
+        +removeWorkout()
+        +setWorkout()
+        +getWorkouts()
+        +getWorkout()
+        +sortByDate()
 
-}
-component persistence{
-
-    component json{
-        class WorkoutSerializer {}
-        class WorkoutLogSerializer{}
-        class WorkoutLogDeserializer{}
-        class WorkoutDeserializer{}
-        class WorkoutModule{}
     }
-    
-    class WorkoutPersistence{}
-
-    WorkoutPersistence "1" -- "1" WorkoutModule 
-    WorkoutModule "1" -- "1" WorkoutSerializer
-    WorkoutModule "1" -- "1" WorkoutDeserializer
-    WorkoutModule "1" -- "1" WorkoutLogSerializer
-    WorkoutModule "1" -- "1" WorkoutLogDeserializer
 }
 
-component ui{
-    class AppController {
-    -WorkoutLog WorkoutLog
-    -WorkoutPersistence persistence
-    }
-    class App
+package persistence{
 
-    App "1" - "1" AppController : controller
 }
 
-ui ..> core : require
-ui ..> persistence : require
-persistence ..> core : require
+App "1"->"1" WelcomeController
+WelcomeController "1"->"1" AppController
+RemoteAppController "1"->"1" RemoteAccess
+AppController --> RemoteAppController : inherit
+AppController --> LocalAppController : inherit
 
-AppController "1" --> "1" WorkoutPersistence
-AppController "1"--> "1" WorkoutLog
+WorkoutLog "*"->"1" Workout
+
+LocalAppController ..> persistence : requires
+ui ..> core : requires
+persistence ..> core : requires
+
+
+
+
 
 
 @enduml
