@@ -11,9 +11,15 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import core.Workout;
 import core.WorkoutLog;
+import persistence.json.WorkoutModule;
+import persistence.WorkoutPersistence;
 
 public class WorkoutPersistenceTest {
 
@@ -57,6 +63,58 @@ public class WorkoutPersistenceTest {
         validateWorkoutLog(loadedLog); // validate saved and loaded logs are the same
     }
 
+    @Test
+    public void testReadValueToWorkoutLog(){
+        
+        String json = "{\n" + //
+                        "  \"workouts\" : [ {\n" + //
+                        "    \"workoutInput\" : \"legg day\",\n" + //
+                        "    \"date\" : \"2024-11-01\"\n" + //
+                        "  } ]\n" + //
+                        "}";
+
+        WorkoutLog log1 = workoutPersistence.readValueToWorkoutLog(json);
+
+        WorkoutLog log2 = new WorkoutLog();
+        LocalDate date = LocalDate.of(2024, 11, 1);
+        log2.addWorkout(new Workout("legg day", date));
+
+        assertEquals(log2.getWorkouts().get(0).getWorkoutInput(), log1.getWorkouts().get(0).getWorkoutInput());
+    }
+
+    @Test
+    public void testReadValueToWorkout(){
+        LocalDate date = LocalDate.of(1998, 1, 1);
+        String workoutInput = "cardio";
+
+        Workout workout1 = new Workout(workoutInput, date);
+        
+        String json = "{\n" + //
+                        "    \"workoutInput\" : \"cardio\",\n" + //
+                        "    \"date\" : \"1998-01-01\"\n" + //
+                        "  }";
+
+        Workout workout2 = workoutPersistence.readValueToWorkout(json);
+
+        assertEquals(workout1.getDate(), workout2.getDate());
+        assertEquals(workout1.getWorkoutInput(), workout2.getWorkoutInput());
+    }
+
+    @Test
+    public void testWriteWorkoutAsJson(){
+        String workoutInput = "situps";
+        LocalDate date = LocalDate.of(1998, 1, 1);
+
+        Workout workout1 = new Workout(workoutInput, date);
+
+        String json = workoutPersistence.writeWorkoutAsJson(workout1);
+
+        Workout workout2 = workoutPersistence.readValueToWorkout(json);
+
+        assertEquals(workout1.getDate(), workout1.getDate());
+        assertEquals(workout1.getWorkoutInput(), workout2.getWorkoutInput());
+    }
+
     private WorkoutLog createWorkoutLog() {
         Workout w1 = new Workout("Leg day", LocalDate.of(2024, 10, 2));
         Workout w2 = new Workout("Chest day", LocalDate.of(2024, 10, 1));
@@ -79,3 +137,4 @@ public class WorkoutPersistenceTest {
         assertEquals(expectedDescription, workout.getWorkoutInput());
     }
 }
+
