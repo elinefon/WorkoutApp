@@ -1,8 +1,5 @@
 package persistence.json;
 
-import java.io.IOException;
-import java.time.LocalDate;
-
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.TreeNode;
@@ -11,29 +8,48 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
-
 import core.Workout;
+import java.io.IOException;
+import java.time.LocalDate;
 
+/**
+ * Deserializer to convert JSON data into a single Workout object.
+ */
 public class WorkoutDeserializer extends JsonDeserializer<Workout> {
 
-    @Override
-    public Workout deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException, JacksonException {
-        TreeNode treeNode = parser.getCodec().readTree(parser);
-        return deserialize((JsonNode) treeNode);
-    }
+  /**
+   * Deserializes JSON into Workout object.
+   *
+   * @param parser used to parse JSON content
+   * @param ctxt provides configuration and control over deserialization process 
+   * @throws IOException if there is a parsing error
+   * @throws JacksonException if there is an error with Jackson processing
+   */
+  @Override
+  public Workout deserialize(JsonParser parser, DeserializationContext ctxt) 
+       throws IOException, JacksonException {
+    TreeNode treeNode = parser.getCodec().readTree(parser);
+    return deserialize((JsonNode) treeNode);
+  }
 
-    public Workout deserialize(JsonNode jsonNode)  {
-        if(jsonNode instanceof ObjectNode){
-            ObjectNode objectNode = (ObjectNode) jsonNode;
-            JsonNode textNode = objectNode.get("workoutInput");
-            JsonNode dateNode = objectNode.get("date");
-            if(textNode instanceof TextNode && dateNode instanceof TextNode){
-                String dateString = ((TextNode) dateNode).asText();
-                LocalDate date = LocalDate.parse(dateString);
-                Workout workout = new Workout(((TextNode) textNode).asText(), date);
-                return workout;
-            }
-        }
-        return null;
+  /**
+   * Helper method to deserialize JSON data.
+   *
+   * @param jsonNode JSON node representing workout data
+   * @return Workout object if input and date fields are present, null otherwise
+   */
+  public Workout deserialize(JsonNode jsonNode)  {
+    if (jsonNode instanceof ObjectNode) {
+      ObjectNode objectNode = (ObjectNode) jsonNode;
+      JsonNode textNode = objectNode.get("workoutInput");
+      JsonNode dateNode = objectNode.get("date");
+      if (textNode instanceof TextNode && dateNode instanceof TextNode) {
+        String dateString = ((TextNode) dateNode).asText();
+        LocalDate date = LocalDate.parse(dateString);
+        Workout workout = new Workout(((TextNode) textNode).asText(), date);
+        return workout;
+      }
     }
+    return null;
+  }
 }

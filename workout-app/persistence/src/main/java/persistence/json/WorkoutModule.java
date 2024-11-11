@@ -2,24 +2,26 @@ package persistence.json;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-
 import core.Workout;
 import core.WorkoutLog;
 
+/**
+ * Adding all serializers and deserializers to module for easier access.
+ */
 
 public class WorkoutModule extends SimpleModule {
   private static final String NAME = "WorkoutModule";
 
+  /**
+   * Adding all serializers and deserializers to module for easier access.
+   */
   public WorkoutModule() {
-        //super(NAME, VERSION_UTIL.version());
-        super(NAME, Version.unknownVersion());
-
-        //adding all serializers and deserializer
-        addSerializer(Workout.class, new WorkoutSerializer());
-        addSerializer(WorkoutLog.class, new WorkoutLogSerializer());
-        addDeserializer(Workout.class, new WorkoutDeserializer());
-        addDeserializer(WorkoutLog.class, new WorkoutLogDeserializer());
-    }
-
+    super(NAME, Version.unknownVersion());
+    //Adding all serializers and deserializer
+    addSerializer(Workout.class, new WorkoutSerializer());
+    addSerializer(WorkoutLog.class, new WorkoutLogSerializer());
+    addDeserializer(Workout.class, new WorkoutDeserializer());
+    addDeserializer(WorkoutLog.class, new WorkoutLogDeserializer());
+  }
 }
 
