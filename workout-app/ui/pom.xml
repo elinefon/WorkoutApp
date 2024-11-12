@@ -107,13 +107,13 @@
                 <configuration>
                     <!-- syntax: module-name/full-app-class-name -->
                     <mainClass>ui/ui.App</mainClass>
-                    <compress>2</compress>
+                    <compress>2</compress>fx
                     <noHeaderFiles>true</noHeaderFiles>
                     <stripDebug>true</stripDebug>
                     <noManPages>true</noManPages>
-                    <launcher>todolistfx</launcher>
-                    <jlinkImageName>todolistfx</jlinkImageName>
-                    <jlinkZipName>todolistfx</jlinkZipName>
+                    <launcher>workout-app-fx-launcher</launcher>
+                    <jlinkImageName>workout-app-fx</jlinkImageName>
+                    <jlinkZipName>workout-app-fx</jlinkZipName>
 
                 </configuration>
             </plugin>
@@ -123,30 +123,30 @@
                 <artifactId>jpackage-maven-plugin</artifactId>
                 <version>1.4.0</version>
                 <configuration>
-                    <name>TodoListFX</name>
+                    <name>workout-app-fx</name>
                     <appVersion>1.0.0</appVersion>
                     <vendor>it1901</vendor>
                     <destination>target/dist</destination>
-                    <module>ui/workout-app.ui.App</module>
-                    <runtimeImage>target/todolistfx</runtimeImage>
+                    <module>ui/ui.App</module>
+                    <runtimeImage>target/workout-app-fx</runtimeImage>
                     <javaOptions>
                         <option>-Dfile.encoding=UTF-8</option>
                     </javaOptions>
                     <!-- linux options --> 
                     <linuxShortcut>true</linuxShortcut>
-                    <linuxMenuGroup>TodoListFX</linuxMenuGroup>
+                    <linuxMenuGroup>workout-app-fx</linuxMenuGroup>
 
                     <!-- windows options --> 
                     <winDirChooser>true</winDirChooser>
                     <winShortcut>true</winShortcut>
                     <winMenu>true</winMenu>
-                    <winMenuGroup>TodoListFX</winMenuGroup>
+                    <winMenuGroup>workout-app-fx</winMenuGroup>
 
                     <!--macOS options-->
-                    <macBundleIdentifier>com.it1901.todolistfx</macBundleIdentifier>
-                    <macDockName>TodoListFX</macDockName>
-                    <macPackageIdentifier>com.it1901.todolistfx</macPackageIdentifier>
-                    <macPackageName>TodoListFX</macPackageName>
+                    <macBundleIdentifier>com.it1901.workout-app-fx</macBundleIdentifier>
+                    <macDockName>workout-app-fx</macDockName>
+                    <macPackageIdentifier>com.it1901.workout-app-fx</macPackageIdentifier>
+                    <macPackageName>workout-app-fx</macPackageName>
                 </configuration>
             </plugin>
 
