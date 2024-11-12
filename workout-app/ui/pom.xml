@@ -107,6 +107,46 @@
                 <configuration>
                     <!-- syntax: module-name/full-app-class-name -->
                     <mainClass>ui/ui.App</mainClass>
+                    <compress>2</compress>
+                    <noHeaderFiles>true</noHeaderFiles>
+                    <stripDebug>true</stripDebug>
+                    <noManPages>true</noManPages>
+                    <launcher>todolistfx</launcher>
+                    <jlinkImageName>todolistfx</jlinkImageName>
+                    <jlinkZipName>todolistfx</jlinkZipName>
+
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.panteleyev</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <configuration>
+                    <name>TodoListFX</name>
+                    <appVersion>1.0.0</appVersion>
+                    <vendor>it1901</vendor>
+                    <destination>target/dist</destination>
+                    <module>ui/workout-app.ui.App</module>
+                    <runtimeImage>target/todolistfx</runtimeImage>
+                    <javaOptions>
+                        <option>-Dfile.encoding=UTF-8</option>
+                    </javaOptions>
+                    <!-- linux options --> 
+                    <linuxShortcut>true</linuxShortcut>
+                    <linuxMenuGroup>TodoListFX</linuxMenuGroup>
+
+                    <!-- windows options --> 
+                    <winDirChooser>true</winDirChooser>
+                    <winShortcut>true</winShortcut>
+                    <winMenu>true</winMenu>
+                    <winMenuGroup>TodoListFX</winMenuGroup>
+
+                    <!--macOS options-->
+                    <macBundleIdentifier>com.it1901.todolistfx</macBundleIdentifier>
+                    <macDockName>TodoListFX</macDockName>
+                    <macPackageIdentifier>com.it1901.todolistfx</macPackageIdentifier>
+                    <macPackageName>TodoListFX</macPackageName>
                 </configuration>
             </plugin>
 
