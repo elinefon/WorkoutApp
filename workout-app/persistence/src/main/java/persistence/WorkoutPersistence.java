@@ -25,6 +25,7 @@ public class WorkoutPersistence {
   
   //Variables to find the path
   private String mvnDir = System.getProperty("user.dir");
+  private String userHome = System.getProperty("user.home");
   private String filePath = mvnDir + "/../persistence/src/main/resources/persistence/json/";
 
   private ObjectMapper mapper;
@@ -96,14 +97,23 @@ public class WorkoutPersistence {
    *
    * @param fileName name of JSON file containing log data
    * @return deserialized WorkoutLog object 
-   */
-  @SuppressWarnings("exports")
-  public WorkoutLog loadWorkoutLog(String fileName) {
+      * @throws IOException 
+      */
+     @SuppressWarnings("exports")
+     public WorkoutLog loadWorkoutLog(String fileName) throws IOException {
     try (Reader reader = new InputStreamReader(new FileInputStream(filePath + fileName),
         StandardCharsets.UTF_8)) {
       return mapper.readValue(reader, WorkoutLog.class);
     } catch (FileNotFoundException e) {
-      throw new IllegalArgumentException("File not found", e);
+      System.err.println("File not found");
+
+      setFilePath(userHome);
+      try (Reader reader = new InputStreamReader(new FileInputStream(filePath + fileName),
+      StandardCharsets.UTF_8)) {
+        return mapper.readValue(reader, WorkoutLog.class);
+      } catch (FileNotFoundException e1) {
+        System.err.println("File not found");
+      }
     } catch (IOException e) {
       throw new IllegalArgumentException("File could not be loaded", e);
     }
@@ -117,13 +127,12 @@ public class WorkoutPersistence {
    */
   @SuppressWarnings("exports")
   public void saveWorkoutLog(WorkoutLog workoutLog, String fileName) {
-    //Ensures there is a directory for the specified path
+  //Ensures there is a directory for the specified path
     try {
       Files.createDirectories(Paths.get(filePath));
     } catch (IOException e) {
       System.err.println("Error while creating directories: " + e.getMessage());
     }
-
     //Writes to file
     try (Writer writer = new FileWriter(filePath + fileName, StandardCharsets.UTF_8)) {
       mapper.writerWithDefaultPrettyPrinter().writeValue(writer, workoutLog);
