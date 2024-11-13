@@ -24,12 +24,12 @@ public class RemoteAccess {
 
   WorkoutPersistence persistence;
 
-  public RemoteAccess(){
+  public RemoteAccess(String ip){
     persistence = new WorkoutPersistence();
-    endpoint = "http://localhost:8080";
+    endpoint = "http://" + ip + ":8080";
   }
 
-  public RemoteAccess(String port){
+  public RemoteAccess(int port){
     persistence = new WorkoutPersistence();
     endpoint = "http://localhost:" + port;
   }
