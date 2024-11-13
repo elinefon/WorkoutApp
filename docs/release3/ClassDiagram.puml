@@ -85,6 +85,32 @@ package core{
 }
 
 package persistence{
+    class workoutPersistence{
+        -objectMapper
+        +readValueToWorkout()
+        +readValueToWorkoutLog()
+        +writeWorkoutAsJson()
+        +loadWorkoutLog()
+        +saveWorkoutLog()
+    }
+}
+
+package workoutApi{
+    class workoutLogController{
+        -workoutLogService
+        +getWorkout()
+        +getWorkouts()
+        +addWorkout()
+        +removeWorkout()
+    }
+
+    class workoutLogService{
+        -workoutLog
+        +getWorkout()
+        +getWorkouts()
+        +addWorkout()
+        +removeWorkout()
+    }
 
 }
 
@@ -99,6 +125,12 @@ WorkoutLog "*"->"1" Workout
 LocalAppController ..> persistence : requires
 ui ..> core : requires
 persistence ..> core : requires
+
+workoutLogController "1"->"1" workoutLogService
+
+workoutLogService ..> core : requires
+
+
 
 
 
