@@ -114,6 +114,7 @@ public class WorkoutPersistence {
       if (Files.exists(userHomePath)) {
           try (Reader homeReader = new InputStreamReader(new FileInputStream(userHomePath.toFile()), StandardCharsets.UTF_8)) {
               System.out.println("Loading existing workout log from user home directory: " + userHomePath);
+              savingHome = true;
               return mapper.readValue(homeReader, WorkoutLog.class);
           } catch (IOException ioException) {
               throw new IllegalArgumentException("Error loading workout log from user home directory: " + userHomePath, ioException);
