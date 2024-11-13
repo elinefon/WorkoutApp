@@ -14,6 +14,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import persistence.json.WorkoutModule;
 
@@ -94,30 +95,45 @@ public class WorkoutPersistence {
   }
 
   /**
-   * Reads a WorkoutLog from the file given. This is never called whitin this module
+   * Reads a WorkoutLog from the file given.
    *
    * @param fileName name of JSON file containing log data
    * @return deserialized WorkoutLog object 
    */
   @SuppressWarnings("exports")
   public WorkoutLog loadWorkoutLog(String fileName) {
+    Path userHomePath = Paths.get(userHome + "/" + fileName);
     try (Reader reader = new InputStreamReader(new FileInputStream(filePath + fileName),
         StandardCharsets.UTF_8)) {
       return mapper.readValue(reader, WorkoutLog.class);
     } catch (FileNotFoundException e) {
-      System.err.println("File not found");
 
+      System.err.println("File not found in path.");
+
+      //Checks if file exists in user home directory
+      if (Files.exists(userHomePath)) {
+          try (Reader homeReader = new InputStreamReader(new FileInputStream(userHomePath.toFile()), StandardCharsets.UTF_8)) {
+              System.out.println("Loading existing workout log from user home directory: " + userHomePath);
+              return mapper.readValue(homeReader, WorkoutLog.class);
+          } catch (IOException ioException) {
+              throw new IllegalArgumentException("Error loading workout log from user home directory: " + userHomePath, ioException);
+          }
+      }
+
+      // If no file found in either location, create and save a new WorkoutLog
+      System.out.println("No workout log found; creating new workout log.");
       WorkoutLog newLog = new WorkoutLog();
       saveWorkoutLog(newLog, fileName);
       savingHome = true;
       return newLog;
+      
     } catch (IOException e) {
       throw new IllegalArgumentException("File could not be loaded", e);
     }
   }
   
   /**
-   * Saves a WorkoutLog from the file given. This is never called whitin this module.
+   * Saves a WorkoutLog from the file given.
    *
    * @param workoutLog WorkoutLog object to be saved
    * @param fileName the file name to save the workout log in
@@ -163,5 +179,5 @@ public class WorkoutPersistence {
     } catch (IOException e) {
       System.err.println("Error while saving the workout log: " + e.getMessage());
   }
-  }
+  }  
 }
