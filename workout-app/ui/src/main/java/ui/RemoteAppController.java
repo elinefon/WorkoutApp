@@ -14,11 +14,11 @@ public class RemoteAppController extends AppController {
   RemoteAccess access;
   private WorkoutLog workoutLog;
 
-  public RemoteAppController(){
-    this.access = new RemoteAccess();
+  public RemoteAppController(String ip){
+    this.access = new RemoteAccess(ip);
   }
 
-  public RemoteAppController(String port){
+  public RemoteAppController(int port){
     this.access = new RemoteAccess(port);
   }
   

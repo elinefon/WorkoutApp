@@ -49,7 +49,7 @@ public class WelcomeControllerTest extends ApplicationTest {
 
     @Test
     public void testHandleGetStartedRemotelyWireMockServer() {
-        WireMockServer wireMockServer = new WireMockServer("8080");
+        WireMockServer wireMockServer = new WireMockServer(8080);
         wireMockServer.start();
         WireMock.configureFor("localhost", 8080);
         clickOn("#getStartedRemote");

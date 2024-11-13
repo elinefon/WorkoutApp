@@ -29,7 +29,7 @@ public class RemoteAccessTest {
     wireMockServer = new WireMockServer(config.portNumber()); //Default to localserver
     wireMockServer.start();
     WireMock.configureFor("http", "localhost", 8089);
-    access = new RemoteAccess("8089");
+    access = new RemoteAccess(8089);
   }
 
   @Test
