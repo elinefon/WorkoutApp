@@ -41,7 +41,6 @@ As a health and fitness interested person who keeps a log of my workouts, I want
 
 The user need to connect each workout to a date to make it easier for the user to go back in time and see their workout at a certain date. This should be added as a date field above the input field. The log should also be sorted in order by date.
 
-
 ### Important to be able to see
 
 - The date input field to register date

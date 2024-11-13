@@ -4,11 +4,11 @@
 
 We have continued to use pair programming on more difficult tasks while doing simpler tasks individually. We divided the group into two pairs, with different pairs from release 2. Even though there are pairs that are the default partner for pair programming and merge request reviews, we have allowed ourselves to be flexible on review partners for practical reasons.
 
-Credit is included for pair programmed commitst the same way as in release 2.
+Credit is included for pair programmed commits the same way as in release 2.
 
 ## Workflow
 
-In this release we had the choice between adding new features or creating a new client, here we hose to add more features, due to the fact that our application from release 2 was quite simple, and we wanted the challenge of expanding it.
+In this release we had the choice between adding new features or creating a new client, here we chose to add more features, due to the fact that our application from release 2 was quite simple, and we wanted the challenge of expanding it.
 
 ### UI
 
@@ -88,15 +88,15 @@ Core is such an important module of our project that all the other module depend
 
 #### Testing Persistence
 
-In this module there are a lot of thrown exceptions and althougth we could test all of these our main priority is to test correct function of the application. If we had more time, we might test all exceptions, but for now we will test the most common case and most common issues. Therefor the jacoco coverage might be lower, but never under 50%, preferably also over 60%.
+In this module there are a lot of thrown exceptions and although we could test all of these our main priority is to test correct function of the application. If we had more time, we might test all exceptions, but for now we will test the most common case and most common issues. Therefore the jacoco coverage might be lower, but never under 50%, preferably also over 60%.
 
 #### Testing Ui
 
-In the ui module we have lower coverage because App.java isn't tested, but this is because the class in itself has no functionality. It is also indirectly tested when the controller is tested: if all the controller tests crash we then can assume that there is something wrong with launcing the application. Therefor the functionality we thought was necessary to test in this module is in the controller class.
+In the ui module we have lower coverage because App.java isn't tested, but this is because the class in itself has no functionality. It is also indirectly tested when the controller is tested: if all the controller tests crash we then can assume that there is something wrong with launcing the application. Therefore the functionality we thought was necessary to test in this module is in the controller class.
 
 In addition to this we have two controllers one remote and one local controller, they both inherit functions from the abstract app controller class. Even though the saving states are different, there are so much common logic that we decided to test mostly the local application. The methods for delete, clear and updateWorkout log are methods that are similar for both controllers, but only tested in localController test due to the functions being almost the same in the remote and local controller.
 
-The remote controller however have tests for illegal charecters and checking if the erroralert is displayed when springboot is not running.
+The remote controller however have tests for illegal characters and checking if the erroralert is displayed when springboot is not running.
 
 Ui is however an important module were there can be many issues so we aim for over 50% here as well. We have the policy of testing the important parts and focusing less on the coverage number.
 
