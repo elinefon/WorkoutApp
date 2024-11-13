@@ -1,0 +1,108 @@
+@startuml
+
+
+package ui {
+    class App{
+        +launch()
+        +start()
+    }
+
+    class WelcomeController{
+        -launchApplication()
+        +handleStartLocally()
+        +handleStartRemote()
+        
+    }
+
+    class AppController{
+        +initialize()
+        +handleRegister()
+        +handleEdit()
+        +handleEditButton()
+        +handleDelete()
+        +//handleClear()//
+        +//updateTableView()//
+
+
+    }
+
+    class RemoteAccess{
+        +endpoint
+        -APPLICATION_JSON
+        -CONTENT_TYPE_HEADER
+        +RemoteAccess()
+        -convertInputtoURI()
+        +getWorkoutLog()
+        +getWorkout()
+        +addWorkout()
+        +removeWorkout()
+    }
+
+    class LocalAppController{
+        -persistence
+        -fileName
+        -workoutLog
+        +initialize()
+        +handleRegister()
+        +handleEdit()
+        +handleDelete()
+        +handleClear()
+        +updateFileName()
+        +updateTableView()
+    }
+
+    class RemoteAppController{
+        -access
+        -workoutLog
+        +initialize()
+        +checkInvalidWorkoutInput()
+        +handleRegister()
+        +handleEdit()
+        +handleDelete()
+        +handleClear()
+        +updateTableView()
+    }
+}
+
+package core{
+    class Workout{
+        -workoutInput
+        -date
+        +getWorkoutInput()
+        +getDate()
+    }
+
+    class WorkoutLog{
+        -workouts
+        +addWorkout()
+        +removeWorkout()
+        +setWorkout()
+        +getWorkouts()
+        +getWorkout()
+        +sortByDate()
+
+    }
+}
+
+package persistence{
+
+}
+
+App "1"->"1" WelcomeController
+WelcomeController "1"->"1" AppController
+RemoteAppController "1"->"1" RemoteAccess
+AppController --> RemoteAppController : inherit
+AppController --> LocalAppController : inherit
+
+WorkoutLog "*"->"1" Workout
+
+LocalAppController ..> persistence : requires
+ui ..> core : requires
+persistence ..> core : requires
+
+
+
+
+
+
+@enduml
