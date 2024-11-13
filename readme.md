@@ -5,7 +5,7 @@
 
 A repository with a javafx project, with maven setup for Java 17 and JavaFX 17, and JUnit 5 (Jupiter) and TestFX for testing.
 
-(noe mer som trengs?)
+To see more recommended extentions for running the app, see [extension file](/.vscode/extensions.json/)
 
 ## [workout-app](/workout-app/)
 
@@ -27,7 +27,7 @@ Contains controller classes and app classes for the user interface of local and 
 
 ### [workoutApi](/workout-app/workoutApi/)
 
-Contains classes related to the springboot REST API (rest controller, service class, configuration class and api application class), integration test and related tests.
+Contains classes related to the Springboot REST API (rest controller, service class, configuration class and api application class), integration test and related tests.
 
 ## Features
 
