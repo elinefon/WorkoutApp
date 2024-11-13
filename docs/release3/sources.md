@@ -17,6 +17,7 @@ For creating the Api using springboot we used various sources listed below.
 
 - Used the [spring boot initializer](https://start.spring.io/) to create a spring boot project.
 - Used this [tutorial](https://www.youtube.com/watch?v=Zo9xQzibp4Y&t=130s) for the setup of spring boot, with the initializer above.
+- Used [Postman](https://www.postman.com/) for checking http requests after having the springboot server running.
 - Used this [tutorial](https://www.youtube.com/watch?v=Aasp0mWT3Ac) for understanding how mockMvc works in order to write the  [WorkoutApiApplicationTest](/workout-app/workoutApi/src/test/java/springboot/workoutApi/WorkoutApiApplicationTest.java)
 - This is the [tutorial](https://www.baeldung.com/introduction-to-wiremock) for the setup of wiremock used in [RemoteAppControllerTest](/workout-app/ui/src/test/java/ui/RemoteAppControllerTest.java)
 - Used wiremock-standalone as dependency according to [this documentation](https://wiremock.org/docs/standalone/java-jar/) when encountering issues with jetty dependencies
