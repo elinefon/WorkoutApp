@@ -48,11 +48,15 @@ To run the local app (App.java, located in [it1901/gr2405/gr2405/workout-app/ui/
 
 ### Remote application
 
-To run the remote app you need to have two terminals open (splitted terminals). In one of them, navigate to the [workoutApi](/workout-app/workoutApi/) module and run the command **mvn spring-boot:run**. After that, navigate to the [ui](/workout-app/ui/) module in the other terminal and run the command **mvn javafx:run**. When you get to the welcome window, click "Remote App".
+To run the remote app you need to have two terminals open (splitted terminals). In one of them, navigate to the [workoutApi](/workout-app/workoutApi/) module and run the command **mvn spring-boot:run**. After that, navigate to the [ui](/workout-app/ui/) module in the other terminal and run the command **mvn javafx:run**. When you get to the welcome window, click "Remote App". Make sure the IP field contains "localhost" before pressing the button.
+
+Alternatively, if the server is running on a different computer, type the server IP into the input field on the welcome window. 
 
 ### Shippable product
 
-(sett inn når det funker)
+To download the app on your computer, make sure you are in [it1901/gr2405/gr2405/workout-app](/workout-app/), and have run **mvn clean install**.
+
+First run the command **mvn -pl ui javafx:jlink**, then the command **mvn -pl ui jpackage:jpackage**. The installer should now be on your computer named "workout-app-fx", install the app according to your operating system. You can then open the app "workout-app-fx".
 
 ### Tests
 
