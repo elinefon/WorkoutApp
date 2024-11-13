@@ -1,5 +1,5 @@
-module workoutApi {
-    requires core;
+module springboot.workoutApi {
+    requires transitive core;
 
     requires spring.boot;
     requires spring.boot.autoconfigure;

@@ -1,4 +1,4 @@
-package springboot.workoutApi.service;
+package springboot.workoutApi;
 
 import core.Workout;
 import core.WorkoutLog;
