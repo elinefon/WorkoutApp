@@ -8,6 +8,8 @@ Credit is included for pair programmed commitst the same way as in release 2.
 
 ## Workflow
 
+In this release we had the choice between adding new features or creating a new client, here we hose to add more features, due to the fact that our application from release 2 was quite simple, and we wanted the challenge of expanding it.
+
 ### UI
 
 There has been added several new features to the UI to satisfy the requirement for either additional features or a client using a different technology like react.
@@ -32,10 +34,11 @@ In persistence we have added methods for reading json value to workout/workout l
 
 ### WorkoutApi
 
-This new modules are where server information is located. In the controller there are method for get/post/delete requests. This contains an instance of the workoutLogService that contains logic that connects the api to the core module.
+This new module are where server information is located. In the controller there are method for get/post/delete requests. This contains an instance of the workoutLogService that contains logic that connects the api to the core module.
 
 We debated on having a put method that is used by the edit functionality, however due to the logic of this functionality (we delete the input, add the information in the input fields and add them back again) we decided that using delete and post again would make more sense.
 
+We also debated splitting this module into multiple modules, but we found that since our project is quite small with few files, we decided against this, keeping everything in a single module.
 
 ### Tasks
 
