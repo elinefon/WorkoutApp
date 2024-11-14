@@ -1,4 +1,4 @@
-package springboot.workoutApi.api.controller;
+package springboot.workoutApi;
 
 import core.Workout;
 import java.time.LocalDate;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import springboot.workoutApi.service.WorkoutLogService;
 
 /**
  * REST controller for handling workout log operations.
