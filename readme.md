@@ -5,33 +5,75 @@
 
 A repository with a javafx project, with maven setup for Java 17 and JavaFX 17, and JUnit 5 (Jupiter) and TestFX for testing.
 
+To see more recommended extentions for running the app, see [extension file](/.vscode/extensions.json/)
+
 ## [workout-app](/workout-app/)
 
-Contains the source code for the workout logging app
+Contains the source code for the workout logging app. The user can run the app locally or remote with Springboot.
 
-The project is a maven modules project with three modules; [core](/workout-app/core/), [persistence](/workout-app/persistence/) and [ui](/workout-app/ui/)
+The project is a maven modules project with four modules:
+
+### [core](/workout-app/core/)
+
+Contains the core logic of the app and related tests.
+
+### [persistence](/workout-app/persistence/)
+
+Handles persistence with json and related tests.
+
+### [ui](/workout-app/ui/)
+
+Contains controller classes and app classes for the user interface of local and remote app, including related tests.
+
+### [workoutApi](/workout-app/workoutApi/)
+
+Contains classes related to the Springboot REST API (rest controller, service class, configuration class and api application class), integration test and related tests.
 
 ## Features
 
-The completed app will have the following features:
+The completed app has the following features:
 
-- Log individual workout session with date, duration and type of workout
+- Log individual workout sessions with date and name of workout
 - Save and load logs automatically upon creation/startup
 - Editing previously made logs
+- Delete singular workouts or the entire log
 
 ## Run project
 
-### Application
+Before running the app, run the command `mvn clean install` from [it1901/gr2405/gr2405/workout-app](/workout-app/)
 
-Before running the app, run the command **mvn clean install** from [it1901/gr2405/gr2405/workout-app](/workout-app/)
+### Local application
 
-To run the app (App.java, located in [it1901/gr2405/gr2405/workout-app/ui/src/main/java/ui](/workout-app/ui/src/main/java/ui/)), navigate to the [ui](/workout-app/ui/) folder and run the command **mvn javafx:run**
+To run the local app (App.java, located in [it1901/gr2405/gr2405/workout-app/ui/src/main/java/ui](/workout-app/ui/src/main/java/ui/)), navigate to the [ui](/workout-app/ui/) module and run the command `mvn javafx:run`. When you get to the welcome window, click "Local App".
+
+### Remote application
+
+To run the remote app you need to have two terminals open (splitted terminals). In one of them, navigate to the [springboot.workoutApi](/workout-app/springboot/workoutApi) module and run the command `mvn spring-boot:run`. After that, navigate to the [ui](/workout-app/ui/) module in the other terminal and run the command `mvn javafx:run`. When you get to the welcome window, click "Remote App". Make sure the IP field contains "localhost" before pressing the button.
+
+Alternatively, if the server is running on a different computer, type the server IP into the input field on the welcome window.
+
+### Shippable product
+
+To download the app on your computer, make sure you are in [it1901/gr2405/gr2405/workout-app](/workout-app/), and have run `mvn clean install`.
+
+First run the command `mvn -pl ui javafx:jlink`, then the command `mvn -pl ui jpackage:jpackage`. The installer should now be on your computer named "workout-app-fx" in the target ui folder, install the app according to your operating system. You can then open the app "workout-app-fx".
+
+#### Windows
+
+Some window users have recieved an error when running the `mvn -pl ui jpackage:jpackage` command due to missing wix tools. If this issue arises follow the link <https://wixtoolset.org> and install wix.
+
+```java
+[INFO] [12:58:12.535] Can not find WiX tools (light.exe, candle.exe)
+[INFO] [12:58:12.535] Download WiX 3.0 or later from https://wixtoolset.org and add it to the PATH.
+```
 
 ### Tests
 
-To run the tests, navigate to [it1901/gr2405/gr2405/workout-app](/workout-app/) and run the command **mvn test**
+To run the tests, navigate to [it1901/gr2405/gr2405/workout-app](/workout-app/) and run the command `mvn test`
 
 How to check the test coverage after running tests:
 
 - Navigate to the module you want to check (ui, persistence or core), then to **target/site/jacoco**
-- Run **index.html** in browser
+- Open **index.html** in browser
+
+To run the [integration test](/workout-app/workoutApi/src/test/java/springboot/workoutApi/WorkoutAppIT.java/), navigate to the [workoutApi](/workout-app/workoutApi/) module and run the command `mvn verify`

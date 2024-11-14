@@ -36,10 +36,10 @@ public class RemoteAppController extends AppController {
   /**
    * checkInvalidWorkoutInput: Checks if workout input is a special character, space is allowed.
    *
-   * @param workout
+   * @param workout the workout to check
    * @return true if there are special characters, false if not
    */
-  public boolean checkInvalidWorkoutInput(Workout workout){
+  public boolean checkInvalidWorkoutInput(Workout workout) {
     return workout.getWorkoutInput().matches(".*[^a-zA-Z0-9 ].*");
   }
 
@@ -55,7 +55,7 @@ public class RemoteAppController extends AppController {
   public Workout handleRegister() {
     Workout newWorkout = super.handleRegister();
     if (newWorkout != null) {
-      if (checkInvalidWorkoutInput(newWorkout)){
+      if (checkInvalidWorkoutInput(newWorkout)) {
         errorLabel.setText("There can be no special characters");
         return null;
       }
@@ -110,8 +110,8 @@ public class RemoteAppController extends AppController {
    * Removes all elements.
    */
   @Override
-  public void handleClear(){
-    for (Workout workout : workoutLog.getWorkouts()){
+  public void handleClear() {
+    for (Workout workout : workoutLog.getWorkouts()) {
       access.removeWorkout(workout);
       workoutLog.removeWorkout(workout);
     }
@@ -125,7 +125,9 @@ public class RemoteAppController extends AppController {
   @Override
   public void updateTableView() {
     workoutLog.sortByDate();
-    workoutsList.getItems().clear(); //clear existing items to prevent doubles
-    workoutsList.getItems().addAll(workoutLog.getWorkouts()); //adds items from workoutlog to the table
+    //clears existing items to prevent doubles
+    workoutsList.getItems().clear();
+    //adds items from workoutlog to the table
+    workoutsList.getItems().addAll(workoutLog.getWorkouts());
   }
 }
