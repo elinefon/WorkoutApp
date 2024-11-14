@@ -24,12 +24,12 @@ public class RemoteAccess {
 
   WorkoutPersistence persistence;
 
-  public RemoteAccess(){
+  public RemoteAccess() {
     persistence = new WorkoutPersistence();
     endpoint = "http://localhost:8080";
   }
 
-  public RemoteAccess(String port){
+  public RemoteAccess(String port) {
     persistence = new WorkoutPersistence();
     endpoint = "http://localhost:" + port;
   }
@@ -51,13 +51,13 @@ public class RemoteAccess {
    * @return all the workouts in the api
    * @deprecated throws RuntimeException if there is an error getting the http response
    */
-  public WorkoutLog getWorkoutLog(){
+  public WorkoutLog getWorkoutLog() {
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder().uri(URI.create(endpoint + "/")).build();
 
     try {
       HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-      if (response.statusCode() == 200){
+      if (response.statusCode() == 200) {
         String jsonstr = "{\"workouts\" : " + response.body() + "}";
         System.out.println(jsonstr);
         WorkoutLog wlog = persistence.readValueToWorkoutLog(jsonstr);
@@ -72,7 +72,7 @@ public class RemoteAccess {
   /**
    * getWorkout: get the individual workout from the api, based on the workoutInput.
    *
-   * @param workoutInput
+   * @param workoutInput the input of the workout
    * @param date is not required and might be null
    * @return the workout from the api
    * @throws RuntimeException if there is an error getting the http response
@@ -83,14 +83,14 @@ public class RemoteAccess {
     HttpRequest request;
     if (date == null) {
       request = HttpRequest.newBuilder().uri(URI.create(endpoint
-      + "/workout?workoutInput="+ workoutInputURI)).build();
+      + "/workout?workoutInput=" + workoutInputURI)).build();
     } else {
       request = HttpRequest.newBuilder().uri(URI.create(endpoint
       + "/workout?workoutInput=" + workoutInputURI + "&date=" + date)).build();
     }
     try {
       HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-      if (response.statusCode() == 200){
+      if (response.statusCode() == 200) {
         System.out.println("Recieved object:" + response.body());
         return persistence.readValueToWorkout(response.body());
       }
@@ -103,7 +103,7 @@ public class RemoteAccess {
   /**
    * addWorkout: adds workout to the api.
    *
-   * @param workout
+   * @param workout the workout to add
    * @return workout if the workout was added to the api, null otherwise
    * @throws RuntimeException if there is an error getting the http response
    */
@@ -136,7 +136,7 @@ public class RemoteAccess {
   /**
    * removeWorkout: removes workout from the api.
    *
-   * @param workout
+   * @param workout the workout to remove
    * @throws RuntimeException if there is an error getting the http response
    */
   public void removeWorkout(Workout workout) {
