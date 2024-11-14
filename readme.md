@@ -48,7 +48,7 @@ To run the local app (App.java, located in [it1901/gr2405/gr2405/workout-app/ui/
 
 ### Remote application
 
-To run the remote app you need to have two terminals open (splitted terminals). In one of them, navigate to the [workoutApi](/workout-app/workoutApi/) module and run the command **mvn spring-boot:run**. After that, navigate to the [ui](/workout-app/ui/) module in the other terminal and run the command **mvn javafx:run**. When you get to the welcome window, click "Remote App".
+To run the remote app you need to have two terminals open (splitted terminals). In one of them, navigate to the [springboot.workoutApi](/workout-app/springboot/workoutApi) module and run the command **mvn spring-boot:run**. After that, navigate to the [ui](/workout-app/ui/) module in the other terminal and run the command **mvn javafx:run**. When you get to the welcome window, click "Remote App".
 
 ### Shippable product
 
