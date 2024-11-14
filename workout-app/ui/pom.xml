@@ -107,6 +107,46 @@
                 <configuration>
                     <!-- syntax: module-name/full-app-class-name -->
                     <mainClass>ui/ui.App</mainClass>
+                    <compress>2</compress>fx
+                    <noHeaderFiles>true</noHeaderFiles>
+                    <stripDebug>true</stripDebug>
+                    <noManPages>true</noManPages>
+                    <launcher>workout-app-fx-launcher</launcher>
+                    <jlinkImageName>workout-app-fx</jlinkImageName>
+                    <jlinkZipName>workout-app-fx</jlinkZipName>
+
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.panteleyev</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <configuration>
+                    <name>workout-app-fx</name>
+                    <appVersion>1.0.0</appVersion>
+                    <vendor>it1901</vendor>
+                    <destination>target/dist</destination>
+                    <module>ui/ui.App</module>
+                    <runtimeImage>target/workout-app-fx</runtimeImage>
+                    <javaOptions>
+                        <option>-Dfile.encoding=UTF-8</option>
+                    </javaOptions>
+                    <!-- linux options --> 
+                    <linuxShortcut>true</linuxShortcut>
+                    <linuxMenuGroup>workout-app-fx</linuxMenuGroup>
+
+                    <!-- windows options --> 
+                    <winDirChooser>true</winDirChooser>
+                    <winShortcut>true</winShortcut>
+                    <winMenu>true</winMenu>
+                    <winMenuGroup>workout-app-fx</winMenuGroup>
+
+                    <!--macOS options-->
+                    <macBundleIdentifier>com.it1901.workout-app-fx</macBundleIdentifier>
+                    <macDockName>workout-app-fx</macDockName>
+                    <macPackageIdentifier>com.it1901.workout-app-fx</macPackageIdentifier>
+                    <macPackageName>workout-app-fx</macPackageName>
                 </configuration>
             </plugin>
 
