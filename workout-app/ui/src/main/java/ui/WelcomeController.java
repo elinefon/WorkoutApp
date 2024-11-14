@@ -1,9 +1,7 @@
 package ui;
 
-import javafx.event.ActionEvent;
-
 import java.io.IOException;
-
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,15 +23,15 @@ public class WelcomeController {
   /**
    * This launches the application, setting the controller to the correct version.
    *
-   * @param controller
-   * @param event
-   * @throws IOException
+   * @param controller the controller deciding the application
+   * @param event the event that triggered the action
+   * @throws IOException if there is an issue with launching
    */
   private void launchApplication(AppController controller, ActionEvent event) throws IOException {
     //creates new fxml-loader instance with the main page with the log
     FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml"));
     loader.setController(controller);
-  //loads content of App.fxml into parent node to initialize the interface of App.fxml
+    //loads content of App.fxml into parent node to initialize the interface of App.fxml
     Parent appRoot = loader.load();
     //retrieves the main window of the app
     Stage primaryStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
@@ -42,21 +40,22 @@ public class WelcomeController {
   }
   
   /**
-   * Creates a local controller and calls the launch application
-   * @param event
-   * @throws IOException
+   * Creates a local controller and calls the launch application.
+   *
+   * @param event the event that triggered the event
+   * @throws IOException if there is an issue with starting
    */
   @FXML
   public void handleStartLocally(ActionEvent event) throws IOException {
-          AppController controller = new LocalAppController();
-          launchApplication(controller, event);  
+    AppController controller = new LocalAppController();
+    launchApplication(controller, event);  
   }
 
   /**
    * Creates a remote controller and calls the launch application.
    * Ff there is an issue reaching the server an alert box will show.
    *
-   * @param event
+   * @param event the event that triggered the action
    */
   @FXML
   public void handleStartRemote(ActionEvent event) {  

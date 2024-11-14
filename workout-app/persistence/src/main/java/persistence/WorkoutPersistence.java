@@ -112,13 +112,16 @@ public class WorkoutPersistence {
 
       //Checks if file exists in user home directory
       if (Files.exists(userHomePath)) {
-          try (Reader homeReader = new InputStreamReader(new FileInputStream(userHomePath.toFile()), StandardCharsets.UTF_8)) {
-              System.out.println("Loading existing workout log from user home directory: " + userHomePath);
-              savingHome = true;
-              return mapper.readValue(homeReader, WorkoutLog.class);
-          } catch (IOException ioException) {
-              throw new IllegalArgumentException("Error loading workout log from user home directory: " + userHomePath, ioException);
-          }
+        try (Reader homeReader = new InputStreamReader(new FileInputStream(userHomePath.toFile()),
+            StandardCharsets.UTF_8)) {
+          System.out.println("Loading existing workout log from user home directory: "
+              + userHomePath);
+          savingHome = true;
+          return mapper.readValue(homeReader, WorkoutLog.class);
+        } catch (IOException ioException) {
+          throw new IllegalArgumentException("Error loading workout log from user home directory: "
+          + userHomePath, ioException);
+        }
       }
 
       // If no file found in either location, create and save a new WorkoutLog
@@ -141,11 +144,11 @@ public class WorkoutPersistence {
    */
   @SuppressWarnings("exports")
   public void saveWorkoutLog(WorkoutLog workoutLog, String fileName) {
-  //Ensures there is a directory for the specified path
-  if (savingHome) {
-    saveWorkoutLogUserHome(workoutLog, fileName);
-    return;
-  }
+    //Ensures there is a directory for the specified path
+    if (savingHome) {
+      saveWorkoutLogUserHome(workoutLog, fileName);
+      return;
+    }
     try {
       Files.createDirectories(Paths.get(filePath));
     } catch (IOException e) {
@@ -156,10 +159,10 @@ public class WorkoutPersistence {
       mapper.writerWithDefaultPrettyPrinter().writeValue(writer, workoutLog);
     } catch (IOException e) {
       System.err.println("Error while saving the workout log: " + e.getMessage());
-  }
+    }
   }
 
-    /**
+  /**
    * Saves a WorkoutLog from the file given. This is never called whitin this module.
    *
    * @param workoutLog WorkoutLog object to be saved
@@ -167,8 +170,7 @@ public class WorkoutPersistence {
    */
   @SuppressWarnings("exports")
   public void saveWorkoutLogUserHome(WorkoutLog workoutLog, String fileName) {
-  //Ensures there is a directory for the specified path
-  System.out.println("hei");
+    //Ensures there is a directory for the specified path
     try {
       Files.createDirectories(Paths.get(userHome));
     } catch (IOException e) {
@@ -179,6 +181,6 @@ public class WorkoutPersistence {
       mapper.writerWithDefaultPrettyPrinter().writeValue(writer, workoutLog);
     } catch (IOException e) {
       System.err.println("Error while saving the workout log: " + e.getMessage());
-  }
+    }
   }  
 }
