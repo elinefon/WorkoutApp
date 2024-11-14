@@ -10,6 +10,7 @@ For release 2 we used ChatGPT for a lot of troubleshooting. At places where we h
 - Ui, Troubleshooting use of wiremock in [RemoteAppControllerTest](/workout-app/ui/src/test/java/ui/RemoteAppControllerTest.java)
 - Ui, CheckValidWorkoutInput method in [RemoteAppController](/workout-app/ui/src/main/java/ui/RemoteAppController.java)
 - WorkoutApi, Troubleshooting use of mockMvc/springBootTest in [WorkoutApiApplicationTest](/workout-app/workoutApi/src/test/java/springboot/workoutApi/WorkoutApiApplicationTest.java)
+- Ui, Mac options for JPackage configuration in [pom](/workout-app/ui/pom.xml)
 
 ## Other Sources
 

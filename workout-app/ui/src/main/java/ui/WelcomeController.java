@@ -1,9 +1,7 @@
 package ui;
 
-import javafx.event.ActionEvent;
-
 import java.io.IOException;
-
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,9 +23,9 @@ public class WelcomeController {
   /**
    * This launches the application, setting the controller to the correct version.
    *
-   * @param controller the controller deciding the app to use
+   * @param controller the controller deciding the application
    * @param event the event that triggered the action
-   * @throws IOException if there is an issue with launching the app
+   * @throws IOException if there is an issue with launching
    */
   private void launchApplication(AppController controller, ActionEvent event) throws IOException {
     //creates new fxml-loader instance with the main page with the log
@@ -44,8 +42,8 @@ public class WelcomeController {
   /**
    * Creates a local controller and calls the launch application.
    *
-   * @param event the event that triggered the action
-   * @throws IOException if there is an issue with starting the app
+   * @param event the event that triggered the event
+   * @throws IOException if there is an issue with starting
    */
   @FXML
   public void handleStartLocally(ActionEvent event) throws IOException {

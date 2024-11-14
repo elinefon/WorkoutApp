@@ -24,12 +24,12 @@ public class RemoteAccess {
 
   WorkoutPersistence persistence;
 
-  public RemoteAccess(String ip){
+  public RemoteAccess(String ip) {
     persistence = new WorkoutPersistence();
     endpoint = "http://" + ip + ":8080";
   }
 
-  public RemoteAccess(int port){
+  public RemoteAccess(int port) {
     persistence = new WorkoutPersistence();
     endpoint = "http://localhost:" + port;
   }
@@ -72,7 +72,7 @@ public class RemoteAccess {
   /**
    * getWorkout: get the individual workout from the api, based on the workoutInput.
    *
-   * @param workoutInput the input of the workout
+   * @param workoutInput the input of the workout to retrieve
    * @param date is not required and might be null
    * @return the workout from the api
    * @throws RuntimeException if there is an error getting the http response
