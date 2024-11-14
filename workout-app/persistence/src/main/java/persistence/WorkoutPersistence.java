@@ -52,9 +52,7 @@ public class WorkoutPersistence {
   public Workout readValueToWorkout(String value) {
     try {
       return mapper.readValue(value, Workout.class);
-    } catch (JsonMappingException e) {
-      throw new IllegalStateException("Issue with creating workout of json: " + e.getMessage());
-    } catch (JsonProcessingException e) {
+    } catch (Exception e) {
       throw new IllegalStateException("Issue with creating workout of json: " + e.getMessage());
     }
   } 
@@ -70,9 +68,7 @@ public class WorkoutPersistence {
   public WorkoutLog readValueToWorkoutLog(String value) {
     try {
       return mapper.readValue(value, WorkoutLog.class);
-    } catch (JsonMappingException e) {
-      throw new IllegalStateException("Issue with creating workout of json: " + e.getMessage());
-    } catch (JsonProcessingException e) {
+    } catch (Exception e) {
       throw new IllegalStateException("Issue with creating workout of json: " + e.getMessage());
     }
   }   
@@ -127,8 +123,8 @@ public class WorkoutPersistence {
       // If no file found in either location, create and save a new WorkoutLog
       System.out.println("No workout log found; creating new workout log.");
       WorkoutLog newLog = new WorkoutLog();
-      saveWorkoutLog(newLog, fileName);
       savingHome = true;
+      saveWorkoutLog(newLog, fileName);
       return newLog;
       
     } catch (IOException e) {

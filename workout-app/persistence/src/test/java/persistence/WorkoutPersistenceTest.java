@@ -2,6 +2,7 @@ package persistence;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,6 +15,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import core.Workout;
@@ -61,6 +64,26 @@ public class WorkoutPersistenceTest {
 
         WorkoutLog loadedLog = workoutPersistence.loadWorkoutLog(testFileName); //load from file
         validateWorkoutLog(loadedLog); // validate saved and loaded logs are the same
+
+        String homeDirectory = System.getProperty("user.home") + "/";
+
+        (new File(testFilePath + testFileName)).delete();
+        (new File(homeDirectory + testFileName)).delete();
+
+        WorkoutLog log2 = workoutPersistence.loadWorkoutLog(testFileName);
+        System.out.println(log2.getWorkouts().size());
+        System.out.println("------------------------------------------------");
+        assertEquals(log2.getWorkouts().size(), 0);
+        assertTrue((new File(homeDirectory + testFileName).isFile()));
+
+        workoutPersistence.saveWorkoutLogUserHome(log, testFileName);
+
+        assertTrue((new File(homeDirectory + testFileName)).isFile());
+
+        log = workoutPersistence.loadWorkoutLog(testFileName);
+
+        validateWorkoutLog(loadedLog);
+
     }
 
     @Test
@@ -80,6 +103,9 @@ public class WorkoutPersistenceTest {
         log2.addWorkout(new Workout("legg day", date));
 
         assertEquals(log2.getWorkouts().get(0).getWorkoutInput(), log1.getWorkouts().get(0).getWorkoutInput());
+
+
+
     }
 
     @Test
@@ -94,10 +120,19 @@ public class WorkoutPersistenceTest {
                         "    \"date\" : \"1998-01-01\"\n" + //
                         "  }";
 
+        String corruptedJson = "\n" + //
+                        "    \"workoutInput\"  \"cardio\",\n" + //
+                        "    \"date\" : \"1998-01-01\"\n" + //
+                        "  }";
+
         Workout workout2 = workoutPersistence.readValueToWorkout(json);
 
         assertEquals(workout1.getDate(), workout2.getDate());
         assertEquals(workout1.getWorkoutInput(), workout2.getWorkoutInput());
+
+        Workout workout3 = workoutPersistence.readValueToWorkout(corruptedJson);
+        
+        assertEquals(workout3, null);
     }
 
     @Test
