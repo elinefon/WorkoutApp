@@ -22,7 +22,6 @@ import ui.App;
 
 public class WorkoutAppIT extends ApplicationTest {
 
-    private RemoteAppController rcontroller;
     private WelcomeController controller;
 
     @BeforeAll
