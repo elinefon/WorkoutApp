@@ -40,31 +40,40 @@ The completed app has the following features:
 
 ## Run project
 
-Before running the app, run the command **mvn clean install** from [it1901/gr2405/gr2405/workout-app](/workout-app/)
+Before running the app, run the command `mvn clean install` from [it1901/gr2405/gr2405/workout-app](/workout-app/)
 
 ### Local application
 
-To run the local app (App.java, located in [it1901/gr2405/gr2405/workout-app/ui/src/main/java/ui](/workout-app/ui/src/main/java/ui/)), navigate to the [ui](/workout-app/ui/) module and run the command **mvn javafx:run**. When you get to the welcome window, click "Local App".
+To run the local app (App.java, located in [it1901/gr2405/gr2405/workout-app/ui/src/main/java/ui](/workout-app/ui/src/main/java/ui/)), navigate to the [ui](/workout-app/ui/) module and run the command `mvn javafx:run`. When you get to the welcome window, click "Local App".
 
 ### Remote application
 
-To run the remote app you need to have two terminals open (splitted terminals). In one of them, navigate to the [springboot.workoutApi](/workout-app/springboot/workoutApi) module and run the command **mvn spring-boot:run**. After that, navigate to the [ui](/workout-app/ui/) module in the other terminal and run the command **mvn javafx:run**. When you get to the welcome window, click "Remote App". Make sure the IP field contains "localhost" before pressing the button.
+To run the remote app you need to have two terminals open (splitted terminals). In one of them, navigate to the [springboot.workoutApi](/workout-app/springboot/workoutApi) module and run the command `mvn spring-boot:run`. After that, navigate to the [ui](/workout-app/ui/) module in the other terminal and run the command `mvn javafx:run`. When you get to the welcome window, click "Remote App". Make sure the IP field contains "localhost" before pressing the button.
 
 Alternatively, if the server is running on a different computer, type the server IP into the input field on the welcome window.
 
 ### Shippable product
 
-To download the app on your computer, make sure you are in [it1901/gr2405/gr2405/workout-app](/workout-app/), and have run **mvn clean install**.
+To download the app on your computer, make sure you are in [it1901/gr2405/gr2405/workout-app](/workout-app/), and have run `mvn clean install`.
 
-First run the command **mvn -pl ui javafx:jlink**, then the command **mvn -pl ui jpackage:jpackage**. The installer should now be on your computer named "workout-app-fx", install the app according to your operating system. You can then open the app "workout-app-fx".
+First run the command `mvn -pl ui javafx:jlink`, then the command `mvn -pl ui jpackage:jpackage`. The installer should now be on your computer named "workout-app-fx" in the target ui folder, install the app according to your operating system. You can then open the app "workout-app-fx".
+
+#### Windows
+
+Some window users have recieved an error when running the `mvn -pl ui jpackage:jpackage` command due to missing wix tools. If this issue arises follow the link <https://wixtoolset.org> and install wix.
+
+```java
+[INFO] [12:58:12.535] Can not find WiX tools (light.exe, candle.exe)
+[INFO] [12:58:12.535] Download WiX 3.0 or later from https://wixtoolset.org and add it to the PATH.
+```
 
 ### Tests
 
-To run the tests, navigate to [it1901/gr2405/gr2405/workout-app](/workout-app/) and run the command **mvn test**
+To run the tests, navigate to [it1901/gr2405/gr2405/workout-app](/workout-app/) and run the command `mvn test`
 
 How to check the test coverage after running tests:
 
 - Navigate to the module you want to check (ui, persistence or core), then to **target/site/jacoco**
 - Open **index.html** in browser
 
-To run the [integration test](/workout-app/workoutApi/src/test/java/springboot/workoutApi/WorkoutAppIT.java/), navigate to the [workoutApi](/workout-app/workoutApi/) module and run the command **mvn verify**
+To run the [integration test](/workout-app/workoutApi/src/test/java/springboot/workoutApi/WorkoutAppIT.java/), navigate to the [workoutApi](/workout-app/workoutApi/) module and run the command `mvn verify`
