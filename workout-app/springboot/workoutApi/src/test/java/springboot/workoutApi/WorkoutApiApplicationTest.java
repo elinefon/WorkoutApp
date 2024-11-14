@@ -1,6 +1,8 @@
 package springboot.workoutApi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -28,7 +30,7 @@ import core.Workout;
 import core.WorkoutLog;
 
 /**
- * This application test tests the service and controller.
+ * This application test tests the application and controller.
  * This is done by creating an mock request
  */
 @WebMvcTest(WorkoutLogController.class)
@@ -77,9 +79,6 @@ public class WorkoutApiApplicationTest {
 
         assertEquals("[{\"workoutInput\":\"Legs\",\"date\":\"2024-11-14\"},{\"workoutInput\":\"Arms\",\"date\":\"2024-11-14\"}]", result.getResponse().getContentAsString());
         assertEquals(200, result.getResponse().getStatus());
-        
-        System.out.println(result.getResponse().getContentAsString());
-        System.out.println(result.getResponse().getStatus());
     }
 
   @Test
@@ -91,10 +90,15 @@ public class WorkoutApiApplicationTest {
       .header("Content-Type", "application/json"))
       .andExpect(MockMvcResultMatchers.status().isOk())
       .andReturn();
+    
+    MvcResult noResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/workout?workoutInput=NonExisting")
+      .header("Content-Type", "application/json"))
+      .andExpect(MockMvcResultMatchers.status().isOk())
+      .andReturn();
 
     assertEquals("{\"workoutInput\":\"Arms\",\"date\":\"2024-11-14\"}", result.getResponse().getContentAsString());
     assertEquals(200, result.getResponse().getStatus());
-
+    assertEquals("", noResult.getResponse().getContentAsString());
     }
 
     @Test
@@ -102,11 +106,35 @@ public class WorkoutApiApplicationTest {
   
       when(service.addWorkout("Arms", null)).thenReturn(workoutLog.getWorkout("Arms"));
   
-      ResultActions result = this.mockMvc.perform(MockMvcRequestBuilders.post("/workout?workoutInput=Arms")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content("{\"workoutInput\":\"Arms\",\"date\":\"2024-11-14\"}"));
-  
-      System.out.println(result.andReturn().getResponse().getContentAsString());
+      MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders.post("/workout?workoutInput=Arms")
+      .header("Content-Type", "application/json"))
+      .andExpect(MockMvcResultMatchers.status().isOk())
+      .andReturn();
+
+      assertEquals("{\"workoutInput\":\"Arms\",\"date\":\"2024-11-14\"}", result.getResponse().getContentAsString());
+      assertEquals(200, result.getResponse().getStatus());
     }
+
+    @Test
+    void testRemoveWorkout() throws Exception{
+  
+      Workout workout = new Workout("Arms");
+      when(service.removeWorkout(workout.getWorkoutInput(), null)).thenReturn(true);
+  
+      MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders.delete("/workout?workoutInput=Arms")
+        .header("Content-Type", "application/json"))
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andReturn();
+
+      MvcResult badResult = this.mockMvc.perform(MockMvcRequestBuilders.delete("/workout?workoutInput=NotGood")
+        .header("Content-Type", "application/json"))
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andReturn();
+  
+      assertEquals("Successfully removed workout with input: Arms", result.getResponse().getContentAsString());
+      assertEquals(200, result.getResponse().getStatus());
+      assertEquals("Could not remove workout.", badResult.getResponse().getContentAsString());
+ 
+      }
 
 }
