@@ -6,10 +6,10 @@ package ui {
         Display information to user
     }
 }
-
 package persistence{
     object persistence{
         Save to- and load file
+        Serialize and deserialize to and from json
     }
 }
 
@@ -31,3 +31,5 @@ workoutApi --> persistence
 ui --> core
 workoutApi --> core
 persistence --> core
+
+@enduml

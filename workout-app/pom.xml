@@ -232,7 +232,7 @@
     <modules>
         <module>core</module>
         <module>persistence</module>
-        <module>workoutApi</module>
+        <module>springboot/workoutApi</module>
         <module>ui</module>
     </modules>
 </project>

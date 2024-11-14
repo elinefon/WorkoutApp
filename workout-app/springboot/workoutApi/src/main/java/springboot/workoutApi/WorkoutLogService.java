@@ -1,10 +1,12 @@
-package springboot.workoutApi.service;
+package springboot.workoutApi;
 
 import core.Workout;
 import core.WorkoutLog;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +17,7 @@ public class WorkoutLogService {
 
   private WorkoutLog workoutLog;
 
+  @Autowired
   public WorkoutLogService(WorkoutLog workoutLog) {
     this.workoutLog = workoutLog;
   }

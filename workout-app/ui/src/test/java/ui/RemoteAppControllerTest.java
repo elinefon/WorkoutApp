@@ -45,7 +45,7 @@ public class RemoteAppControllerTest extends ApplicationTest{
     wireMockServer.start();
 
     FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("App.fxml"));
-    controller = new RemoteAppController("8089");
+    controller = new RemoteAppController(8089);
     fxmlLoader.setController(controller);
     root = fxmlLoader.load();
     stage.setScene(new Scene(root));
